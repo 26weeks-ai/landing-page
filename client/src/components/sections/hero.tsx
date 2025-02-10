@@ -53,29 +53,7 @@ export default function Hero() {
               </Button>
             </motion.div>
           </motion.div>
-
-          {/* Visual Element - Empty Container */}
-          <motion.div 
-            className="flex-1 relative"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <div className="relative w-full h-[400px] bg-gradient-to-br from-blue-600/20 to-orange-500/20 rounded-2xl backdrop-blur-sm border border-neutral-700">
-            </div>
-          </motion.div>
         </div>
-      </div>
-
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path 
-            fill="#ffffff" 
-            fillOpacity="1" 
-            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,149.3C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          />
-        </svg>
       </div>
     </section>
   );
