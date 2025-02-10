@@ -3,113 +3,6 @@ import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
 
-const RunnerAnimation = () => {
-  return (
-    <motion.div
-      className="w-full h-full flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
-      <svg
-        viewBox="0 0 200 200"
-        className="w-full h-full max-w-[400px]"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Runner Figure */}
-        <motion.g
-          initial={{ x: -10 }}
-          animate={{ 
-            x: 10,
-            y: [0, -5, 0],
-          }}
-          transition={{ 
-            x: { duration: 0.5, repeat: Infinity, repeatType: "reverse" },
-            y: { duration: 0.5, repeat: Infinity, repeatType: "reverse" }
-          }}
-        >
-          {/* Body */}
-          <motion.path
-            d="M100 70 L100 120"
-            stroke="#FF6B00"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
-          {/* Head */}
-          <motion.circle
-            cx="100"
-            cy="60"
-            r="12"
-            fill="#FF6B00"
-          />
-          {/* Arms */}
-          <motion.path
-            d="M100 80 L80 100 M100 80 L120 100"
-            stroke="#FF6B00"
-            strokeWidth="4"
-            strokeLinecap="round"
-            animate={{ 
-              d: [
-                "M100 80 L80 100 M100 80 L120 100",
-                "M100 80 L120 100 M100 80 L80 100",
-              ]
-            }}
-            transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-          />
-          {/* Legs */}
-          <motion.path
-            d="M100 120 L80 150 M100 120 L120 150"
-            stroke="#FF6B00"
-            strokeWidth="4"
-            strokeLinecap="round"
-            animate={{ 
-              d: [
-                "M100 120 L80 150 M100 120 L120 150",
-                "M100 120 L120 150 M100 120 L80 150",
-              ]
-            }}
-            transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-          />
-        </motion.g>
-
-        {/* Track Line */}
-        <motion.path
-          d="M40 160 H160"
-          stroke="#E5E5E5"
-          strokeWidth="2"
-          strokeDasharray="4 4"
-        />
-
-        {/* Distance Markers */}
-        <motion.g
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <circle cx="40" cy="160" r="3" fill="#FF6B00" />
-          <circle cx="160" cy="160" r="3" fill="#FF6B00" />
-        </motion.g>
-
-        {/* Progress Effect */}
-        <motion.circle
-          cx="100"
-          cy="160"
-          r="4"
-          fill="#FF6B00"
-          initial={{ x: -60 }}
-          animate={{ x: 60 }}
-          transition={{ 
-            duration: 2,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      </svg>
-    </motion.div>
-  );
-};
-
 export default function Hero() {
   return (
     <section className="min-h-[90vh] bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 relative overflow-hidden flex items-center">
@@ -161,7 +54,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Visual Element */}
+          {/* Visual Element - Empty Container */}
           <motion.div 
             className="flex-1 relative"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -169,7 +62,6 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <div className="relative w-full h-[400px] bg-gradient-to-br from-blue-600/20 to-orange-500/20 rounded-2xl backdrop-blur-sm border border-neutral-700">
-              <RunnerAnimation />
             </div>
           </motion.div>
         </div>
