@@ -3,14 +3,38 @@ import { Twitter, Instagram, Github, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement subscription logic
-    setEmail("");
+    setIsSubmitting(true);
+
+    try {
+      await apiRequest("/api/subscribe", {
+        method: "POST",
+        body: { email },
+      });
+
+      toast({
+        title: "Successfully subscribed!",
+        description: "You'll receive our latest updates and training tips.",
+      });
+      setEmail("");
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Subscription failed",
+        description: "Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -86,9 +110,14 @@ export default function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-neutral-800 border-neutral-700 text-white"
                 required
+                disabled={isSubmitting}
               />
-              <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white">
-                Subscribe
+              <Button 
+                type="submit" 
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Subscribing..." : "Subscribe"}
               </Button>
             </form>
           </div>
