@@ -16,10 +16,7 @@ export default function Footer() {
     setIsSubmitting(true);
 
     try {
-      await apiRequest("/api/subscribe", {
-        method: "POST",
-        body: { email },
-      });
+      await apiRequest("POST", "/api/subscribe", { email });
 
       toast({
         title: "Successfully subscribed!",
@@ -30,7 +27,7 @@ export default function Footer() {
       toast({
         variant: "destructive",
         title: "Subscription failed",
-        description: "Please try again later.",
+        description: error instanceof Error ? error.message : "Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
