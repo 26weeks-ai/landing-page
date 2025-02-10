@@ -37,17 +37,13 @@ const InjuryPreventionIcon: React.FC<CustomIconProps> = ({ className }) => (
     strokeLinejoin="round"
     className={className}
   >
-    {/* Footprint outline */}
-    <path d="M8 7c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
-    <path d="M12 16c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
+    <path d="M19 14c2 0 4 1 4 1" />
+    <path d="M12 17c2 0 4 1 4 1" />
+    <path d="M15 14c1.5-1 5-1 6.5 0" />
     <path d="M16 7c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
+    <path d="M12 16c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
     <path d="M6 9v7" />
     <path d="M14 9v7" />
-    {/* Cushioning waves */}
-    <path d="M4 12c2 0 4 1 4 1" />
-    <path d="M12 12c2 0 4 1 4 1" />
-    {/* Arch support */}
-    <path d="M7 14c1.5-1 5-1 6.5 0" />
   </svg>
 );
 
@@ -62,15 +58,15 @@ const NutritionIcon: React.FC<CustomIconProps> = ({ className }) => (
     className={className}
   >
     {/* Plate outline */}
-    <circle cx="12" cy="12" r="10" />
-    {/* Dividing lines for food groups */}
-    <path d="M12 2v20" />
-    <path d="M2 12h20" />
+    <circle cx="12" cy="12" r="8" />
+    {/* Fork */}
+    <path d="M5 7v3c0 1 1 2 2 2h1" />
+    <path d="M5 11V7" />
+    <path d="M7 7v3" />
+    <path d="M9 7v3" />
     {/* Food items */}
-    <path d="M7 7c0 0 2 1 2 2" /> {/* Vegetables */}
-    <path d="M17 7l-2 2" /> {/* Protein */}
-    <path d="M7 17c1-1 2-1 2-1" /> {/* Grains */}
-    <path d="M17 17c-1-1-2-1-2-1" /> {/* Fruits */}
+    <path d="M10 12c.5-.5 3.5-.5 4 0" />
+    <path d="M10 14c1-1 3-1 4 0" />
   </svg>
 );
 
