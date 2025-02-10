@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
+import { hero } from '@/content/copy';
 
 export default function Hero() {
   return (
@@ -19,9 +20,11 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              From Couch Potato to{' '}
-              <span className="text-orange-500">Marathon Finisher</span>
-              <br />in 26 Weeks
+              {hero.title.prefix}{' '}
+              <span className="text-orange-500">{hero.title.highlight}</span>,{' '}
+              {hero.title.suffix}{' '}
+              <span className="text-orange-500">{hero.title.highlightNumber}</span>{' '}
+              {hero.title.suffixWeeks}
             </h1>
 
             <motion.p 
@@ -30,9 +33,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Personalized AI-powered coaching that adapts to your progress,
-              <br className="hidden lg:block" />
-              making your marathon dream a reality.
+              {hero.subtitle}
             </motion.p>
 
             <motion.div 
