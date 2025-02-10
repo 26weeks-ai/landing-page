@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import Navbar from '@/components/layout/navbar';
 import Hero from '@/components/sections/hero';
-import Demo from '@/components/sections/demo';
 import Features from '@/components/sections/features';
 import Guarantee from '@/components/sections/guarantee';
 import Pricing from '@/components/sections/pricing';
@@ -29,7 +28,6 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Demo />
         <Features />
         <Guarantee />
         <Pricing />
