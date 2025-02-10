@@ -1,99 +1,99 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Brain, Activity, Calendar, LineChart, 
-  Heart, Utensils, Users, Shield
+import {
+  Brain,
+  Activity,
+  LineChart,
+  Timer,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { features, featuresList, runningQuotes } from '@/content/copy';
 
-const features = [
-  {
-    icon: Brain,
-    title: "Personalized AI Plans",
-    description: "Custom training plans that adapt to your progress and fitness level",
-    bgClass: "bg-blue-100",
-    iconClass: "text-blue-600"
-  },
-  {
-    icon: Calendar,
-    title: "Daily Check-ins",
-    description: "Get real-time feedback and adjustments based on your performance",
-    bgClass: "bg-orange-100",
-    iconClass: "text-orange-500"
-  },
-  {
-    icon: Activity,
-    title: "Deep Integrations",
-    description: "Seamlessly connects with your favorite fitness apps and devices",
-    bgClass: "bg-green-100",
-    iconClass: "text-green-500"
-  },
-  {
-    icon: LineChart,
-    title: "Progress Tracking",
-    description: "Visual insights and analytics to monitor your journey",
-    bgClass: "bg-purple-100",
-    iconClass: "text-purple-500"
-  },
-  {
-    icon: Heart,
-    title: "Injury Prevention",
-    description: "Smart monitoring to keep you safe and healthy",
-    bgClass: "bg-red-100",
-    iconClass: "text-red-500"
-  },
-  {
-    icon: Utensils,
-    title: "Nutrition Guide",
-    description: "Personalized meal plans and nutrition advice",
-    bgClass: "bg-yellow-100",
-    iconClass: "text-yellow-500"
-  },
-  {
-    icon: Users,
-    title: "Community Support",
-    description: "Connect with fellow runners and share experiences",
-    bgClass: "bg-indigo-100",
-    iconClass: "text-indigo-500"
-  },
-  {
-    icon: Shield,
-    title: "Money-Back Guarantee",
-    description: "100% satisfaction guarantee or your money back",
-    bgClass: "bg-teal-100",
-    iconClass: "text-teal-500"
-  }
-];
+interface CustomIconProps {
+  className?: string;
+}
 
-const runningQuotes = [
-  {
-    quote: "The miracle isn't that I finished. The miracle is that I had the courage to start.",
-    author: "John Bingham"
-  },
-  {
-    quote: "Running is the greatest metaphor for life, because you get out of it what you put into it.",
-    author: "Oprah Winfrey"
-  },
-  {
-    quote: "I run because I can. When I get tired, I remember those who can't run, what they would give to have this simple gift I take for granted.",
-    author: "Melissa Ragsdale"
-  },
-  {
-    quote: "Pain is temporary. Quitting lasts forever.",
-    author: "Lance Armstrong"
-  },
-  {
-    quote: "The body achieves what the mind believes.",
-    author: "Napoleon Hill"
-  },
-  {
-    quote: "Run when you can, walk if you have to, crawl if you must; just never give up.",
-    author: "Dean Karnazes"
-  },
-  {
-    quote: "Everything you wanna know about yourself, you can learn in 26 miles - one breath, one step and one moment at a time!",
-    author: "Diwakar"
-  }
-];
+const ShieldCheck: React.FC<CustomIconProps> = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="M9 12l2 2 4-4" />
+  </svg>
+);
+
+const InjuryPreventionIcon: React.FC<CustomIconProps> = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M4 20h16" />
+    <path d="M12 16v4" />
+    <path d="M8 12v4" />
+    <path d="M16 12v4" />
+    <path d="M12 3c-1.2 0-2.4.6-3 1.7A3.6 3.6 0 0 0 12 9c1.2 0 2.4-.6 3-1.7A3.6 3.6 0 0 0 12 3z" />
+    <path d="m17 6-2 2" />
+    <path d="m7 6 2 2" />
+  </svg>
+);
+
+const CommunityIcon: React.FC<CustomIconProps> = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    <path d="M8 14c0-2 2-2 2-4" />
+    <path d="M12 14c0-2 2-2 2-4" />
+  </svg>
+);
+
+const NutritionIcon: React.FC<CustomIconProps> = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M12 12c-2 0-3-1-3-3V5c0-1.7 1.3-3 3-3s3 1.3 3 3v4c0 2-1 3-3 3Z" />
+    <path d="M18 12c-2 0-3-1-3-3V5c0-1.7 1.3-3 3-3s3 1.3 3 3v4c0 2-1 3-3 3Z" />
+    <path d="M6 12c-2 0-3-1-3-3V5c0-1.7 1.3-3 3-3s3 1.3 3 3v4c0 2-1 3-3 3Z" />
+    <path d="M12 22c-5 0-9-2.2-9-5s4-5 9-5 9 2.2 9 5-4 5-9 5Z" />
+  </svg>
+);
+
+// Map Lucide icons and custom icons to features
+const featureIcons = {
+  "Personalized AI Plans": Brain,
+  "Daily Check-ins": Timer,
+  "Deep Integrations": Activity,
+  "Progress Tracking": LineChart,
+  "Injury Prevention": InjuryPreventionIcon,
+  "Nutrition Guide": NutritionIcon,
+  "Community Support": CommunityIcon,
+  "Money-Back Guarantee": ShieldCheck,
+};
 
 const container = {
   hidden: { opacity: 0 },
@@ -124,40 +124,45 @@ export default function Features() {
   return (
     <section id="features" className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-            Why Choose <span className="text-orange-500">26weeks.ai</span>
+            {features.title}{' '}
+            <span className="text-orange-500">{features.titleHighlight}</span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Cutting-edge AI technology combined with proven training methods to transform you into a marathon runner
+            {features.subtitle}
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
         >
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-              variants={item}
-            >
-              <div className={`w-14 h-14 ${feature.bgClass} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <feature.icon className={`w-8 h-8 ${feature.iconClass}`} />
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-neutral-900">{feature.title}</h3>
-              <p className="text-neutral-600">{feature.description}</p>
-            </motion.div>
-          ))}
+          {featuresList.map((feature, index) => {
+            const Icon = featureIcons[feature.title as keyof typeof featureIcons];
+
+            return (
+              <motion.div
+                key={index}
+                className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                variants={item}
+              >
+                <div className={`w-14 h-14 ${feature.bgClass} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className={`w-8 h-8 ${feature.iconClass}`} />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-neutral-900">{feature.title}</h3>
+                <p className="text-neutral-600">{feature.description}</p>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         {/* Inspirational Quotes Section */}
