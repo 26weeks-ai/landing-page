@@ -43,16 +43,16 @@ export default function Footer() {
             <Link href="/" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Home</Link>
             <Link href="/#features" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Features</Link>
             <Link href="/#pricing" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Pricing</Link>
-            <Link href="/#testimonials" className="block text-neutral-400 hover:text-white transition-colors duration-300">Testimonials</Link>
+            <Link href="/#testimonials" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Testimonials</Link>
           </div>
 
           {/* Support */}
           <div className="animate__animated animate__fadeIn animate__delay-2s">
             <h3 className="text-white font-semibold mb-4">Support</h3>
-            <Link href="/faq" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">FAQ</Link>
+            <Link href="/#faq" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">FAQ</Link>
             <Link href="/privacy" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Privacy Policy</Link>
             <Link href="/terms" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Terms of Service</Link>
-            <Link href="/contact" className="block text-neutral-400 hover:text-white transition-colors duration-300">Contact Us</Link>
+            <Link href="/contact" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Contact Us</Link>
           </div>
 
           {/* Contact */}
