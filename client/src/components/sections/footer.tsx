@@ -1,7 +1,18 @@
 import { Link } from "wouter";
-import { Twitter, Instagram, Github } from "lucide-react";
+import { Twitter, Instagram, Github, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Implement subscription logic
+    setEmail("");
+  };
+
   return (
     <footer id="footer" className="bg-neutral-900 pt-20 pb-10">
       <div className="container mx-auto px-4">
@@ -52,16 +63,34 @@ export default function Footer() {
             <Link href="/#faq" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">FAQ</Link>
             <Link href="/privacy" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Privacy Policy</Link>
             <Link href="/terms" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Terms of Service</Link>
-            <Link href="/contact" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Contact Us</Link>
+            <a
+              href="mailto:support@26weeks.ai"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 flex items-center gap-2"
+            >
+              <Mail className="w-4 h-4" />
+              support@26weeks.ai
+            </a>
           </div>
 
-          {/* Contact */}
+          {/* Newsletter */}
           <div className="animate__animated animate__fadeIn animate__delay-3s">
-            <h3 className="text-white font-semibold mb-4">Contact</h3>
-            <p className="text-neutral-400 mb-2">Email: support@26weeks.ai</p>
-            <p className="text-neutral-400">
-              Location: San Francisco, CA
+            <h3 className="text-white font-semibold mb-4">Stay Updated</h3>
+            <p className="text-neutral-400 mb-4">
+              Get the latest updates and training tips.
             </p>
+            <form onSubmit={handleSubscribe} className="space-y-2">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-neutral-800 border-neutral-700 text-white"
+                required
+              />
+              <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white">
+                Subscribe
+              </Button>
+            </form>
           </div>
         </div>
 
