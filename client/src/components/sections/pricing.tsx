@@ -4,40 +4,34 @@ import WaitlistForm from '@/components/waitlist-form';
 
 const plans = [
   {
-    name: "Basic",
-    price: "49",
-    description: "Perfect for beginners",
+    name: "Monthly",
+    price: "20",
+    description: "Start your journey",
     features: [
+      "Full Access to AI Coach",
       "Personalized Training Plan",
-      "Basic Progress Tracking",
-      "Email Support",
-      "Access to Community",
+      "Progress Tracking"
     ]
   },
   {
-    name: "Pro",
-    price: "99",
+    name: "6 Months",
+    price: "100",
     description: "Most Popular Choice",
+    popular: true,
     features: [
-      "Everything in Basic",
-      "Advanced Analytics",
-      "Nutrition Planning",
+      "All Monthly Features",
       "Priority Support",
-      "Live Chat Support",
-      "Weekly Check-ins"
+      "Save 16%"
     ]
   },
   {
-    name: "Elite",
-    price: "199",
-    description: "For serious runners",
+    name: "Yearly",
+    price: "200",
+    description: "Best value",
     features: [
-      "Everything in Pro",
-      "1-on-1 Coaching",
-      "Custom Race Strategy",
-      "Video Analysis",
-      "24/7 Support",
-      "Recovery Planning"
+      "All 6-Month Features",
+      "VIP Support",
+      "Save 30%"
     ]
   }
 ];
@@ -56,44 +50,55 @@ export default function Pricing() {
             Simple, Transparent Pricing
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Choose the perfect plan for your marathon journey
+            Start with a 2-week free trial. No credit card required.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
-              className={`bg-white rounded-2xl shadow-lg p-8 ${
-                index === 1 ? 'border-2 border-orange-500' : 'border border-neutral-200'
-              }`}
+              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 
+                ${plan.popular ? 'border-orange-500' : 'border-neutral-100'} 
+                overflow-hidden relative`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ translateY: -10 }}
             >
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                <p className="text-neutral-600 mb-4">{plan.description}</p>
-                <div className="text-4xl font-bold">
-                  ${plan.price}
-                  <span className="text-lg font-normal text-neutral-600">/mo</span>
+              {plan.popular && (
+                <div className="absolute top-0 right-0 bg-orange-500 text-white px-4 py-1 text-sm font-semibold">
+                  POPULAR
                 </div>
+              )}
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-neutral-900 mb-4">{plan.name}</h3>
+                <div className="flex items-baseline mb-8">
+                  <span className="text-5xl font-bold text-neutral-900">${plan.price}</span>
+                  <span className="text-neutral-600 ml-2">/{plan.name.toLowerCase()}</span>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  {plan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center text-neutral-700">
+                      <Check className="w-5 h-5 text-green-500 mr-3" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <button className={`w-full ${plan.popular ? 'bg-orange-500 hover:bg-orange-600' : 'bg-neutral-900 hover:bg-neutral-800'} 
+                  text-white rounded-full py-3 font-semibold transition-colors duration-300`}>
+                  Choose {plan.name}
+                </button>
               </div>
-
-              <ul className="space-y-4 mb-8">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center">
-                    <Check className="h-5 w-5 text-orange-500 mr-2" />
-                    <span className="text-neutral-700">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <WaitlistForm />
             </motion.div>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-neutral-600 flex items-center justify-center">
+            <Check className="w-5 h-5 text-green-500 mr-2" />
+            30-day money-back guarantee for all plans
+          </p>
         </div>
       </div>
     </section>
