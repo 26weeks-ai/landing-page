@@ -1,29 +1,6 @@
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
-
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "First-time Marathoner",
-    image: "https://ui-avatars.com/api/?name=Sarah+Johnson",
-    quote: "26weeks.ai transformed me from someone who couldn't run a mile to completing my first marathon. The AI adapts perfectly to your progress.",
-    stars: 5
-  },
-  {
-    name: "Michael Chen",
-    role: "Experienced Runner",
-    image: "https://ui-avatars.com/api/?name=Michael+Chen",
-    quote: "Even as an experienced runner, the AI coaching helped me improve my times and prevent injuries. The personalization is incredible.",
-    stars: 5
-  },
-  {
-    name: "Emma Wilson",
-    role: "Busy Professional",
-    image: "https://ui-avatars.com/api/?name=Emma+Wilson",
-    quote: "The flexibility of the program allowed me to train for a marathon while maintaining my busy schedule. The results speak for themselves.",
-    stars: 5
-  }
-];
+import { testimonials } from '@/content/copy';
 
 export default function Testimonials() {
   return (
@@ -36,15 +13,15 @@ export default function Testimonials() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-            Success Stories
+            {testimonials.title}
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Join thousands of runners who have achieved their marathon dreams
+            {testimonials.subtitle}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.reviews.map((testimonial, index) => (
             <motion.div
               key={index}
               className="bg-white rounded-2xl shadow-lg p-8"

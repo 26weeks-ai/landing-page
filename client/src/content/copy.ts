@@ -166,6 +166,35 @@ export const faq = {
   ]
 };
 
+// Testimonials Section
+export const testimonials = {
+  title: "Success Stories",
+  subtitle: "Join thousands of runners who have achieved their marathon dreams",
+  reviews: [
+    {
+      name: "Sarah Johnson",
+      role: "First-time Marathoner",
+      image: "https://ui-avatars.com/api/?name=Sarah+Johnson",
+      quote: "26weeks.ai transformed me from someone who couldn't run a mile to completing my first marathon. The AI adapts perfectly to your progress.",
+      stars: 5
+    },
+    {
+      name: "Michael Chen",
+      role: "Experienced Runner",
+      image: "https://ui-avatars.com/api/?name=Michael+Chen",
+      quote: "Even as an experienced runner, the AI coaching helped me improve my times and prevent injuries. The personalization is incredible.",
+      stars: 5
+    },
+    {
+      name: "Emma Wilson",
+      role: "Busy Professional",
+      image: "https://ui-avatars.com/api/?name=Emma+Wilson",
+      quote: "The flexibility of the program allowed me to train for a marathon while maintaining my busy schedule. The results speak for themselves.",
+      stars: 5
+    }
+  ]
+};
+
 // Pricing Section
 export const pricing = {
   title: "Simple, Transparent Pricing",
