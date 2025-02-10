@@ -1,43 +1,73 @@
+// Theme Colors
+export const colors = {
+  primary: '#f97316', // orange-500
+  background: {
+    dark: '#171717', // neutral-900
+    darkTransparent: 'rgba(23, 23, 23, 0.95)', // neutral-900/95
+  },
+  text: {
+    primary: '#ffffff',
+    secondary: '#f3f4f6',
+    muted: 'rgba(255, 255, 255, 0.9)',
+  }
+};
+
+// Navigation
+export const navigation = {
+  logo: {
+    text: {
+      prefix: '26',
+      middle: 'weeks',
+      dot: '.',
+      suffix: 'ai'
+    }
+  },
+  links: [
+    { href: '#features', label: 'Features' },
+    { href: '#guarantee', label: 'Guarantee' },
+    { href: '#pricing', label: 'Pricing' },
+    { href: '#testimonials', label: 'Testimonials' },
+    { href: '#faq', label: 'FAQ' },
+  ]
+};
+
 // Hero Section
 export const hero = {
   title: {
-    prefix: "Couch to",
-    highlight: "Marathon",
-    suffix: "in",
-    highlightNumber: "26",
-    suffixWeeks: "weeks!",
+    prefix: "From Couch Potato to",
+    highlight: "Marathon Finisher",
+    suffix: "in 26 Weeks"
   },
-  subtitle:
-    "Personalized AI-powered coaching that adapts to your progress, making your marathon dream a reality.",
+  subtitle: "Personalized AI-powered coaching that adapts to your progress, making your marathon dream a reality.",
+  cta: {
+    primary: "Join Waitlist",
+    secondary: "Learn More"
+  }
 };
 
 // Features Section
 export const features = {
   title: "Why Choose",
   titleHighlight: "26weeks.ai",
-  subtitle:
-    "Cutting-edge AI technology combined with proven training methods to transform you into a marathon runner",
+  subtitle: "Cutting-edge AI technology combined with proven training methods to transform you into a marathon runner"
 };
 
 export const featuresList = [
   {
     title: "Personalized AI Plans",
-    description:
-      "Custom training plans that adapt to your progress and fitness level",
+    description: "Custom training plans that adapt to your progress and fitness level",
     bgClass: "bg-blue-100",
     iconClass: "text-blue-600",
   },
   {
     title: "Daily Check-ins",
-    description:
-      "Get real-time feedback and adjustments based on your performance",
+    description: "Get real-time feedback and adjustments based on your performance",
     bgClass: "bg-orange-100",
     iconClass: "text-orange-500",
   },
   {
     title: "Deep Integrations",
-    description:
-      "Seamlessly connects with your favorite fitness apps and devices",
+    description: "Seamlessly connects with your favorite fitness apps and devices",
     bgClass: "bg-green-100",
     iconClass: "text-green-500",
   },
@@ -67,11 +97,172 @@ export const featuresList = [
   },
   {
     title: "Money-Back Guarantee",
-    description: "If you don't see results in 30 days, get your money back.",
+    description: "100% satisfaction guarantee or your money back",
     bgClass: "bg-teal-100",
     iconClass: "text-teal-500",
-  },
+  }
 ];
+
+// Guarantee Section
+export const guarantee = {
+  title: "100% Money-Back Guarantee",
+  subtitle: "If you're not satisfied with your progress within the first 30 days, we'll refund every penny. No questions asked.",
+  trustPoints: [
+    {
+      title: "30-Day Trial",
+      description: "Full access to all features for a complete experience",
+      icon: "clock"
+    },
+    {
+      title: "No Contract",
+      description: "Cancel anytime with no hidden fees",
+      icon: "check"
+    },
+    {
+      title: "Secure Payment",
+      description: "SSL encrypted checkout for your security",
+      icon: "shield"
+    }
+  ]
+};
+
+// FAQ Section
+export const faq = {
+  title: "Frequently Asked Questions",
+  subtitle: "Everything you need to know about our AI-powered marathon training",
+  questions: [
+    {
+      question: "Do I need any running experience to start?",
+      answer: "No prior running experience is needed! Our AI-powered program starts from your current fitness level and gradually builds your endurance. We've successfully trained complete beginners to finish marathons."
+    },
+    {
+      question: "How does the AI personalization work?",
+      answer: "Our AI analyzes your daily performance data, recovery patterns, and progress to continuously adjust your training plan. It considers factors like heart rate, pace, distance, and perceived effort to optimize your training schedule."
+    },
+    {
+      question: "What if I miss a training day?",
+      answer: "The AI automatically adjusts your training plan to accommodate missed sessions. It redistributes workouts and modifies intensities to keep you on track for your marathon goal without overtraining."
+    },
+    {
+      question: "Can I use my existing fitness devices?",
+      answer: "Yes! We integrate with popular fitness devices and apps including Garmin, Fitbit, Apple Watch, and Strava. Your data syncs automatically to provide the most accurate training adjustments."
+    },
+    {
+      question: "What support do I get if I struggle?",
+      answer: "You'll have access to our community of runners, dedicated support team, and AI-powered chat assistance. Pro and Elite plans include direct access to experienced running coaches."
+    },
+    {
+      question: "How does the money-back guarantee work?",
+      answer: "If you're not satisfied with your progress within the first 30 days, simply contact our support team and we'll process a full refund. No questions asked, no complicated procedures."
+    },
+    {
+      question: "Will the training fit around my busy schedule?",
+      answer: "Absolutely! The AI creates flexible training plans that adapt to your availability. You can set preferred training times and the system will optimize your schedule accordingly."
+    },
+    {
+      question: "What happens if I get injured?",
+      answer: "Our injury prevention system monitors your training load to minimize risk. If you do experience an injury, the AI adjusts your plan and provides recovery protocols. Medical advice should always be sought for serious injuries."
+    }
+  ]
+};
+
+// Pricing Section
+export const pricing = {
+  title: "Simple, Transparent Pricing",
+  subtitle: "No hidden fees. No questions asked return policy.",
+  plans: [
+    {
+      name: "Monthly",
+      price: "20",
+      features: [
+        "Full Access to AI Coach",
+        "Personalized Training Plan",
+        "Progress Tracking",
+        "Communities and Content",
+      ],
+    },
+    {
+      name: "6 Months",
+      price: "100",
+      popular: true,
+      features: [
+        "All Monthly Features",
+        "Priority Support",
+        "Save 17%",
+      ],
+    },
+    {
+      name: "Yearly",
+      price: "200",
+      features: [
+        "All 6-Month Features",
+        "VIP Support",
+        "Save 17%",
+      ],
+    },
+  ],
+  guarantee: "30-day money-back guarantee for all plans"
+};
+
+// Legal Pages
+export const legal = {
+  lastUpdated: "February 10, 2025",
+  privacy: {
+    title: "Privacy Policy",
+    sections: {
+      collect: {
+        title: "Information We Collect",
+        items: [
+          "Create an account",
+          "Use our AI coaching services",
+          "Connect fitness tracking devices",
+          "Participate in our community features"
+        ]
+      },
+      use: {
+        title: "How We Use Your Information",
+        items: [
+          "Provide personalized training plans",
+          "Track your progress",
+          "Improve our AI coaching algorithms",
+          "Send important updates about your training"
+        ]
+      },
+      security: {
+        title: "Data Security",
+        content: "We implement appropriate security measures to protect your personal information. Your data is encrypted and stored securely in compliance with industry standards."
+      },
+      rights: {
+        title: "Your Rights",
+        items: [
+          "Access your personal data",
+          "Request corrections to your data",
+          "Request deletion of your data",
+          "Opt out of marketing communications"
+        ]
+      }
+    }
+  },
+  terms: {
+    title: "Terms of Service",
+    sections: {
+      acceptance: {
+        title: "Acceptance of Terms",
+        content: "By accessing and using 26weeks.ai, you agree to be bound by these Terms of Service and all applicable laws and regulations."
+      },
+      service: {
+        title: "Service Description",
+        content: "26weeks.ai provides AI-powered marathon training services, including but not limited to:",
+        items: [
+          "Personalized training plans",
+          "Progress tracking",
+          "AI coaching feedback",
+          "Community features"
+        ]
+      }
+    }
+  }
+};
 
 export const runningQuotes = [
   {
@@ -108,58 +299,3 @@ export const runningQuotes = [
     author: "Diwakar",
   },
 ];
-
-// Guarantee Section
-export const guarantee = {
-  title: "100% Money-Back Guarantee",
-  description:
-    "If you're not satisfied with your progress within the first 30 days, we'll refund every penny. No questions asked.",
-};
-
-export const trustPoints = [
-  {
-    title: "30-Day Trial",
-    description: "Full access to all features for a complete experience",
-  },
-  {
-    title: "No Contract",
-    description: "Cancel anytime with no hidden fees",
-  },
-  {
-    title: "Secure Payment",
-    description: "SSL encrypted checkout for your security",
-  },
-];
-
-// Pricing Section
-export const pricing = {
-  title: "Simple, Transparent Pricing",
-  subtitle:
-    "No questions asked return policy. No credit card required. 3 plans.",
-  plans: [
-    {
-      name: "Monthly",
-      price: "20",
-      description: "Start your journey",
-      features: [
-        "Full Access to AI Coach",
-        "Personalized Training Plan",
-        "Progress Tracking",
-        "Communities and Content",
-      ],
-    },
-    {
-      name: "6 Months",
-      price: "100",
-      description: "Most Popular Choice",
-      popular: true,
-      features: ["All Monthly Features", "Priority Support", "Save 17%"],
-    },
-    {
-      name: "Yearly",
-      price: "200",
-      description: "Best value",
-      features: ["All 6-Month Features", "VIP Support", "Save 17%"],
-    },
-  ],
-};
