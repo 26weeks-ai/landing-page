@@ -1,0 +1,82 @@
+import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
+
+const testimonials = [
+  {
+    name: "Sarah Johnson",
+    role: "First-time Marathoner",
+    image: "https://ui-avatars.com/api/?name=Sarah+Johnson",
+    quote: "26weeks.ai transformed me from someone who couldn't run a mile to completing my first marathon. The AI adapts perfectly to your progress.",
+    stars: 5
+  },
+  {
+    name: "Michael Chen",
+    role: "Experienced Runner",
+    image: "https://ui-avatars.com/api/?name=Michael+Chen",
+    quote: "Even as an experienced runner, the AI coaching helped me improve my times and prevent injuries. The personalization is incredible.",
+    stars: 5
+  },
+  {
+    name: "Emma Wilson",
+    role: "Busy Professional",
+    image: "https://ui-avatars.com/api/?name=Emma+Wilson",
+    quote: "The flexibility of the program allowed me to train for a marathon while maintaining my busy schedule. The results speak for themselves.",
+    stars: 5
+  }
+];
+
+export default function Testimonials() {
+  return (
+    <section id="testimonials" className="py-20 bg-neutral-50">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-4xl font-bold text-neutral-900 mb-4">
+            Success Stories
+          </h2>
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
+            Join thousands of runners who have achieved their marathon dreams
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={index}
+              className="bg-white rounded-2xl shadow-lg p-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="flex items-center mb-6">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  className="w-16 h-16 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="font-semibold text-lg">{testimonial.name}</h3>
+                  <p className="text-neutral-600">{testimonial.role}</p>
+                </div>
+              </div>
+
+              <div className="flex mb-4">
+                {[...Array(testimonial.stars)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                ))}
+              </div>
+
+              <p className="text-neutral-700 italic">"{testimonial.quote}"</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
