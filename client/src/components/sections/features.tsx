@@ -37,32 +37,17 @@ const InjuryPreventionIcon: React.FC<CustomIconProps> = ({ className }) => (
     strokeLinejoin="round"
     className={className}
   >
-    <path d="M4 20h16" />
-    <path d="M12 16v4" />
-    <path d="M8 12v4" />
-    <path d="M16 12v4" />
-    <path d="M12 3c-1.2 0-2.4.6-3 1.7A3.6 3.6 0 0 0 12 9c1.2 0 2.4-.6 3-1.7A3.6 3.6 0 0 0 12 3z" />
-    <path d="m17 6-2 2" />
-    <path d="m7 6 2 2" />
-  </svg>
-);
-
-const CommunityIcon: React.FC<CustomIconProps> = ({ className }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    <path d="M8 14c0-2 2-2 2-4" />
-    <path d="M12 14c0-2 2-2 2-4" />
+    {/* Footprint outline */}
+    <path d="M8 7c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
+    <path d="M12 16c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
+    <path d="M16 7c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
+    <path d="M6 9v7" />
+    <path d="M14 9v7" />
+    {/* Cushioning waves */}
+    <path d="M4 12c2 0 4 1 4 1" />
+    <path d="M12 12c2 0 4 1 4 1" />
+    {/* Arch support */}
+    <path d="M7 14c1.5-1 5-1 6.5 0" />
   </svg>
 );
 
@@ -76,10 +61,42 @@ const NutritionIcon: React.FC<CustomIconProps> = ({ className }) => (
     strokeLinejoin="round"
     className={className}
   >
-    <path d="M12 12c-2 0-3-1-3-3V5c0-1.7 1.3-3 3-3s3 1.3 3 3v4c0 2-1 3-3 3Z" />
-    <path d="M18 12c-2 0-3-1-3-3V5c0-1.7 1.3-3 3-3s3 1.3 3 3v4c0 2-1 3-3 3Z" />
-    <path d="M6 12c-2 0-3-1-3-3V5c0-1.7 1.3-3 3-3s3 1.3 3 3v4c0 2-1 3-3 3Z" />
-    <path d="M12 22c-5 0-9-2.2-9-5s4-5 9-5 9 2.2 9 5-4 5-9 5Z" />
+    {/* Plate outline */}
+    <circle cx="12" cy="12" r="10" />
+    {/* Dividing lines for food groups */}
+    <path d="M12 2v20" />
+    <path d="M2 12h20" />
+    {/* Food items */}
+    <path d="M7 7c0 0 2 1 2 2" /> {/* Vegetables */}
+    <path d="M17 7l-2 2" /> {/* Protein */}
+    <path d="M7 17c1-1 2-1 2-1" /> {/* Grains */}
+    <path d="M17 17c-1-1-2-1-2-1" /> {/* Fruits */}
+  </svg>
+);
+
+const CommunityIcon: React.FC<CustomIconProps> = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Central figure */}
+    <circle cx="12" cy="8" r="3" />
+    <path d="M12 11v4" />
+    {/* Supporting figures */}
+    <circle cx="6" cy="15" r="2" />
+    <circle cx="18" cy="15" r="2" />
+    <path d="M6 17v2" />
+    <path d="M18 17v2" />
+    {/* Connecting lines showing support */}
+    <path d="M12 15c-2-2-8-1-8 3" />
+    <path d="M12 15c2-2 8-1 8 3" />
+    {/* Heart shape above to symbolize support */}
+    <path d="M12 5c1-1 2-1 3 0 2 2 0 3-3 5-3-2-5-3-3-5 1-1 2-1 3 0" />
   </svg>
 );
 
