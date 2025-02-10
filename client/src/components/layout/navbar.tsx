@@ -42,14 +42,14 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <Link href="/">
             <motion.div 
-              className="text-2xl font-bold cursor-pointer flex items-center"
+              className="text-2xl font-bold cursor-pointer inline-flex items-baseline"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="text-orange-500">26</span>
-              <span className="text-white">weeks</span>
-              <span className="text-orange-500">.</span>
-              <span className="text-white">ai</span>
+              <span className="text-orange-500 leading-none">26</span>
+              <span className="text-white leading-none">weeks</span>
+              <span className="text-orange-500 leading-none">.</span>
+              <span className="text-white leading-none">ai</span>
             </motion.div>
           </Link>
 
