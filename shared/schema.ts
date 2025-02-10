@@ -24,10 +24,10 @@ export const runnerStatusEnum = pgEnum('runner_status', [
 ]);
 
 export const longestRunEnum = pgEnum('longest_run', [
-  'less_than_2km',
+  '0_2km',
   '2_5km',
   '5_10km',
-  'over_10km'
+  '10_plus_km'
 ]);
 
 export const waitlist = pgTable("waitlist", {

@@ -37,7 +37,7 @@ const waitlistSchema = z.object({
   status: z.enum(['couch_potato', 'beginner', 'enthusiast', 'endurance_pro'], {
     required_error: "Please select your running level",
   }),
-  longestRun: z.enum(['less_than_2km', '2_5km', '5_10km', 'over_10km'], {
+  longestRun: z.enum(['0_2km', '2_5km', '5_10km', '10_plus_km'], {
     required_error: "Please select your longest run",
   }),
 });
@@ -45,17 +45,17 @@ const waitlistSchema = z.object({
 type WaitlistFormValues = z.infer<typeof waitlistSchema>;
 
 const runnerStatusOptions = [
-  { value: 'couch_potato', label: "Couch Potato: I'm more about TV marathons than running marathons." },
-  { value: 'beginner', label: "Beginner: I'm new to running and just getting started." },
-  { value: 'enthusiast', label: "Enthusiast: I run regularly and enjoy a good jog." },
-  { value: 'endurance_pro', label: "Endurance Pro: I can run for more than an hour with ease." },
+  { value: 'couch_potato', label: "Couch Potato" },
+  { value: 'beginner', label: "Beginner" },
+  { value: 'enthusiast', label: "Enthusiast" },
+  { value: 'endurance_pro', label: "Endurance Pro" },
 ];
 
 const longestRunOptions = [
-  { value: 'less_than_2km', label: "Less than 2 km: I'm just getting started." },
-  { value: '2_5km', label: "2–5 km: I'm building up my mileage." },
-  { value: '5_10km', label: "5–10 km: I'm steadily increasing my distance." },
-  { value: 'over_10km', label: "Over 10 km: I'm ready for long-distance challenges!" },
+  { value: '0_2km', label: "0–2 km" },
+  { value: '2_5km', label: "2–5 km" },
+  { value: '5_10km', label: "5–10 km" },
+  { value: '10_plus_km', label: "10+ km" },
 ];
 
 export default function WaitlistForm() {
@@ -68,7 +68,7 @@ export default function WaitlistForm() {
       email: '',
       name: '',
       status: 'couch_potato',
-      longestRun: 'less_than_2km',
+      longestRun: '0_2km',
     },
   });
 
@@ -148,7 +148,7 @@ export default function WaitlistForm() {
               name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Which description best fits your current running level?</FormLabel>
+                  <FormLabel>Running Level</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
@@ -173,7 +173,7 @@ export default function WaitlistForm() {
               name="longestRun"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>What's the distance of your longest run in the past 6 months (in about an hour)?</FormLabel>
+                  <FormLabel>Longest Run (Last 6 Months)</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
