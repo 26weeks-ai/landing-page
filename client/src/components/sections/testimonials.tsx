@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
-import { testimonials } from '@/content/copy';
+import { testimonials, type Testimonial } from '@/content/copy';
 
 export default function Testimonials() {
   return (
@@ -21,7 +21,7 @@ export default function Testimonials() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {testimonials.reviews.map((testimonial, index) => (
+          {testimonials.reviews.map((testimonial: Testimonial, index: number) => (
             <motion.div
               key={index}
               className="bg-white rounded-2xl shadow-lg p-8"
