@@ -78,13 +78,13 @@ export default function Navbar() {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent>
+            <SheetContent className="bg-neutral-900 border-neutral-800">
               <nav className="flex flex-col space-y-4 mt-8">
                 {navLinks.map((link) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    className="text-white/90 hover:text-orange-500 transition-colors px-4 py-2 rounded-lg"
+                    className="text-white hover:text-orange-500 transition-colors px-4 py-2 rounded-lg"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
