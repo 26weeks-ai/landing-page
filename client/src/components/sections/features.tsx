@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { 
-  Activity, Brain, Calendar, LineChart, 
+  Brain, Activity, Calendar, LineChart, 
   Heart, Utensils, Users, Shield
 } from 'lucide-react';
 
@@ -8,42 +8,58 @@ const features = [
   {
     icon: Brain,
     title: "Personalized AI Plans",
-    description: "Custom training plans that adapt to your progress and fitness level"
+    description: "Custom training plans that adapt to your progress and fitness level",
+    bgClass: "bg-blue-100",
+    iconClass: "text-blue-600"
   },
   {
     icon: Calendar,
     title: "Daily Check-ins",
-    description: "Get real-time feedback and adjustments based on your performance"
+    description: "Get real-time feedback and adjustments based on your performance",
+    bgClass: "bg-orange-100",
+    iconClass: "text-orange-500"
   },
   {
     icon: Activity,
     title: "Deep Integrations",
-    description: "Seamlessly connects with your favorite fitness apps and devices"
+    description: "Seamlessly connects with your favorite fitness apps and devices",
+    bgClass: "bg-green-100",
+    iconClass: "text-green-500"
   },
   {
     icon: LineChart,
     title: "Progress Tracking",
-    description: "Visual insights and analytics to monitor your journey"
+    description: "Visual insights and analytics to monitor your journey",
+    bgClass: "bg-purple-100",
+    iconClass: "text-purple-500"
   },
   {
     icon: Heart,
     title: "Injury Prevention",
-    description: "Smart monitoring to keep you safe and healthy"
+    description: "Smart monitoring to keep you safe and healthy",
+    bgClass: "bg-red-100",
+    iconClass: "text-red-500"
   },
   {
     icon: Utensils,
     title: "Nutrition Guide",
-    description: "Personalized meal plans and nutrition advice"
+    description: "Personalized meal plans and nutrition advice",
+    bgClass: "bg-yellow-100",
+    iconClass: "text-yellow-500"
   },
   {
     icon: Users,
     title: "Community Support",
-    description: "Connect with fellow runners and share experiences"
+    description: "Connect with fellow runners and share experiences",
+    bgClass: "bg-indigo-100",
+    iconClass: "text-indigo-500"
   },
   {
     icon: Shield,
     title: "Money-Back Guarantee",
-    description: "100% satisfaction guarantee or your money back"
+    description: "100% satisfaction guarantee or your money back",
+    bgClass: "bg-teal-100",
+    iconClass: "text-teal-500"
   }
 ];
 
@@ -93,8 +109,8 @@ export default function Features() {
               className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
               variants={item}
             >
-              <div className="w-14 h-14 bg-orange-100 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <feature.icon className="w-8 h-8 text-orange-500" />
+              <div className={`w-14 h-14 ${feature.bgClass} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <feature.icon className={`w-8 h-8 ${feature.iconClass}`} />
               </div>
               <h3 className="text-xl font-semibold mb-3 text-neutral-900">{feature.title}</h3>
               <p className="text-neutral-600">{feature.description}</p>
