@@ -119,7 +119,7 @@ export const featuresList = [
   },
   {
     title: "Money-Back Guarantee",
-    description: "/",
+    description: "30-day money-back guarantee, no questions asked",
     bgClass: "bg-teal-100",
     iconClass: "text-teal-500",
   },

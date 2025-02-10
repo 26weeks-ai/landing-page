@@ -28,7 +28,7 @@ export default function Hero() {
             </h1>
 
             <motion.p 
-              className="text-xl text-neutral-300 mb-8"
+              className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -37,7 +37,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -46,7 +46,7 @@ export default function Hero() {
 
               <Button 
                 variant="outline" 
-                className="border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300"
+                className="border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300 sm:w-auto"
                 onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Learn More
