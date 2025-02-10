@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, pgEnum } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -15,3 +15,37 @@ export const insertUserSchema = createInsertSchema(users).pick({
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+
+export const runnerStatusEnum = pgEnum('runner_status', [
+  'couch_potato',
+  'noob_runner',
+  'amateur_runner',
+  'experienced_runner'
+]);
+
+export const longestRunEnum = pgEnum('longest_run', [
+  '0-2km',
+  '2-5km',
+  '5-10km',
+  '10+km'
+]);
+
+export const waitlist = pgTable("waitlist", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  status: runnerStatusEnum("status").notNull(),
+  longestRun: longestRunEnum("longest_run").notNull(),
+  createdAt: text("created_at").notNull().$defaultFn(() => new Date().toISOString()),
+});
+
+export const insertWaitlistSchema = createInsertSchema(waitlist)
+  .pick({
+    name: true,
+    email: true,
+    status: true,
+    longestRun: true,
+  });
+
+export type InsertWaitlist = z.infer<typeof insertWaitlistSchema>;
+export type Waitlist = typeof waitlist.$inferSelect;
