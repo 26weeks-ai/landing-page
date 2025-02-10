@@ -1,40 +1,7 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import WaitlistForm from '@/components/waitlist-form';
-
-const plans = [
-  {
-    name: "Monthly",
-    price: "20",
-    description: "Start your journey",
-    features: [
-      "Full Access to AI Coach",
-      "Personalized Training Plan",
-      "Progress Tracking"
-    ]
-  },
-  {
-    name: "6 Months",
-    price: "100",
-    description: "Most Popular Choice",
-    popular: true,
-    features: [
-      "All Monthly Features",
-      "Priority Support",
-      "Save 16%"
-    ]
-  },
-  {
-    name: "Yearly",
-    price: "200",
-    description: "Best value",
-    features: [
-      "All 6-Month Features",
-      "VIP Support",
-      "Save 30%"
-    ]
-  }
-];
+import { pricing } from '@/content/copy';
 
 export default function Pricing() {
   return (
@@ -47,7 +14,7 @@ export default function Pricing() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-            Simple, Transparent Pricing
+            {pricing.title}
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
             Start with a 2-week free trial. No credit card required.
@@ -55,7 +22,7 @@ export default function Pricing() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => (
+          {pricing.plans.map((plan, index) => (
             <motion.div
               key={index}
               className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 
