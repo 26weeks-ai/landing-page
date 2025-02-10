@@ -1,8 +1,9 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Brain, Activity, Calendar, LineChart, 
   Heart, Utensils, Users, Shield
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const features = [
   {
@@ -63,6 +64,33 @@ const features = [
   }
 ];
 
+const runningQuotes = [
+  {
+    quote: "The miracle isn't that I finished. The miracle is that I had the courage to start.",
+    author: "John Bingham"
+  },
+  {
+    quote: "Running is the greatest metaphor for life, because you get out of it what you put into it.",
+    author: "Oprah Winfrey"
+  },
+  {
+    quote: "I run because I can. When I get tired, I remember those who can't run, what they would give to have this simple gift I take for granted.",
+    author: "Melissa Ragsdale"
+  },
+  {
+    quote: "Pain is temporary. Quitting lasts forever.",
+    author: "Lance Armstrong"
+  },
+  {
+    quote: "The body achieves what the mind believes.",
+    author: "Napoleon Hill"
+  },
+  {
+    quote: "Run when you can, walk if you have to, crawl if you must; just never give up.",
+    author: "Dean Karnazes"
+  }
+];
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -79,6 +107,16 @@ const item = {
 };
 
 export default function Features() {
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentQuoteIndex((prev) => (prev + 1) % runningQuotes.length);
+    }, 5000); // Change quote every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="features" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -117,6 +155,29 @@ export default function Features() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Inspirational Quotes Section */}
+        <div className="mt-20 max-w-4xl mx-auto text-center relative h-32">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuoteIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <div>
+                <p className="text-xl text-neutral-600 italic mb-2">
+                  "{runningQuotes[currentQuoteIndex].quote}"
+                </p>
+                <p className="text-sm text-neutral-500">
+                  — {runningQuotes[currentQuoteIndex].author}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
