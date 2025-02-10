@@ -18,16 +18,16 @@ export type User = typeof users.$inferSelect;
 
 export const runnerStatusEnum = pgEnum('runner_status', [
   'couch_potato',
-  'noob_runner',
-  'amateur_runner',
-  'experienced_runner'
+  'beginner',
+  'enthusiast',
+  'endurance_pro'
 ]);
 
 export const longestRunEnum = pgEnum('longest_run', [
-  '0-2km',
-  '2-5km',
-  '5-10km',
-  '10+km'
+  'less_than_2km',
+  '2_5km',
+  '5_10km',
+  'over_10km'
 ]);
 
 export const waitlist = pgTable("waitlist", {
