@@ -34,10 +34,10 @@ import { apiRequest } from '@/lib/queryClient';
 const waitlistSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
-  status: z.enum(['couch_potato', 'noob_runner', 'amateur_runner', 'experienced_runner'], {
-    required_error: "Please select your running status",
+  status: z.enum(['couch_potato', 'beginner', 'enthusiast', 'endurance_pro'], {
+    required_error: "Please select your running level",
   }),
-  longestRun: z.enum(['0-2km', '2-5km', '5-10km', '10+km'], {
+  longestRun: z.enum(['less_than_2km', '2_5km', '5_10km', 'over_10km'], {
     required_error: "Please select your longest run",
   }),
 });
@@ -45,17 +45,17 @@ const waitlistSchema = z.object({
 type WaitlistFormValues = z.infer<typeof waitlistSchema>;
 
 const runnerStatusOptions = [
-  { value: 'couch_potato', label: 'Couch Potato' },
-  { value: 'noob_runner', label: 'Noob Runner' },
-  { value: 'amateur_runner', label: 'Amateur Runner' },
-  { value: 'experienced_runner', label: 'Can run for >1 hour' },
+  { value: 'couch_potato', label: "Couch Potato: I'm more about TV marathons than running marathons." },
+  { value: 'beginner', label: "Beginner: I'm new to running and just getting started." },
+  { value: 'enthusiast', label: "Enthusiast: I run regularly and enjoy a good jog." },
+  { value: 'endurance_pro', label: "Endurance Pro: I can run for more than an hour with ease." },
 ];
 
 const longestRunOptions = [
-  { value: '0-2km', label: '0-2km' },
-  { value: '2-5km', label: '2-5km' },
-  { value: '5-10km', label: '5-10km' },
-  { value: '10+km', label: '10+km' },
+  { value: 'less_than_2km', label: "Less than 2 km: I'm just getting started." },
+  { value: '2_5km', label: "2–5 km: I'm building up my mileage." },
+  { value: '5_10km', label: "5–10 km: I'm steadily increasing my distance." },
+  { value: 'over_10km', label: "Over 10 km: I'm ready for long-distance challenges!" },
 ];
 
 export default function WaitlistForm() {
@@ -68,7 +68,7 @@ export default function WaitlistForm() {
       email: '',
       name: '',
       status: 'couch_potato',
-      longestRun: '0-2km',
+      longestRun: 'less_than_2km',
     },
   });
 
@@ -148,11 +148,11 @@ export default function WaitlistForm() {
               name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Your Running Status</FormLabel>
+                  <FormLabel>Which description best fits your current running level?</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select your running status" />
+                        <SelectValue placeholder="Select your running level" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -173,7 +173,7 @@ export default function WaitlistForm() {
               name="longestRun"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Longest Run in Last 6 Months</FormLabel>
+                  <FormLabel>What's the distance of your longest run in the past 6 months (in about an hour)?</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
