@@ -88,6 +88,10 @@ const runningQuotes = [
   {
     quote: "Run when you can, walk if you have to, crawl if you must; just never give up.",
     author: "Dean Karnazes"
+  },
+  {
+    quote: "Everything you wanna know about yourself, you can learn in 26 miles - one breath, one step and one moment at a time!",
+    author: "Diwakar"
   }
 ];
 
