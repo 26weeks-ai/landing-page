@@ -6,6 +6,7 @@ import Guarantee from '@/components/sections/guarantee';
 import Pricing from '@/components/sections/pricing';
 import Testimonials from '@/components/sections/testimonials';
 import FAQ from '@/components/sections/faq';
+import Footer from '@/components/sections/footer';
 
 export default function Home() {
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function Home() {
         <Testimonials />
         <FAQ />
       </main>
+      <Footer />
     </div>
   );
 }
