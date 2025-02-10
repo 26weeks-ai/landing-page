@@ -17,7 +17,7 @@ export default function Pricing() {
             {pricing.title}
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Start with a 2-week free trial. No credit card required.
+            {pricing.subtitle}
           </p>
         </motion.div>
 
@@ -27,7 +27,7 @@ export default function Pricing() {
               key={index}
               className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 
                 ${plan.popular ? 'border-orange-500' : 'border-neutral-100'} 
-                overflow-hidden relative`}
+                overflow-hidden relative flex flex-col h-full`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -38,24 +38,28 @@ export default function Pricing() {
                   POPULAR
                 </div>
               )}
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-neutral-900 mb-4">{plan.name}</h3>
-                <div className="flex items-baseline mb-8">
-                  <span className="text-5xl font-bold text-neutral-900">${plan.price}</span>
-                  <span className="text-neutral-600 ml-2">/{plan.name.toLowerCase()}</span>
+              <div className="p-8 flex-1 flex flex-col">
+                <div>
+                  <h3 className="text-2xl font-bold text-neutral-900 mb-4">{plan.name}</h3>
+                  <div className="flex items-baseline mb-8">
+                    <span className="text-5xl font-bold text-neutral-900">${plan.price}</span>
+                    <span className="text-neutral-600 ml-2">/{plan.name.toLowerCase()}</span>
+                  </div>
+                  <ul className="space-y-4 mb-8">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center text-neutral-700">
+                        <Check className="w-5 h-5 text-green-500 mr-3" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-4 mb-8">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-neutral-700">
-                      <Check className="w-5 h-5 text-green-500 mr-3" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <button className={`w-full ${plan.popular ? 'bg-orange-500 hover:bg-orange-600' : 'bg-neutral-900 hover:bg-neutral-800'} 
-                  text-white rounded-full py-3 font-semibold transition-colors duration-300`}>
-                  Choose {plan.name}
-                </button>
+                <div className="mt-auto">
+                  <button className={`w-full ${plan.popular ? 'bg-orange-500 hover:bg-orange-600' : 'bg-neutral-900 hover:bg-neutral-800'} 
+                    text-white rounded-full py-3 font-semibold transition-colors duration-300`}>
+                    Choose {plan.name}
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
