@@ -1,4 +1,4 @@
-import { users, waitlist, type User, type InsertUser, type Waitlist, type InsertWaitlist } from "@shared/schema";
+import { users, waitlist, subscribers, type User, type InsertUser, type Waitlist, type InsertWaitlist, type Subscriber, type InsertSubscriber } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
 
@@ -8,13 +8,17 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
 
-  // New waitlist methods
+  // Waitlist methods
   addToWaitlist(entry: InsertWaitlist): Promise<Waitlist>;
   getWaitlistEntry(email: string): Promise<Waitlist | undefined>;
+
+  // Subscriber methods
+  addSubscriber(entry: InsertSubscriber): Promise<Subscriber>;
+  getSubscriber(email: string): Promise<Subscriber | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
-  // Existing user methods
+  // Existing user methods remain unchanged
   async getUser(id: number): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
     return user || undefined;
@@ -33,7 +37,7 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  // New waitlist methods
+  // Waitlist methods
   async addToWaitlist(entry: InsertWaitlist): Promise<Waitlist> {
     const [waitlistEntry] = await db
       .insert(waitlist)
@@ -48,6 +52,23 @@ export class DatabaseStorage implements IStorage {
       .from(waitlist)
       .where(eq(waitlist.email, email));
     return entry || undefined;
+  }
+
+  // New subscriber methods
+  async addSubscriber(entry: InsertSubscriber): Promise<Subscriber> {
+    const [subscriber] = await db
+      .insert(subscribers)
+      .values(entry)
+      .returning();
+    return subscriber;
+  }
+
+  async getSubscriber(email: string): Promise<Subscriber | undefined> {
+    const [subscriber] = await db
+      .select()
+      .from(subscribers)
+      .where(eq(subscribers.email, email));
+    return subscriber || undefined;
   }
 }
 
