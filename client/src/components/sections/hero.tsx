@@ -10,6 +10,22 @@ export default function Hero() {
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_50%)] opacity-10" />
 
+      {/* Curved Orange Bottom Design */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <svg
+          viewBox="0 0 1440 200"
+          className="w-full h-auto transform translate-y-1"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 200V100C240 33.3333 480 0 720 0C960 0 1200 33.3333 1440 100V200H0Z"
+            className="fill-orange-500/10"
+          />
+        </svg>
+      </div>
+
       <div className="container mx-auto px-4 pt-32 pb-16 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Text Content */}
