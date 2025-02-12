@@ -61,7 +61,7 @@ function Particles({ count = 100 }) {
 
 export function AnimatedSphere() {
   return (
-    <div className="h-[500px] w-[500px] ml-8">
+    <div className="h-[600px] w-[600px] ml-16">
       <Canvas camera={{ position: [0, 0, 2.5] }}>
         <Particles />
       </Canvas>
