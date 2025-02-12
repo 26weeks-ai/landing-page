@@ -22,10 +22,11 @@
 
   <!-- Main Text -->
   <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-weight="bold" font-size="120" fill="#ffffff">
+    <tspan>Couch to </tspan>
+    <tspan fill="#f97316">Marathon</tspan>
+    <tspan>, in </tspan>
     <tspan fill="#f97316">26</tspan>
-    <tspan fill="#ffffff">weeks</tspan>
-    <tspan fill="#f97316">.</tspan>
-    <tspan fill="#ffffff">ai</tspan>
+    <tspan> weeks!</tspan>
   </text>
 
   <!-- Subtitle -->
