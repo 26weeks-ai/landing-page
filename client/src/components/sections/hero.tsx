@@ -2,40 +2,33 @@ import { motion } from 'framer-motion';
 import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
-import { hero, colors } from '@/content/copy';
-import { AnimatedSphere } from './AnimatedSphere';
+import { hero } from '@/content/copy';
 
 export default function Hero() {
   return (
-    <section className="min-h-[90vh] relative overflow-hidden flex items-center">
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0" style={{ backgroundColor: colors.background.darkTransparent }} />
-
+    <section className="min-h-[90vh] bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 relative overflow-hidden flex items-center">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_50%)] opacity-10" />
 
-      {/* Animated Background */}
-      <AnimatedSphere />
-
       <div className="container mx-auto px-4 pt-32 pb-16 relative z-10">
-        <div className="flex flex-col items-center justify-center gap-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Text Content */}
           <motion.div 
-            className="flex-1 text-center max-w-3xl"
+            className="flex-1 text-center lg:text-left"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               {hero.title.prefix}{' '}
-              <span className="text-orange-500">{hero.title.highlight}</span>{' '}
+              <span className="text-orange-500">{hero.title.highlight}</span>,{' '}
               {hero.title.suffix}{' '}
               <span className="text-orange-500">{hero.title.highlightNumber}</span>{' '}
               {hero.title.suffixWeeks}
             </h1>
 
             <motion.p 
-              className="text-xl text-neutral-300 mb-8"
+              className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -44,7 +37,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.div 
-              className="flex flex-col sm:flex-row items-center gap-4 justify-center"
+              className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
