@@ -1,16 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#171717"/>
-  <rect x="0" y="0" width="1200" height="630" fill="#171717"/>
-  
+
   <!-- Orange gradient background -->
   <defs>
     <radialGradient id="orangeGlow" cx="100%" cy="100%" r="100%">
       <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.3"/>
       <stop offset="100%" style="stop-color:#171717;stop-opacity:0"/>
     </radialGradient>
+
+    <!-- Wave Pattern Definition -->
+    <pattern id="wavePattern" x="0" y="0" width="400" height="60" patternUnits="userSpaceOnUse">
+      <path d="M0,30 C100,10 150,50 200,30 S300,10 400,30" fill="none" stroke="#f97316" stroke-width="2" opacity="0.3"/>
+      <path d="M-200,45 C-100,25 -50,65 0,45 S100,25 200,45" fill="none" stroke="#171717" stroke-width="2" opacity="0.4"/>
+    </pattern>
   </defs>
+
   <rect width="1200" height="630" fill="url(#orangeGlow)"/>
-  
+
+  <!-- Wave Pattern at 75% height -->
+  <rect x="0" y="472" width="1200" height="60" fill="url(#wavePattern)"/>
+
   <!-- Main Text -->
   <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-weight="bold" font-size="120" fill="#ffffff">
     <tspan fill="#f97316">26</tspan>
@@ -18,9 +27,9 @@
     <tspan fill="#f97316">.</tspan>
     <tspan fill="#ffffff">ai</tspan>
   </text>
-  
+
   <!-- Subtitle -->
   <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-size="40" fill="#f3f4f6">
-    Your AI-Powered Marathon Journey
+    Couch to Marathon, in 26 weeks!
   </text>
 </svg>
