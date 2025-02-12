@@ -3,7 +3,6 @@ import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
 import { hero } from '@/content/copy';
-import { AnimatedSphere } from './AnimatedSphere';
 
 export default function Hero() {
   return (
@@ -54,16 +53,6 @@ export default function Hero() {
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
-          </motion.div>
-
-          {/* Animated Sphere */}
-          <motion.div
-            className="flex-1 hidden lg:block"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <AnimatedSphere />
           </motion.div>
         </div>
       </div>
