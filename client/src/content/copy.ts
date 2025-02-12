@@ -60,7 +60,7 @@ export const hero = {
     suffixWeeks: "weeks!",
   },
   subtitle:
-    "Personalized AI-powered coaching that adapts to your progress, making your marathon dream a reality.",
+    "Adaptive and Intelligent Coaching that tailors your training to your performance, recovery, and progress—turning your 26.2-mile dream into reality in 26 weeks or less.",
 };
 
 // Features Section
@@ -68,14 +68,14 @@ export const features = {
   title: "Why Choose",
   titleHighlight: "26weeks.ai",
   subtitle:
-    "Cutting-edge AI technology combined with proven training methods to transform you into a marathon runner",
+    "Cutting-edge AI technology combined with proven scientific training methods to transform you into a marathon runner",
 };
 
 export const featuresList = [
   {
     title: "Personalized AI Plans",
     description:
-      "Custom training plans that adapt to your progress and fitness level",
+      "Training plans that starts with your fitness level and dynamically adapt to you.",
     bgClass: "bg-blue-100",
     iconClass: "text-blue-600",
   },
@@ -89,7 +89,7 @@ export const featuresList = [
   {
     title: "Deep Integrations",
     description:
-      "Seamlessly connects with your favorite fitness apps and devices",
+      "Seamlessly connects with your favorite fitness apps and devices (Apple Fitness, Garmin, Whoop, Strava, etc)",
     bgClass: "bg-green-100",
     iconClass: "text-green-500",
   },
@@ -101,19 +101,19 @@ export const featuresList = [
   },
   {
     title: "Injury Prevention",
-    description: "Smart monitoring to keep you safe and healthy",
+    description: "Smart mobility and stretching with every training session to keep you safe and healthy",
     bgClass: "bg-red-100",
     iconClass: "text-red-500",
   },
   {
     title: "Nutrition Guide",
-    description: "Personalized meal plans and nutrition advice",
+    description: "Personalized nutrition advice and meal plans",
     bgClass: "bg-yellow-100",
     iconClass: "text-yellow-500",
   },
   {
     title: "Community Support",
-    description: "Connect with fellow runners and share experiences",
+    description: "Connect with fellow dreamers, discuss and share experiences",
     bgClass: "bg-indigo-100",
     iconClass: "text-indigo-500",
   },
