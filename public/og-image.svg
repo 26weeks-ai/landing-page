@@ -7,30 +7,19 @@
       <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.3"/>
       <stop offset="100%" style="stop-color:#171717;stop-opacity:0"/>
     </radialGradient>
-
-    <!-- Wave Pattern Definition -->
-    <pattern id="wavePattern" x="0" y="0" width="400" height="60" patternUnits="userSpaceOnUse">
-      <path d="M0,30 C100,10 150,50 200,30 S300,10 400,30" fill="none" stroke="#f97316" stroke-width="2" opacity="0.3"/>
-      <path d="M-200,45 C-100,25 -50,65 0,45 S100,25 200,45" fill="none" stroke="#171717" stroke-width="2" opacity="0.4"/>
-    </pattern>
   </defs>
 
   <rect width="1200" height="630" fill="url(#orangeGlow)"/>
 
-  <!-- Wave Pattern at 75% height -->
-  <rect x="0" y="472" width="1200" height="60" fill="url(#wavePattern)"/>
-
   <!-- Main Text -->
-  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-weight="bold" font-size="120" fill="#ffffff">
-    <tspan>Couch to </tspan>
-    <tspan fill="#f97316">Marathon</tspan>
-    <tspan>, in </tspan>
-    <tspan fill="#f97316">26</tspan>
-    <tspan> weeks!</tspan>
+  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-weight="bold" font-size="72" fill="#ffffff">
+    <tspan>Your </tspan>
+    <tspan fill="#f97316">AI Marathon</tspan>
+    <tspan> Coach</tspan>
   </text>
 
   <!-- Subtitle -->
-  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-size="40" fill="#f3f4f6">
-    Couch to Marathon, in 26 weeks!
+  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-size="36" fill="#f3f4f6">
+    Transform your running journey with personalized AI coaching
   </text>
 </svg>

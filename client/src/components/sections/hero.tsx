@@ -10,26 +10,6 @@ export default function Hero() {
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_50%)] opacity-10" />
 
-      {/* Wave Pattern at 75% height */}
-      <div className="absolute w-full" style={{ top: '85%' }}>
-        <svg
-          className="w-full h-12 transform translate-y-1"
-          preserveAspectRatio="none"
-          viewBox="0 0 1440 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 48L120 24C240 0 360 24 480 36C600 48 720 24 840 12C960 0 1080 24 1200 36C1320 48 1440 24 1440 24V48H0Z"
-            className="fill-orange-500/20"
-          />
-          <path
-            d="M1440 48L1320 24C1200 0 1080 24 960 36C840 48 720 24 600 12C480 0 360 24 240 36C120 48 0 24 0 24V48H1440Z"
-            className="fill-neutral-900/30"
-          />
-        </svg>
-      </div>
-
       <div className="container mx-auto px-4 pt-32 pb-16 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Text Content */}
