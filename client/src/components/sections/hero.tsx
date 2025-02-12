@@ -7,15 +7,18 @@ import { AnimatedSphere } from './AnimatedSphere';
 
 export default function Hero() {
   return (
-    <section className="min-h-[90vh] bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 relative overflow-hidden flex items-center">
+    <section className="min-h-[90vh] relative overflow-hidden flex items-center">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_50%)] opacity-10" />
 
+      {/* Animated Background */}
+      <AnimatedSphere />
+
       <div className="container mx-auto px-4 pt-32 pb-16 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col items-center justify-center gap-12">
           {/* Text Content */}
           <motion.div 
-            className="flex-1 text-center lg:text-left"
+            className="flex-1 text-center max-w-3xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -29,7 +32,7 @@ export default function Hero() {
             </h1>
 
             <motion.p 
-              className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto lg:mx-0"
+              className="text-xl text-neutral-300 mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -38,7 +41,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.div 
-              className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row items-center gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -54,16 +57,6 @@ export default function Hero() {
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
-          </motion.div>
-
-          {/* Animated Sphere */}
-          <motion.div
-            className="flex-1 hidden lg:block"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <AnimatedSphere />
           </motion.div>
         </div>
       </div>
