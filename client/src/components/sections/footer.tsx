@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Twitter, Instagram, Github, Mail } from "lucide-react";
+import { Twitter, Instagram, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -34,6 +34,13 @@ export default function Footer() {
     }
   };
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer id="footer" className="bg-neutral-900 pt-20 pb-10">
       <div className="container mx-auto px-4">
@@ -59,29 +66,21 @@ export default function Footer() {
               >
                 <Instagram className="w-6 h-6" />
               </a>
-              <a
-                href="#"
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
-                aria-label="Github"
-              >
-                <Github className="w-6 h-6" />
-              </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="animate__animated animate__fadeIn animate__delay-1s">
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-            <Link href="/" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Home</Link>
-            <Link href="/#features" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Features</Link>
-            <Link href="/#pricing" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Pricing</Link>
-            <Link href="/#testimonials" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Testimonials</Link>
+            <button onClick={() => scrollToSection('features')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Features</button>
+            <button onClick={() => scrollToSection('pricing')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Pricing</button>
+            <button onClick={() => scrollToSection('testimonials')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Testimonials</button>
           </div>
 
           {/* Support */}
           <div className="animate__animated animate__fadeIn animate__delay-2s">
             <h3 className="text-white font-semibold mb-4">Support</h3>
-            <Link href="/#faq" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">FAQ</Link>
+            <button onClick={() => scrollToSection('faq')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">FAQ</button>
             <Link href="/privacy" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Privacy Policy</Link>
             <Link href="/terms" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Terms of Service</Link>
             <a
