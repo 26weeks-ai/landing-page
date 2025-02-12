@@ -2,12 +2,15 @@ import { motion } from 'framer-motion';
 import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
-import { hero } from '@/content/copy';
+import { hero, colors } from '@/content/copy';
 import { AnimatedSphere } from './AnimatedSphere';
 
 export default function Hero() {
   return (
     <section className="min-h-[90vh] relative overflow-hidden flex items-center">
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0" style={{ backgroundColor: colors.background.darkTransparent }} />
+
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_50%)] opacity-10" />
 
@@ -25,7 +28,7 @@ export default function Hero() {
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               {hero.title.prefix}{' '}
-              <span className="text-orange-500">{hero.title.highlight}</span>,{' '}
+              <span className="text-orange-500">{hero.title.highlight}</span>{' '}
               {hero.title.suffix}{' '}
               <span className="text-orange-500">{hero.title.highlightNumber}</span>{' '}
               {hero.title.suffixWeeks}
