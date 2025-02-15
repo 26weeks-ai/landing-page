@@ -84,11 +84,11 @@ export default function Footer() {
             <Link href="/privacy" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Privacy Policy</Link>
             <Link href="/terms" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Terms of Service</Link>
             <a
-              href="mailto:support@26weeks.ai"
+              href="mailto:diwakar@26weeks.ai"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 flex items-center gap-2"
             >
               <Mail className="w-4 h-4" />
-              support@26weeks.ai
+              diwakar@26weeks.ai
             </a>
           </div>
 
