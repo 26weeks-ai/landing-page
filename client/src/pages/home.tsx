@@ -80,21 +80,7 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-background overflow-x-hidden">
-      {/* Animated background - conditionally render based on performance */}
-      {animationLoaded && (
-        isMobile ? (
-          <AnimatedBackground 
-            theme="minimal"
-            performance={performanceLevel}
-            density={0.03}
-          />
-        ) : (
-          <RunningAnimation 
-            performance={performanceLevel}
-            density={0.03}
-          />
-        )
-      )}
+      {/* Removed animated background as requested */}
       
       {/* Content overlay */}
       <div className="relative z-10">
