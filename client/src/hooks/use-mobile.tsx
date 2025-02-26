@@ -1,19 +1,37 @@
-import * as React from "react"
-
-const MOBILE_BREAKPOINT = 768
+import { useState, useEffect } from 'react';
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+  const [isMobile, setIsMobile] = useState(false);
 
-  React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+  useEffect(() => {
+    // Check for mobile on initial load
+    checkIfMobile();
+    
+    // Update on window resize
+    function handleResize() {
+      checkIfMobile();
     }
-    mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange)
-  }, [])
+    
+    // Function to check if the device is mobile
+    function checkIfMobile() {
+      const userAgent = 
+        typeof window.navigator === "undefined" ? "" : navigator.userAgent;
+      
+      const mobile = Boolean(
+        userAgent.match(
+          /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+        )
+      );
+      
+      // Also check screen width as a fallback for desktop browsers in small windows
+      const isSmallScreen = window.innerWidth < 768;
+      
+      setIsMobile(mobile || isSmallScreen);
+    }
+    
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  return !!isMobile
+  return isMobile;
 }

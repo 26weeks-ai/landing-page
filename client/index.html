@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>26weeks.ai - Your AI Marathon Coach</title>
 
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/src/index.css" as="style" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- DNS Prefetch for performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/icon-corners.svg" />
     <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico" /> -->
@@ -19,6 +28,9 @@
       name="keywords"
       content="marathon training, AI coach, running, fitness, couch to marathon, how to training for marathon"
     />
+
+    <!-- Performance optimization -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -51,5 +63,9 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Preload important modules -->
+    <link rel="modulepreload" href="/src/App.tsx" />
+    <link rel="modulepreload" href="/src/components/sections/hero.tsx" />
   </body>
 </html>
