@@ -15,7 +15,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="min-h-[90vh] bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 relative overflow-hidden flex items-center">
+    <section className="min-h-[90vh] bg-gradient-to-br from-neutral-900/80 via-neutral-800/80 to-neutral-900/80 relative overflow-hidden flex items-center backdrop-blur-sm">
       {/* Background Pattern - static to improve performance */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_50%)] opacity-10" />
 

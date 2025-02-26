@@ -1,7 +1,10 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense, useState } from 'react';
 import Navbar from '@/components/layout/navbar';
 import Hero from '@/components/sections/hero';
 import { Skeleton } from '@/components/ui/skeleton';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { RunningAnimation } from '@/components/ui/running-animation';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Lazy load below-the-fold sections for performance
 const Features = lazy(() => import('@/components/sections/features'));
@@ -24,12 +27,17 @@ const SectionLoader = () => (
 );
 
 export default function Home() {
+  const isMobile = useIsMobile();
+  const [animationLoaded, setAnimationLoaded] = useState(false);
+  const [performanceLevel, setPerformanceLevel] = useState<'high' | 'medium' | 'low'>('medium');
+
   useEffect(() => {
     // Implement smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(this: HTMLAnchorElement, e: MouseEvent) {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      const anchorElement = anchor as HTMLAnchorElement;
+      anchorElement.addEventListener('click', (e: Event) => {
         e.preventDefault();
-        const href = this.getAttribute('href');
+        const href = anchorElement.getAttribute('href');
         if (href) {
           document.querySelector(href)?.scrollIntoView({
             behavior: 'smooth'
@@ -47,41 +55,80 @@ export default function Home() {
 
     // Preload after a short delay to prioritize initial render
     const timer = setTimeout(preloadComponents, 2000);
+
+    // Detect performance capabilities
+    const detectPerformance = () => {
+      // Check device capability - this is a simple heuristic
+      // In a production app, you might want more sophisticated detection
+      if (isMobile) {
+        setPerformanceLevel('low');
+      } else if (window.navigator.hardwareConcurrency > 4) {
+        setPerformanceLevel('high');
+      } else {
+        setPerformanceLevel('medium');
+      }
+      
+      // Mark animation as loaded after a short delay regardless
+      // This ensures the UI becomes interactive even if detection is slow
+      setTimeout(() => setAnimationLoaded(true), 500);
+    };
+    
+    detectPerformance();
+    
     return () => clearTimeout(timer);
-  }, []);
+  }, [isMobile]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <main>
-        {/* Critical content loaded immediately */}
-        <Hero />
-        
-        {/* Lazy loaded sections with suspense boundaries */}
-        <Suspense fallback={<SectionLoader />}>
-          <Features />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <Guarantee />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <Pricing />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <Testimonials />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <FAQ />
-        </Suspense>
-      </main>
+    <div className="relative min-h-screen bg-background overflow-x-hidden">
+      {/* Animated background - conditionally render based on performance */}
+      {animationLoaded && (
+        isMobile ? (
+          <AnimatedBackground 
+            theme="minimal"
+            performance={performanceLevel}
+            density={0.03}
+          />
+        ) : (
+          <RunningAnimation 
+            performance={performanceLevel}
+            density={0.03}
+          />
+        )
+      )}
       
-      <Suspense fallback={<SectionLoader />}>
-        <Footer />
-      </Suspense>
+      {/* Content overlay */}
+      <div className="relative z-10">
+        <Navbar />
+        <main>
+          {/* Critical content loaded immediately */}
+          <Hero />
+          
+          {/* Lazy loaded sections with suspense boundaries */}
+          <Suspense fallback={<SectionLoader />}>
+            <Features />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <Guarantee />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <Pricing />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <Testimonials />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <FAQ />
+          </Suspense>
+        </main>
+        
+        <Suspense fallback={<SectionLoader />}>
+          <Footer />
+        </Suspense>
+      </div>
     </div>
   );
 }
