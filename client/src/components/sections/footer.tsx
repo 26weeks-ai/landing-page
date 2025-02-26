@@ -27,7 +27,8 @@ export default function Footer() {
       toast({
         variant: "destructive",
         title: "Subscription failed",
-        description: error instanceof Error ? error.message : "Please try again later.",
+        description:
+          error instanceof Error ? error.message : "Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
@@ -37,7 +38,7 @@ export default function Footer() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -53,14 +54,16 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://x.com/26weeks_ai"
+                target="_blank"
                 className="text-neutral-400 hover:text-white transition-colors duration-300"
                 aria-label="Twitter"
               >
                 <Twitter className="w-6 h-6" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/26weeks.ai/"
+                target="_blank"
                 className="text-neutral-400 hover:text-white transition-colors duration-300"
                 aria-label="Instagram"
               >
@@ -72,17 +75,53 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="animate__animated animate__fadeIn animate__delay-1s">
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-            <button onClick={() => scrollToSection('features')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Features</button>
-            <button onClick={() => scrollToSection('pricing')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Pricing</button>
-            <button onClick={() => scrollToSection('testimonials')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Testimonials</button>
+            <button
+              onClick={() => scrollToSection("features")}
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+            >
+              Features
+            </button>
+            <button
+              onClick={() => scrollToSection("pricing")}
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+            >
+              Pricing
+            </button>
+            <button
+              onClick={() => scrollToSection("testimonials")}
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+            >
+              Testimonials
+            </button>
           </div>
 
           {/* Support */}
           <div className="animate__animated animate__fadeIn animate__delay-2s">
             <h3 className="text-white font-semibold mb-4">Support</h3>
-            <button onClick={() => scrollToSection('faq')} className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">FAQ</button>
-            <Link href="/privacy" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Privacy Policy</Link>
-            <Link href="/terms" className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300">Terms of Service</Link>
+            <button
+              onClick={() => scrollToSection("faq")}
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+            >
+              FAQ
+            </button>
+            <Link
+              href="/privacy"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/cancellations"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+            >
+              Cancellations & Refunds
+            </Link>
             <a
               href="mailto:diwakar@26weeks.ai"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 flex items-center gap-2"
@@ -108,8 +147,8 @@ export default function Footer() {
                 required
                 disabled={isSubmitting}
               />
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                 disabled={isSubmitting}
               >
