@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Brain,
   Activity,
@@ -7,14 +7,14 @@ import {
   HeartPulse,
   Apple,
   Users,
-  ShieldCheck
-} from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { features, featuresList, runningQuotes } from '@/content/copy';
+  ShieldCheck,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { features, featuresList, runningQuotes } from "@/content/copy";
 
 // Map Lucide icons to features
 const featureIcons = {
-  "Personalized AI Plans": Brain,
+  "Personalized & Adaptive": Brain,
   "Daily Check-ins": Timer,
   "Deep Integrations": Activity,
   "Progress Tracking": LineChart,
@@ -29,14 +29,14 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { opacity: 1, y: 0 },
 };
 
 export default function Features() {
@@ -60,7 +60,7 @@ export default function Features() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-            {features.title}{' '}
+            {features.title}{" "}
             <span className="text-orange-500">{features.titleHighlight}</span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
@@ -76,7 +76,8 @@ export default function Features() {
           viewport={{ once: true }}
         >
           {featuresList.map((feature, index) => {
-            const Icon = featureIcons[feature.title as keyof typeof featureIcons];
+            const Icon =
+              featureIcons[feature.title as keyof typeof featureIcons];
 
             return (
               <motion.div
@@ -84,10 +85,14 @@ export default function Features() {
                 className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                 variants={item}
               >
-                <div className={`w-14 h-14 ${feature.bgClass} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <div
+                  className={`w-14 h-14 ${feature.bgClass} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                >
                   <Icon className={`w-8 h-8 ${feature.iconClass}`} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-neutral-900">{feature.title}</h3>
+                <h3 className="text-xl font-semibold mb-3 text-neutral-900">
+                  {feature.title}
+                </h3>
                 <p className="text-neutral-600">{feature.description}</p>
               </motion.div>
             );

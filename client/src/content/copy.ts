@@ -73,7 +73,7 @@ export const features = {
 
 export const featuresList = [
   {
-    title: "Personalized AI Plans",
+    title: "Personalized & Adaptive",
     description:
       "Training plans that starts with your fitness level and dynamically adapt to you.",
     bgClass: "bg-blue-100",
