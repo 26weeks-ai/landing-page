@@ -7,6 +7,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 // Lazy load pages for better performance
 const Home = lazy(() => import("@/pages/home"));
+const Blog = lazy(() => import("@/pages/blog"));
+const BlogPost = lazy(() => import("@/pages/blog-post"));
 const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cancellations = lazy(() => import("@/pages/cancellations"));
@@ -32,6 +34,8 @@ function Router() {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:slug" component={BlogPost} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
         <Route path="/cancellations" component={Cancellations} />

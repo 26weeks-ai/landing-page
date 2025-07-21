@@ -81,3 +81,41 @@ export const insertSubscriberSchema = createInsertSchema(subscribers)
 
 export type InsertSubscriber = z.infer<typeof insertSubscriberSchema>;
 export type Subscriber = typeof subscribers.$inferSelect;
+
+// Blog posts table for storing blog metadata
+export const blogPosts = pgTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  author: text("author").notNull(),
+  publishedAt: text("published_at").notNull(),
+  tags: text("tags").array(),
+  readingTime: integer("reading_time").notNull(), // in minutes
+  featured: boolean("featured").default(false),
+  createdAt: text("created_at").notNull().$defaultFn(() => new Date().toISOString()),
+  updatedAt: text("updated_at").notNull().$defaultFn(() => new Date().toISOString()),
+});
+
+export const insertBlogPostSchema = createInsertSchema(blogPosts)
+  .pick({
+    slug: true,
+    title: true,
+    excerpt: true,
+    content: true,
+    author: true,
+    publishedAt: true,
+    tags: true,
+    readingTime: true,
+    featured: true,
+  })
+  .transform((data) => ({
+    ...data,
+    title: sanitizeString(data.title),
+    excerpt: sanitizeString(data.excerpt),
+    author: sanitizeString(data.author),
+  }));
+
+export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
+export type BlogPost = typeof blogPosts.$inferSelect;

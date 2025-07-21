@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertWaitlistSchema, insertSubscriberSchema } from "@shared/schema";
+import { insertWaitlistSchema, insertSubscriberSchema, insertBlogPostSchema } from "@shared/schema";
 import { z } from "zod";
 
 export function registerRoutes(app: Express): Server {
@@ -35,6 +35,64 @@ export function registerRoutes(app: Express): Server {
 
       const subscriber = await storage.addSubscriber(entry);
       res.status(201).json(subscriber);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid input", errors: error.errors });
+      }
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Blog API routes
+  app.get("/api/blog", async (req, res) => {
+    try {
+      const posts = await storage.getAllBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/blog/featured", async (req, res) => {
+    try {
+      const posts = await storage.getFeaturedBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/blog/search", async (req, res) => {
+    try {
+      const { q } = req.query;
+      if (typeof q !== 'string') {
+        return res.status(400).json({ message: "Search query is required" });
+      }
+      const posts = await storage.searchBlogPosts(q);
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/blog/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const post = await storage.getBlogPost(slug);
+      if (!post) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post("/api/blog", async (req, res) => {
+    try {
+      const post = insertBlogPostSchema.parse(req.body);
+      const newPost = await storage.createBlogPost(post);
+      res.status(201).json(newPost);
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid input", errors: error.errors });
