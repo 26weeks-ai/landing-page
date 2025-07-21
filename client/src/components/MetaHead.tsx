@@ -26,7 +26,15 @@ export function MetaHead({
   useEffect(() => {
     // Update document title
     if (title) {
-      document.title = `${title} | 26weeks.ai`;
+      document.title = `${title} | 26weeks.ai - Your AI Marathon Coach`;
+    } else {
+      document.title = '26weeks.ai - Your AI Marathon Coach';
+    }
+    
+    // Clear existing JSON-LD structured data
+    const existingJsonLd = document.querySelector('script[type="application/ld+json"]');
+    if (existingJsonLd) {
+      existingJsonLd.remove();
     }
 
     // Update or create meta tags
@@ -74,12 +82,20 @@ export function MetaHead({
       updateMetaTag('og:url', url, true);
     }
     
-    if (image) {
-      updateMetaTag('og:image', image, true);
-    }
+    // Use provided image or default to the 26weeks.ai logo
+    const baseImageUrl = image || (typeof window !== 'undefined' ? `${window.location.origin}/logo-corners-1080p.png` : 'https://26weeks.ai/logo-corners-1080p.png');
+    // Add timestamp to force refresh for social media crawlers
+    const ogImage = `${baseImageUrl}?v=${Date.now()}`;
+    updateMetaTag('og:image', ogImage, true);
+    updateMetaTag('og:image:width', '1080', true);
+    updateMetaTag('og:image:height', '1080', true);
+    updateMetaTag('og:image:type', 'image/png', true);
+    updateMetaTag('og:image:alt', title || '26weeks.ai - Your AI Marathon Coach', true);
 
     // Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:site', '@26weeksai');
+    updateMetaTag('twitter:creator', '@26weeksai');
     
     if (title) {
       updateMetaTag('twitter:title', title);
@@ -89,9 +105,11 @@ export function MetaHead({
       updateMetaTag('twitter:description', description);
     }
     
-    if (image) {
-      updateMetaTag('twitter:image', image);
-    }
+    // Use the same image as OG
+    updateMetaTag('twitter:image', ogImage);
+    
+    // Add site name
+    updateMetaTag('og:site_name', '26weeks.ai', true);
 
     // Article specific meta tags
     if (type === 'article') {
