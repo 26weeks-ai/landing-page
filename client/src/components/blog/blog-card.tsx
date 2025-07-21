@@ -11,6 +11,16 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post, featured = false }: BlogCardProps) {
+  // Debug log to check post data
+  if (typeof window !== 'undefined') {
+    console.log('BlogCard post data:', {
+      author: post.author,
+      publishedAt: post.publishedAt,
+      readingTime: post.readingTime,
+      formatted: formatDate(post.publishedAt)
+    });
+  }
+  
   return (
     <Link href={`/blog/${post.slug}`}>
       <Card className={`group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${

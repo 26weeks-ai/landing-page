@@ -35,7 +35,29 @@ export function parseBlogPost(content: string, slug: string): ParsedBlogPost {
 
 // Format date for display
 export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
+  if (!dateString) return 'Invalid Date';
+  
+  // Handle different date formats
+  let date: Date;
+  
+  // If it's already a valid date string (ISO format)
+  if (dateString.includes('T') || dateString.includes('Z')) {
+    date = new Date(dateString);
+  } 
+  // If it's a simple date format like "2024-07-20"
+  else if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    date = new Date(dateString + 'T00:00:00.000Z');
+  }
+  // Try parsing as-is
+  else {
+    date = new Date(dateString);
+  }
+  
+  // Check if date is valid
+  if (isNaN(date.getTime())) {
+    return 'Invalid Date';
+  }
+  
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
