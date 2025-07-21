@@ -18,6 +18,10 @@ const navLinks = [
   { href: '#faq', label: 'FAQ' },
 ];
 
+const pageLinks = [
+  { href: '/blog', label: 'Blog' },
+];
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -68,6 +72,17 @@ export default function Navbar() {
                 {link.label}
               </motion.a>
             ))}
+            {pageLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <motion.span
+                  className="text-white/90 hover:text-orange-500 transition-colors cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {link.label}
+                </motion.span>
+              </Link>
+            ))}
             <WaitlistForm />
           </div>
 
@@ -90,6 +105,17 @@ export default function Navbar() {
                   >
                     {link.label}
                   </motion.a>
+                ))}
+                {pageLinks.map((link) => (
+                  <Link key={link.href} href={link.href}>
+                    <motion.span
+                      className="text-white hover:text-orange-500 transition-colors px-4 py-2 rounded-lg cursor-pointer block"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {link.label}
+                    </motion.span>
+                  </Link>
                 ))}
                 <div className="px-4 pt-4">
                   <WaitlistForm />
