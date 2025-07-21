@@ -5,7 +5,11 @@ import { pricing } from '@/content/copy';
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-20 bg-white">
+    <section 
+      id="pricing" 
+      className="py-20 bg-white"
+      aria-label="Pricing plans and subscription options"
+    >
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-16"
@@ -48,15 +52,18 @@ export default function Pricing() {
                   <ul className="space-y-4 mb-8">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-neutral-700">
-                        <Check className="w-5 h-5 text-green-500 mr-3" />
+                        <Check className="w-5 h-5 text-green-500 mr-3" aria-hidden="true" />
                         {feature}
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div className="mt-auto">
-                  <button className={`w-full ${plan.popular ? 'bg-orange-500 hover:bg-orange-600' : 'bg-neutral-900 hover:bg-neutral-800'} 
-                    text-white rounded-full py-3 font-semibold transition-colors duration-300`}>
+                  <button 
+                    className={`w-full ${plan.popular ? 'bg-orange-500 hover:bg-orange-600' : 'bg-neutral-900 hover:bg-neutral-800'} 
+                      text-white rounded-full py-3 font-semibold transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500`}
+                    aria-label={`Select ${plan.name} plan for $${plan.price}`}
+                  >
                     Choose {plan.name}
                   </button>
                 </div>

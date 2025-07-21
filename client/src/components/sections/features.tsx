@@ -51,7 +51,11 @@ export default function Features() {
   }, []);
 
   return (
-    <section id="features" className="py-20 bg-white">
+    <section 
+      id="features" 
+      className="py-20 bg-white"
+      aria-label="Key features and benefits of 26weeks.ai"
+    >
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
