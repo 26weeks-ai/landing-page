@@ -82,14 +82,14 @@ export function MetaHead({
       updateMetaTag('og:url', url, true);
     }
     
-    // Use provided image or default to the 26weeks.ai logo
-    const baseImageUrl = image || (typeof window !== 'undefined' ? `${window.location.origin}/logo-corners-1080p.png` : 'https://26weeks.ai/logo-corners-1080p.png');
+    // Use provided image or default to the 26weeks.ai banner
+    const baseImageUrl = image || (typeof window !== 'undefined' ? `${window.location.origin}/banner-social.svg` : 'https://26weeks.ai/banner-social.svg');
     // Add timestamp to force refresh for social media crawlers
     const ogImage = `${baseImageUrl}?v=${Date.now()}`;
     updateMetaTag('og:image', ogImage, true);
-    updateMetaTag('og:image:width', '1080', true);
-    updateMetaTag('og:image:height', '1080', true);
-    updateMetaTag('og:image:type', 'image/png', true);
+    updateMetaTag('og:image:width', '1200', true);
+    updateMetaTag('og:image:height', '630', true);
+    updateMetaTag('og:image:type', 'image/svg+xml', true);
     updateMetaTag('og:image:alt', title || '26weeks.ai - Your AI Marathon Coach', true);
 
     // Twitter Card tags

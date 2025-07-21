@@ -15,9 +15,10 @@ A comprehensive running and marathon training platform featuring:
 - Implemented server-side metadata injection for social media sharing
 - Added middleware to detect social media crawlers and serve dynamic metadata
 - Blog posts now show correct title and description when shared on social platforms
-- Integrated 26weeks.ai logo for all shared blog content
+- Created branded banner image (1200x630) for all shared blog content
 - Added proper Open Graph and Twitter Card tags for each blog post
 - Performance optimizations with lazy loading and improved caching
+- Static file serving for SVG banner with correct MIME types
 
 ✓ **Blog System Implementation** (July 21, 2025)
 - Added complete blog functionality with markdown support

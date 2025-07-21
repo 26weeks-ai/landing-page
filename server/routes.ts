@@ -12,6 +12,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export function registerRoutes(app: Express): Server {
+  // Serve static banner image with proper content type
+  app.get("/banner-social.svg", (req, res) => {
+    const bannerPath = path.join(__dirname, "..", "public", "banner-social.svg");
+    res.set('Content-Type', 'image/svg+xml');
+    res.sendFile(bannerPath);
+  });
+
   // Middleware to handle blog post metadata for social media crawlers
   app.get("/blog/:slug", async (req, res, next) => {
     try {
@@ -33,7 +40,7 @@ export function registerRoutes(app: Express): Server {
           const title = `${post.title} | 26weeks.ai - Your AI Marathon Coach`;
           const description = post.excerpt;
           const url = `${req.protocol}://${req.get('host')}/blog/${post.slug}`;
-          const image = `${req.protocol}://${req.get('host')}/logo-corners-1080p.png`;
+          const image = `${req.protocol}://${req.get('host')}/banner-social.svg`;
           
           // Replace title
           html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
@@ -61,6 +68,17 @@ export function registerRoutes(app: Express): Server {
             /<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i,
             `<meta property="og:image" content="${image}" />`
           );
+          
+          // Add or update image dimensions for better social media display
+          if (!html.includes('og:image:width')) {
+            html = html.replace(
+              /<meta property="og:image" content="[^"]*"\s*\/?>/i,
+              `<meta property="og:image" content="${image}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/svg+xml" />`
+            );
+          }
           html = html.replace(
             /<meta\s+property="og:type"\s+content="[^"]*"\s*\/?>/i,
             `<meta property="og:type" content="article" />`
