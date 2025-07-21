@@ -206,7 +206,7 @@ Your VO2 max isn’t a destiny; it’s a **starting line**. By understanding the
 ## FAQs
 
 **1. How often should I test my VO2 max?**
-Every 6–8 weeks during a dedicated VO2 block or after a consistent 5 % gain in peak 5-min power. (*long-tail keyword: “VO2 max test frequency”*)
+Every 6–8 weeks during a dedicated VO2 block or after a consistent 5 % gain in peak 5-min power.
 
 **2. Can beginners improve VO2 max without intervals?**
 Yes—boost weekly easy mileage first; intervals add extra polish once an aerobic base is set. (*“improve VO2 max without HIIT”*)
@@ -221,10 +221,6 @@ Anything above 46 ml·kg⁻¹·min⁻¹ is considered excellent for men; 37 + fo
 Relative VO2 max may rise as body mass drops, but extreme dieting can lower haemoglobin and negate gains. (*“VO2 max and weight loss”*)
 
 ---
-
-### Related Keywords
-
-VO2 max calculator • improve VO2 max for runners • VO2 max test cost • VO2 max chart by age and gender • maximum aerobic capacity • aerobic base training • lactate threshold training • running economy drills • interval training for VO2 max • HIIT for endurance runners • oxygen-uptake efficiency • genetic limits of VO2 max • wearable VO2 max accuracy • age-related VO2 max decline • cross-training to boost VO2 max
 
 ### Enjoyed the read?
 

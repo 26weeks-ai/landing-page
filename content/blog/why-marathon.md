@@ -129,14 +129,6 @@ Nike Run Club’s 18-week beginner program caps early long runs at 8 km and inte
 
 ---
 
-## Visual Guide: Infographic Concepts
-
-1. **“Marathon Training Body Makeover” diagram** – side-by-side silhouette before vs. after 16 weeks; call-outs for lower blood pressure, stronger heart, and denser bones. *Alt text:* “Physical benefits of Marathon Training on cardiovascular, muscular, and skeletal systems.”
-2. **“Long-Run Fuel Gauge” infographic** – a fuel tank graphic showing carb usage over distance, with gels and hydration breakpoints. *Alt text:* “How to fuel during Marathon Training long runs.”
-3. **“Roadmap to 26.2” timeline** – 18-week calendar highlighting mileage peaks, cut-back weeks, and taper. *Alt text:* “Beginner Marathon Training timeline from week 1 to race day.”
-
----
-
 ## Quick Takeaways
 
 * **Marathon training** lowers blood pressure and vascular age within six months.
