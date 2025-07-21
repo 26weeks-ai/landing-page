@@ -16,9 +16,14 @@ import "highlight.js/styles/github.css";
 export default function BlogPostPage() {
   const [match, params] = useRoute("/blog/:slug");
   const slug = params?.slug;
+  
+  // Debug log to check what slug we're getting
+  if (typeof window !== 'undefined') {
+    console.log('BlogPost slug:', slug);
+  }
 
   const { data: post, isLoading, error } = useQuery<BlogPost>({
-    queryKey: ["/api/blog", slug],
+    queryKey: [`/api/blog/${slug}`],
     enabled: !!slug,
   });
 
