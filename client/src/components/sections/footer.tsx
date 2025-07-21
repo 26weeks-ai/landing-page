@@ -43,7 +43,12 @@ export default function Footer() {
   };
 
   return (
-    <footer id="footer" className="bg-neutral-900 pt-20 pb-10">
+    <footer 
+      id="footer" 
+      className="bg-neutral-900 pt-20 pb-10"
+      role="contentinfo"
+      aria-label="Site footer with company information and links"
+    >
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
@@ -56,18 +61,20 @@ export default function Footer() {
               <a
                 href="https://x.com/26weeks_ai"
                 target="_blank"
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
-                aria-label="Twitter"
+                rel="noopener noreferrer"
+                className="text-neutral-400 hover:text-white transition-colors duration-300 focus:text-white"
+                aria-label="Follow us on Twitter (opens in new tab)"
               >
-                <Twitter className="w-6 h-6" />
+                <Twitter className="w-6 h-6" aria-hidden="true" />
               </a>
               <a
                 href="https://www.instagram.com/26weeks.ai/"
                 target="_blank"
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
-                aria-label="Instagram"
+                rel="noopener noreferrer"
+                className="text-neutral-400 hover:text-white transition-colors duration-300 focus:text-white"
+                aria-label="Follow us on Instagram (opens in new tab)"
               >
-                <Instagram className="w-6 h-6" />
+                <Instagram className="w-6 h-6" aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -77,19 +84,22 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <button
               onClick={() => scrollToSection("features")}
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              aria-label="Navigate to Features section"
             >
               Features
             </button>
             <button
               onClick={() => scrollToSection("pricing")}
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              aria-label="Navigate to Pricing section"
             >
               Pricing
             </button>
             <button
               onClick={() => scrollToSection("testimonials")}
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              aria-label="Navigate to Testimonials section"
             >
               Testimonials
             </button>
@@ -100,7 +110,8 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Support</h3>
             <button
               onClick={() => scrollToSection("faq")}
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              aria-label="Navigate to FAQ section"
             >
               FAQ
             </button>
@@ -124,9 +135,10 @@ export default function Footer() {
             </Link>
             <a
               href="mailto:diwakar@26weeks.ai"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 flex items-center gap-2"
+              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 flex items-center gap-2 focus:text-white"
+              aria-label="Send email to diwakar@26weeks.ai"
             >
-              <Mail className="w-4 h-4" />
+              <Mail className="w-4 h-4" aria-hidden="true" />
               diwakar@26weeks.ai
             </a>
           </div>
@@ -134,23 +146,29 @@ export default function Footer() {
           {/* Newsletter */}
           <div className="animate__animated animate__fadeIn animate__delay-3s">
             <h3 className="text-white font-semibold mb-4">Stay Updated</h3>
-            <p className="text-neutral-400 mb-4">
+            <p id="newsletter-description" className="text-neutral-400 mb-4">
               Get the latest updates and training tips.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-2">
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email address for newsletter subscription
+              </label>
               <Input
+                id="newsletter-email"
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-neutral-800 border-neutral-700 text-white"
+                className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
                 required
                 disabled={isSubmitting}
+                aria-describedby="newsletter-description"
               />
               <Button
                 type="submit"
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                 disabled={isSubmitting}
+                aria-label={isSubmitting ? "Subscribing to newsletter..." : "Subscribe to newsletter"}
               >
                 {isSubmitting ? "Subscribing..." : "Subscribe"}
               </Button>

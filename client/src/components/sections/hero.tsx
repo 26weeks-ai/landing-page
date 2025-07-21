@@ -15,7 +15,11 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="min-h-[90vh] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden flex items-center">
+    <section 
+      className="min-h-[90vh] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden flex items-center"
+      role="banner"
+      aria-label="Hero section - AI Marathon Coach introduction"
+    >
       {/* Enhanced orange gradient background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_60%)] opacity-20" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,_#FF6B00_0,_transparent_50%)] opacity-10" />
@@ -55,9 +59,10 @@ export default function Hero() {
                 variant="outline" 
                 className="border-2 border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white transition-all duration-300 sm:w-auto shadow-md"
                 onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+                aria-label="Learn more about our features and services"
               >
                 Learn More
-                <ChevronRight className="ml-2 h-4 w-4" />
+                <ChevronRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>

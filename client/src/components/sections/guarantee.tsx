@@ -22,7 +22,11 @@ const trustPoints = [
 
 export default function Guarantee() {
   return (
-    <section id="guarantee" className="py-20 bg-neutral-900">
+    <section 
+      id="guarantee" 
+      className="py-20 bg-neutral-900"
+      aria-label="Money-back guarantee and trust indicators"
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <motion.div 
@@ -40,7 +44,7 @@ export default function Guarantee() {
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <Check className="w-10 h-10 text-orange-500" />
+                <Check className="w-10 h-10 text-orange-500" aria-hidden="true" />
               </motion.div>
               
               <h2 className="text-4xl font-bold text-white mb-6">
@@ -70,7 +74,7 @@ export default function Guarantee() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <point.icon className="w-8 h-8 text-blue-500" />
+                  <point.icon className="w-8 h-8 text-blue-500" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">{point.title}</h3>
                 <p className="text-neutral-400">{point.description}</p>

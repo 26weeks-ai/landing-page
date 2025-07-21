@@ -43,7 +43,11 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="py-20 bg-white">
+    <section 
+      id="faq" 
+      className="py-20 bg-white"
+      aria-label="Frequently asked questions about 26weeks.ai"
+    >
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-16"

@@ -10,4 +10,30 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
+
+  /* Improve accessibility and performance */
+  :focus-visible {
+    @apply outline-2 outline-orange-500 outline-offset-2;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .text-neutral-600 {
+      @apply text-neutral-800;
+    }
+    .text-neutral-400 {
+      @apply text-neutral-700;
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

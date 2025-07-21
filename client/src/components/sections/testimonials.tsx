@@ -4,7 +4,11 @@ import { testimonials, type Testimonial } from '@/content/copy';
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-20 bg-neutral-50">
+    <section 
+      id="testimonials" 
+      className="py-20 bg-neutral-50"
+      aria-label="Customer testimonials and reviews"
+    >
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-16"
@@ -34,8 +38,9 @@ export default function Testimonials() {
               <div className="flex items-center mb-6">
                 <img
                   src={testimonial.image}
-                  alt={testimonial.name}
+                  alt={`${testimonial.name}, ${testimonial.role}`}
                   className="w-16 h-16 rounded-full mr-4"
+                  loading="lazy"
                 />
                 <div>
                   <h3 className="font-semibold text-lg">{testimonial.name}</h3>
@@ -43,9 +48,9 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div className="flex mb-4">
+              <div className="flex mb-4" role="img" aria-label={`${testimonial.stars} out of 5 stars rating`}>
                 {[...Array(testimonial.stars)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" aria-hidden="true" />
                 ))}
               </div>
 

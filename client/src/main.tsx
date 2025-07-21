@@ -3,10 +3,16 @@ import App from "./App";
 import "./index.css";
 import { PerformanceLogger } from './hooks/use-performance';
 
-// Performance optimization
+// Performance optimization with priority loading
 const startRender = () => {
+  const root = document.getElementById("root");
+  if (!root) {
+    console.error("Root element not found");
+    return;
+  }
+
   // Create a single root and render the app with performance logger if in development
-  if (process.env.NODE_ENV !== 'production') {
+  if (import.meta.env.MODE !== 'production') {
     const AppWithPerformanceLogging = () => (
       <>
         <App />
@@ -14,16 +20,26 @@ const startRender = () => {
       </>
     );
     
-    createRoot(document.getElementById("root")!).render(<AppWithPerformanceLogging />);
+    createRoot(root).render(<AppWithPerformanceLogging />);
   } else {
-    createRoot(document.getElementById("root")!).render(<App />);
+    createRoot(root).render(<App />);
   }
 };
 
-// Start rendering immediately if document is already interactive
+// Optimized loading strategy
+const initializeApp = () => {
+  // Use requestIdleCallback if available for better performance
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(startRender, { timeout: 100 });
+  } else {
+    startRender();
+  }
+};
+
+// Start rendering immediately if document is already ready
 if (document.readyState === 'interactive' || document.readyState === 'complete') {
-  startRender();
+  initializeApp();
 } else {
   // Otherwise wait for DOMContentLoaded event
-  document.addEventListener('DOMContentLoaded', startRender);
+  document.addEventListener('DOMContentLoaded', initializeApp);
 }

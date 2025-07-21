@@ -5,8 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>26weeks.ai - Your AI Marathon Coach</title>
 
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/src/index.css" as="style" />
+    <!-- Critical CSS optimization -->
+    <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/src/index.css" /></noscript>
+    
+    <!-- Critical inline styles for faster FCP -->
+    <style>
+      /* Critical above-the-fold styles */
+      body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+      #root { min-height: 100vh; }
+      .hero-skeleton { background: linear-gradient(135deg, #171717 0%, #262626 100%); min-height: 90vh; }
+    </style>
+    
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
@@ -14,10 +25,10 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
-    <!-- Favicon -->
+    <!-- Favicon and PWA -->
     <link rel="icon" type="image/svg+xml" href="/icon-corners.svg" />
-    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico" /> -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- SEO Meta Tags -->
     <meta
@@ -30,7 +41,7 @@
     />
 
     <!-- Performance optimization -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' data:; object-src 'none'; base-uri 'self';" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -62,10 +73,12 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Preload important modules -->
+    <!-- Preload critical modules before script execution -->
     <link rel="modulepreload" href="/src/App.tsx" />
     <link rel="modulepreload" href="/src/components/sections/hero.tsx" />
+    <link rel="modulepreload" href="/src/main.tsx" />
+    
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
