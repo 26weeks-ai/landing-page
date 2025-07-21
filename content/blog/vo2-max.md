@@ -2,9 +2,9 @@
 
 title: "VO2 Max 101: Elevate Endurance with Proven Strategies"
 excerpt: "A complete, science-backed guide on VO2 Max for runners and endurance athletes—definitions, tests, training tips, and an 8-week plan to boost your aerobic engine."
-author: "Coach Diwakar Moturu"
+author: "Coach"
 publishedAt: "2025-07-21"
-tags: \["VO2 Max", "endurance", "running", "training", "guide"]
+tags: ["VO2 Max", "endurance", "running", "training", "guide"]
 readingTime: 14
 featured: true
 --------------
