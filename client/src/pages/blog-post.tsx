@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute } from "wouter";
+import { lazy, Suspense } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -7,11 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SocialShare } from "@/components/blog/social-share";
+import { MetaHead } from "@/components/MetaHead";
 import { ArrowLeft, Clock, User, Calendar } from "lucide-react";
 import { Link } from "wouter";
 import type { BlogPost } from "@shared/schema";
 import { formatDate } from "@/lib/blog";
 import "highlight.js/styles/github.css";
+
+// Lazy load related posts for better performance
+const LazyRelatedPosts = lazy(() => import("@/components/blog/RelatedPosts"));
 
 export default function BlogPostPage() {
   const [match, params] = useRoute("/blog/:slug");
@@ -25,8 +30,11 @@ export default function BlogPostPage() {
   const { data: post, isLoading, error } = useQuery<BlogPost>({
     queryKey: [`/api/blog/${slug}`],
     enabled: !!slug,
+    staleTime: 10 * 60 * 1000, // 10 minutes cache for posts
+    retry: 2, // Limit retries for faster failure handling
   });
 
+  // Load related posts with lower priority (defer loading)
   const { data: relatedPosts = [] } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog"],
     select: (posts) => {
@@ -38,6 +46,7 @@ export default function BlogPostPage() {
         .slice(0, 3);
     },
     enabled: !!post,
+    staleTime: 5 * 60 * 1000, // 5 minutes cache
   });
 
   if (!match) {
@@ -65,25 +74,42 @@ export default function BlogPostPage() {
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <Skeleton className="h-8 w-24 mb-8" />
-          <Skeleton className="h-12 w-3/4 mb-4" />
-          <div className="flex gap-4 mb-8">
-            <Skeleton className="h-6 w-32" />
-            <Skeleton className="h-6 w-24" />
-            <Skeleton className="h-6 w-28" />
-          </div>
-          <div className="space-y-4">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Skeleton key={i} className="h-4 w-full" />
-            ))}
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-24 mb-8"></div>
+            <div className="h-12 bg-gray-200 rounded w-3/4 mb-4"></div>
+            <div className="flex gap-4 mb-8">
+              <div className="h-6 bg-gray-200 rounded w-32"></div>
+              <div className="h-6 bg-gray-200 rounded w-24"></div>
+              <div className="h-6 bg-gray-200 rounded w-28"></div>
+            </div>
+            <div className="space-y-4">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <div key={i} className="h-4 bg-gray-200 rounded w-full"></div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
+  // Generate current URL for sharing
+  const currentUrl = typeof window !== 'undefined' ? `${window.location.origin}/blog/${post.slug}` : `https://26weeks.ai/blog/${post.slug}`;
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Dynamic Meta Tags */}
+      <MetaHead
+        title={post.title}
+        description={post.excerpt}
+        author={post.author}
+        publishedAt={post.publishedAt}
+        readingTime={post.readingTime}
+        url={currentUrl}
+        tags={post.tags || undefined}
+        type="article"
+      />
+      
       {/* Header */}
       <div className="border-b">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -205,31 +231,23 @@ export default function BlogPostPage() {
         </div>
 
         {/* Related Posts */}
-        {relatedPosts.length > 0 && (
+        <Suspense fallback={
           <div className="mt-16 pt-8 border-t">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Related Articles</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedPosts.map((relatedPost) => (
-                <Link key={relatedPost.id} href={`/blog/${relatedPost.slug}`}>
-                  <div className="group cursor-pointer">
-                    <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
-                      <h4 className="font-semibold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors line-clamp-2">
-                        {relatedPost.title}
-                      </h4>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                        {relatedPost.excerpt}
-                      </p>
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <span>{relatedPost.author}</span>
-                        <span>{relatedPost.readingTime} min</span>
-                      </div>
-                    </div>
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-gray-50 rounded-lg p-6">
+                  <div className="space-y-3">
+                    <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+                    <div className="h-3 bg-gray-200 rounded w-1/2 animate-pulse"></div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
-        )}
+        }>
+          <LazyRelatedPosts posts={relatedPosts} />
+        </Suspense>
       </div>
     </div>
   );
