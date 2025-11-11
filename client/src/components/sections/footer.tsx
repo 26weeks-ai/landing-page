@@ -54,21 +54,18 @@ export default function Footer() {
             <button
               onClick={() => scrollToSection("features")}
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
-              aria-label="Navigate to Features section"
             >
               Features
             </button>
             <button
               onClick={() => scrollToSection("pricing")}
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
-              aria-label="Navigate to Pricing section"
             >
               Pricing
             </button>
             <button
               onClick={() => scrollToSection("testimonials")}
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
-              aria-label="Navigate to Testimonials section"
             >
               Testimonials
             </button>
@@ -80,7 +77,6 @@ export default function Footer() {
             <button
               onClick={() => scrollToSection("faq")}
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
-              aria-label="Navigate to FAQ section"
             >
               FAQ
             </button>
@@ -118,7 +114,10 @@ export default function Footer() {
             <p className="text-neutral-400 mb-4">
               Be the first to hear about launch updates, product news, and training drops.
             </p>
-            <Button asChild className="w-full bg-orange-500 hover:bg-orange-600 text-white">
+            <Button
+              asChild
+              className="w-full bg-orange-500 text-neutral-950 font-semibold shadow-lg shadow-orange-500/30 hover:bg-orange-400 focus-visible:ring-orange-500 transition-transform duration-150 hover:scale-[1.01] active:scale-[0.99]"
+            >
               <a href={WAITLIST_FORM_URL} target="_blank" rel="noopener noreferrer">
                 Open Waitlist Form
               </a>

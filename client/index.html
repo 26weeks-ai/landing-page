@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>26weeks.ai - Your AI Marathon Coach</title>
 
-    <!-- Critical CSS optimization -->
-    <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="/src/index.css" /></noscript>
-    
     <!-- Critical inline styles for faster FCP -->
     <style>
       /* Critical above-the-fold styles */
@@ -73,12 +69,7 @@
   </head>
   <body>
     <div id="root"></div>
-    
-    <!-- Preload critical modules before script execution -->
-    <link rel="modulepreload" href="/src/App.tsx" />
-    <link rel="modulepreload" href="/src/components/sections/hero.tsx" />
-    <link rel="modulepreload" href="/src/main.tsx" />
-    
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

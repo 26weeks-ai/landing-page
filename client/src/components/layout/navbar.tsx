@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';
@@ -34,21 +33,16 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.header
-      className={`fixed w-full z-50 transition-colors duration-300 ${
-        isScrolled ? 'bg-neutral-900/95 backdrop-blur-md border-b border-neutral-800' : 'bg-neutral-900/80 backdrop-blur-sm'
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-neutral-900/95 backdrop-blur-md border-b border-neutral-800 translate-y-0 shadow-lg shadow-black/30' : 'bg-neutral-900/80 backdrop-blur-sm'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
     >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link href="/">
-            <motion.div 
-              className="font-bold cursor-pointer flex items-center"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <div 
+              className="font-bold cursor-pointer flex items-center transition-transform duration-150 hover:scale-105 active:scale-95"
             >
               <span className="text-2xl">
                 <span className="text-orange-500">26</span>
@@ -56,31 +50,27 @@ export default function Navbar() {
                 <span className="text-orange-500">.</span>
                 <span className="text-white">ai</span>
               </span>
-            </motion.div>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8 items-center">
             {navLinks.map((link) => (
-              <motion.a
+              <a
                 key={link.href}
                 href={link.href}
-                className="text-white/90 hover:text-orange-500 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="text-white/90 hover:text-orange-500 transition-all duration-150 hover:scale-105 inline-flex"
               >
                 {link.label}
-              </motion.a>
+              </a>
             ))}
             {pageLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <motion.span
-                  className="text-white/90 hover:text-orange-500 transition-colors cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <span
+                  className="text-white/90 hover:text-orange-500 transition-all duration-150 cursor-pointer inline-flex hover:scale-105"
                 >
                   {link.label}
-                </motion.span>
+                </span>
               </Link>
             ))}
             <WaitlistForm />
@@ -89,32 +79,28 @@ export default function Navbar() {
           {/* Mobile Navigation */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden text-white" size="icon">
+              <Button variant="ghost" className="md:hidden text-white" size="icon" aria-label="Open navigation menu">
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
             <SheetContent className="bg-neutral-900 border-neutral-800">
               <nav className="flex flex-col space-y-4 mt-8">
                 {navLinks.map((link) => (
-                  <motion.a
+                  <a
                     key={link.href}
                     href={link.href}
-                    className="text-white hover:text-orange-500 transition-colors px-4 py-2 rounded-lg"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="text-white hover:text-orange-500 transition-all px-4 py-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500"
                   >
                     {link.label}
-                  </motion.a>
+                  </a>
                 ))}
                 {pageLinks.map((link) => (
                   <Link key={link.href} href={link.href}>
-                    <motion.span
+                    <span
                       className="text-white hover:text-orange-500 transition-colors px-4 py-2 rounded-lg cursor-pointer block"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
                     >
                       {link.label}
-                    </motion.span>
+                    </span>
                   </Link>
                 ))}
                 <div className="px-4 pt-4">
@@ -125,6 +111,6 @@ export default function Navbar() {
           </Sheet>
         </div>
       </nav>
-    </motion.header>
+    </header>
   );
 }
