@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, User } from "lucide-react";
 import { Link } from "wouter";
-import type { BlogPost } from "@shared/schema";
+import type { BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/blog";
 
 interface BlogCardProps {
@@ -11,45 +11,39 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post, featured = false }: BlogCardProps) {
-  // Debug log to check post data
-  if (typeof window !== 'undefined') {
-    console.log('BlogCard post data:', {
-      author: post.author,
-      publishedAt: post.publishedAt,
-      readingTime: post.readingTime,
-      formatted: formatDate(post.publishedAt)
-    });
-  }
-  
   return (
     <Link href={`/blog/${post.slug}`}>
-      <Card className={`group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-        featured ? 'border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50' : ''
-      }`}>
+      <Card
+        className={`group h-full cursor-pointer border border-neutral-900 bg-neutral-900/40 text-white transition-all duration-300 hover:border-orange-500/60 hover:bg-neutral-900/70 ${
+          featured ? "md:col-span-2" : ""
+        }`}
+      >
         <CardHeader className="pb-4">
           <div className="flex flex-wrap gap-2 mb-3">
             {post.featured && (
-              <Badge variant="secondary" className="bg-orange-100 text-orange-800 hover:bg-orange-200">
+              <Badge className="bg-orange-500/20 text-orange-200">
                 Featured
               </Badge>
             )}
             {post.tags?.slice(0, 2).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
+              <Badge key={tag} variant="outline" className="text-xs border-neutral-800 text-neutral-300">
                 {tag}
               </Badge>
             ))}
           </div>
-          <h3 className={`font-semibold leading-tight group-hover:text-orange-600 transition-colors ${
-            featured ? 'text-xl' : 'text-lg'
-          }`}>
+          <h3
+            className={`font-semibold leading-tight transition-colors group-hover:text-orange-400 ${
+              featured ? "text-2xl" : "text-xl"
+            }`}
+          >
             {post.title}
           </h3>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground mb-4 line-clamp-3">
+          <p className="mb-4 line-clamp-3 text-neutral-400">
             {post.excerpt}
           </p>
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <div className="flex items-center justify-between text-sm text-neutral-400">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
                 <User className="w-4 h-4" />

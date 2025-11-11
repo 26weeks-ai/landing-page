@@ -1,10 +1,7 @@
-import { useEffect, lazy, Suspense, useState } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import Navbar from '@/components/layout/navbar';
 import Hero from '@/components/sections/hero';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AnimatedBackground } from '@/components/ui/animated-background';
-import { RunningAnimation } from '@/components/ui/running-animation';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 // Lazy load below-the-fold sections for performance
 const Features = lazy(() => import('@/components/sections/features'));
@@ -27,56 +24,30 @@ const SectionLoader = () => (
 );
 
 export default function Home() {
-  const isMobile = useIsMobile();
-  const [animationLoaded, setAnimationLoaded] = useState(false);
-  const [performanceLevel, setPerformanceLevel] = useState<'high' | 'medium' | 'low'>('medium');
 
   useEffect(() => {
-    // Implement smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      const anchorElement = anchor as HTMLAnchorElement;
-      anchorElement.addEventListener('click', (e: Event) => {
-        e.preventDefault();
-        const href = anchorElement.getAttribute('href');
-        if (href) {
-          document.querySelector(href)?.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
+    const anchors = Array.from(document.querySelectorAll('a[href^="#"]')) as HTMLAnchorElement[];
+    const handleAnchorClick = (event: Event) => {
+      event.preventDefault();
+      const target = event.currentTarget as HTMLAnchorElement;
+      const href = target.getAttribute('href');
+      if (href) {
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
 
-    // Preload critical resources
-    const preloadComponents = () => {
-      // Start preloading other components after critical content is loaded
+    anchors.forEach((anchor) => anchor.addEventListener('click', handleAnchorClick));
+
+    const timer = setTimeout(() => {
       import('@/components/sections/features');
       import('@/components/sections/footer');
-    };
+    }, 2000);
 
-    // Preload after a short delay to prioritize initial render
-    const timer = setTimeout(preloadComponents, 2000);
-
-    // Detect performance capabilities
-    const detectPerformance = () => {
-      // Check device capability - this is a simple heuristic
-      // In a production app, you might want more sophisticated detection
-      if (isMobile) {
-        setPerformanceLevel('low');
-      } else if (window.navigator.hardwareConcurrency > 4) {
-        setPerformanceLevel('high');
-      } else {
-        setPerformanceLevel('medium');
-      }
-      
-      // Mark animation as loaded after a short delay regardless
-      // This ensures the UI becomes interactive even if detection is slow
-      setTimeout(() => setAnimationLoaded(true), 500);
+    return () => {
+      anchors.forEach((anchor) => anchor.removeEventListener('click', handleAnchorClick));
+      clearTimeout(timer);
     };
-    
-    detectPerformance();
-    
-    return () => clearTimeout(timer);
-  }, [isMobile]);
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-background overflow-x-hidden">

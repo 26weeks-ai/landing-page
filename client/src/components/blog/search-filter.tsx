@@ -36,79 +36,88 @@ export function SearchFilter({
   };
 
   return (
-    <div className="space-y-4 mb-8">
-      {/* Search Bar */}
+    <section className="rounded-3xl border border-neutral-900 bg-neutral-900/40 p-6 space-y-6">
       <form onSubmit={handleSearchSubmit} className="relative">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-          <Input
-            placeholder="Search blog posts..."
-            value={localQuery}
-            onChange={(e) => setLocalQuery(e.target.value)}
-            className="pl-10 pr-10"
-          />
-          {localQuery && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0"
-              onClick={clearSearch}
-            >
-              <X className="w-4 h-4" />
-            </Button>
-          )}
-        </div>
+        <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
+        <Input
+          placeholder="Search posts by title, topic, or keyword"
+          value={localQuery}
+          onChange={(e) => setLocalQuery(e.target.value)}
+          className="w-full border-neutral-800 bg-neutral-950/60 pl-12 pr-12 text-white placeholder:text-neutral-500"
+        />
+        {localQuery && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white"
+            onClick={clearSearch}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        )}
       </form>
 
-      {/* Active Filters */}
       {(searchQuery || selectedTag) && (
-        <div className="flex flex-wrap gap-2 items-center">
-          <span className="text-sm text-muted-foreground">Active filters:</span>
+        <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-400">
+          <span>Active filters:</span>
           {searchQuery && (
-            <Badge variant="secondary" className="flex items-center gap-1">
+            <Badge
+              variant="secondary"
+              className="flex items-center gap-1 border border-orange-500/40 bg-orange-500/10 text-orange-300"
+            >
               Search: "{searchQuery}"
-              <button onClick={clearSearch} className="ml-1 hover:bg-gray-200 rounded-full p-1">
-                <X className="w-3 h-3" />
+              <button onClick={clearSearch} className="rounded-full bg-transparent p-1 text-orange-300">
+                <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
           {selectedTag && (
-            <Badge variant="secondary" className="flex items-center gap-1">
+            <Badge
+              variant="secondary"
+              className="flex items-center gap-1 border border-neutral-700 bg-neutral-800 text-neutral-200"
+            >
               Tag: {selectedTag}
-              <button onClick={clearTag} className="ml-1 hover:bg-gray-200 rounded-full p-1">
-                <X className="w-3 h-3" />
+              <button onClick={clearTag} className="rounded-full bg-transparent p-1 text-neutral-300">
+                <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
         </div>
       )}
 
-      {/* Tag Filter */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-medium text-muted-foreground">Filter by topic:</h3>
+      <div className="space-y-3">
+        <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">Browse by tag</p>
         <div className="flex flex-wrap gap-2">
           <Button
-            variant={selectedTag === null ? "default" : "outline"}
+            variant={selectedTag === null ? "default" : "ghost"}
             size="sm"
+            className={
+              selectedTag === null
+                ? "bg-orange-500 text-white hover:bg-orange-500/90"
+                : "border border-neutral-800 bg-transparent text-neutral-300 hover:bg-neutral-900"
+            }
             onClick={() => onTagFilter(null)}
-            className="text-xs"
           >
-            All Posts
+            All posts
           </Button>
           {availableTags.map((tag) => (
             <Button
               key={tag}
-              variant={selectedTag === tag ? "default" : "outline"}
+              variant={selectedTag === tag ? "default" : "ghost"}
               size="sm"
+              className={
+                selectedTag === tag
+                  ? "bg-orange-500 text-white hover:bg-orange-500/90"
+                  : "border border-neutral-800 bg-transparent text-neutral-300 hover:bg-neutral-900"
+              }
               onClick={() => onTagFilter(tag)}
-              className="text-xs capitalize"
             >
               {tag}
             </Button>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

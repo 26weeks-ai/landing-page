@@ -1,0 +1,334 @@
+{
+  "$schema": "https://schemas.tokens.studio/v1.0/tokens.schema.json",
+  "tokenSetOrder": [
+    "core",
+    "light",
+    "dark",
+    "components"
+  ],
+  "core": {
+    "color": {
+      "orange": {
+        "50": {
+          "value": "#FFF0E8"
+        },
+        "100": {
+          "value": "#FFE5D6"
+        },
+        "200": {
+          "value": "#FFC9AE"
+        },
+        "300": {
+          "value": "#FFA06F"
+        },
+        "400": {
+          "value": "#FF7B36"
+        },
+        "500": {
+          "value": "#FF5B04"
+        },
+        "600": {
+          "value": "#E25400"
+        },
+        "700": {
+          "value": "#BF4600"
+        },
+        "800": {
+          "value": "#9A3900"
+        },
+        "900": {
+          "value": "#7B2E00"
+        }
+      },
+      "midnightGreen": {
+        "50": {
+          "value": "#E6EDEE"
+        },
+        "100": {
+          "value": "#CDE0E2"
+        },
+        "200": {
+          "value": "#A5C8CB"
+        },
+        "300": {
+          "value": "#7EAFB2"
+        },
+        "400": {
+          "value": "#5A979A"
+        },
+        "500": {
+          "value": "#3B8083"
+        },
+        "600": {
+          "value": "#075056"
+        },
+        "700": {
+          "value": "#063F44"
+        },
+        "800": {
+          "value": "#032D2F"
+        },
+        "900": {
+          "value": "#011F21"
+        }
+      },
+      "gunmetal": {
+        "50": {
+          "value": "#E9EAEB"
+        },
+        "100": {
+          "value": "#D3D5D7"
+        },
+        "200": {
+          "value": "#A7ACAF"
+        },
+        "300": {
+          "value": "#7B8287"
+        },
+        "400": {
+          "value": "#4E595F"
+        },
+        "500": {
+          "value": "#233038"
+        },
+        "600": {
+          "value": "#1C262C"
+        },
+        "700": {
+          "value": "#151C21"
+        },
+        "800": {
+          "value": "#0E1316"
+        },
+        "900": {
+          "value": "#080C0E"
+        }
+      },
+      "ivory": {
+        "50": {
+          "value": "#FDF6E3"
+        },
+        "100": {
+          "value": "#FCF0D1"
+        },
+        "200": {
+          "value": "#F9E9BD"
+        },
+        "300": {
+          "value": "#F3E1AA"
+        },
+        "400": {
+          "value": "#EBDBA0"
+        },
+        "500": {
+          "value": "#E3D497"
+        }
+      },
+      "sandYellow": {
+        "50": {
+          "value": "#FDF9ED"
+        },
+        "100": {
+          "value": "#FBF2D7"
+        },
+        "200": {
+          "value": "#FAEDCA"
+        },
+        "300": {
+          "value": "#F8E5B0"
+        },
+        "400": {
+          "value": "#F6DC96"
+        },
+        "500": {
+          "value": "#F4D47C"
+        },
+        "600": {
+          "value": "#DBBE6F"
+        },
+        "700": {
+          "value": "#B79E5C"
+        }
+      },
+      "lightSilver": {
+        "500": {
+          "value": "#D3DBDD"
+        }
+      },
+      "support": {
+        "success": {
+          "value": "#1B9E77"
+        },
+        "warning": {
+          "value": "#D88C00"
+        },
+        "error": {
+          "value": "#D64545"
+        }
+      },
+      "utility": {
+        "onPrimary": {
+          "value": "#0B0E10"
+        },
+        "onSecondary": {
+          "value": "#FDF6E3"
+        }
+      }
+    },
+    "radius": {
+      "xs": {
+        "value": 4
+      },
+      "sm": {
+        "value": 6
+      },
+      "md": {
+        "value": 8
+      },
+      "lg": {
+        "value": 12
+      },
+      "xl": {
+        "value": 16
+      },
+      "2xl": {
+        "value": 24
+      },
+      "pill": {
+        "value": 999
+      }
+    },
+    "space": {
+      "0": {
+        "value": 0
+      },
+      "px": {
+        "value": 1
+      },
+      "2": {
+        "value": 2
+      },
+      "4": {
+        "value": 4
+      },
+      "8": {
+        "value": 8
+      },
+      "12": {
+        "value": 12
+      },
+      "16": {
+        "value": 16
+      },
+      "20": {
+        "value": 20
+      },
+      "24": {
+        "value": 24
+      },
+      "32": {
+        "value": 32
+      },
+      "40": {
+        "value": 40
+      },
+      "48": {
+        "value": 48
+      },
+      "56": {
+        "value": 56
+      },
+      "64": {
+        "value": 64
+      }
+    }
+  },
+  "light": {
+    "color": {
+      "background": {
+        "value": "#FDF6E3"
+      },
+      "surface": {
+        "value": "#FBF2D7"
+      },
+      "text": {
+        "primary": {
+          "value": "#233038"
+        },
+        "secondary": {
+          "value": "#38444B"
+        },
+        "muted": {
+          "value": "#5A6A75"
+        }
+      },
+      "border": {
+        "value": "#D3DBDD"
+      },
+      "focus": {
+        "value": "#FF5B04"
+      },
+      "link": {
+        "value": "#FF5B04"
+      },
+      "brand": {
+        "primary": {
+          "value": "#FF5B04"
+        },
+        "secondary": {
+          "value": "#075056"
+        }
+      }
+    }
+  },
+  "dark": {
+    "color": {
+      "background": {
+        "value": "#233038"
+      },
+      "surface": {
+        "value": "#2B3A48"
+      },
+      "text": {
+        "primary": {
+          "value": "#FDF6E3"
+        },
+        "secondary": {
+          "value": "#D3DBDD"
+        },
+        "muted": {
+          "value": "#A7ACAF"
+        }
+      },
+      "border": {
+        "value": "#3A4A58"
+      },
+      "focus": {
+        "value": "#FF5B04"
+      },
+      "link": {
+        "value": "#FF5B04"
+      },
+      "brand": {
+        "primary": {
+          "value": "#FF5B04"
+        },
+        "secondary": {
+          "value": "#075056"
+        }
+      }
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "bg": {
+          "value": "{dark.color.brand.primary}"
+        },
+        "textOn": {
+          "value": "#0B0E10"
+        }
+      }
+    }
+  }
+}

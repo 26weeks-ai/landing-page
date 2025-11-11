@@ -1,5 +1,4 @@
 ---
-
 title: "Marathon Training Breathwork: Pranayama to Boost HRV & VO2"
 excerpt: "Unlock better heart-rate variability, a lower resting pulse, and more oxygen per stride with science-backed breathing drills tailor-made for every runner."
 author: "Coach"
@@ -7,7 +6,7 @@ publishedAt: "2025-07-21"
 tags: ["breathwork", "pranayama", "Marathon Training", "VO2 Max", "HRV"]
 readingTime: 12
 featured: true
---------------
+---
 
 ## Introduction
 

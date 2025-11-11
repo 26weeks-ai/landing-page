@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Facebook, Twitter, Linkedin, Mail, Copy } from "lucide-react";
-import type { BlogPost } from "@shared/schema";
+import type { BlogPost } from "@/lib/blog";
 import { generateShareUrls } from "@/lib/blog";
 
 interface SocialShareProps {
@@ -66,7 +66,7 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
           key={button.name}
           variant="outline"
           size="sm"
-          className={`${button.className} transition-colors`}
+          className={`border-neutral-800 bg-neutral-950/40 text-neutral-200 hover:bg-neutral-900 ${button.className}`}
           onClick={() => window.open(button.url, '_blank', 'noopener,noreferrer')}
         >
           <button.icon className="w-4 h-4 mr-2" />
@@ -76,7 +76,7 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
       <Button
         variant="outline"
         size="sm"
-        className="hover:bg-green-50 hover:text-green-600 transition-colors"
+        className="border-neutral-800 bg-neutral-950/40 text-neutral-200 hover:bg-green-500/10 hover:text-green-300"
         onClick={handleCopyLink}
       >
         <Copy className="w-4 h-4 mr-2" />

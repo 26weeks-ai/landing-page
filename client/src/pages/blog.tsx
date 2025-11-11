@@ -1,106 +1,80 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMemo, useState } from "react";
 import { BlogCard } from "@/components/blog/blog-card";
 import { SearchFilter } from "@/components/blog/search-filter";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 import { Link } from "wouter";
-import type { BlogPost } from "@shared/schema";
-import { extractUniqueTags, filterPostsByTag, searchPosts } from "@/lib/blog";
+import {
+  extractUniqueTags,
+  filterPostsByTag,
+  getAllPosts,
+  getFeaturedPosts,
+  searchPosts,
+} from "@/lib/blog";
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const posts = getAllPosts();
+  const featuredPosts = getFeaturedPosts();
 
-  const { data: posts = [], isLoading, error } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog"],
-  });
+  const availableTags = useMemo(() => extractUniqueTags(posts), [posts]);
 
-  const { data: featuredPosts = [] } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog/featured"],
-  });
+  const filteredPosts = useMemo(() => {
+    let result = posts;
 
-  // Process posts based on filters
-  const availableTags = extractUniqueTags(posts);
-  
-  let filteredPosts = posts;
-  if (selectedTag) {
-    filteredPosts = filterPostsByTag(filteredPosts, selectedTag);
-  }
-  if (searchQuery) {
-    filteredPosts = searchPosts(filteredPosts, searchQuery);
-  }
+    if (selectedTag) {
+      result = filterPostsByTag(result, selectedTag);
+    }
+    if (searchQuery) {
+      result = searchPosts(result, searchQuery);
+    }
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h2>
-          <p className="text-gray-600 mb-6">We couldn't load the blog posts. Please try again later.</p>
+    return result;
+  }, [posts, searchQuery, selectedTag]);
+
+  return (
+    <div className="min-h-screen bg-neutral-950 text-white">
+      <header className="border-b border-neutral-900 bg-gradient-to-b from-neutral-950 to-neutral-900/50">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-16 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="mb-4 inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-neutral-400">
+              <Sparkles className="h-4 w-4 text-orange-500" />
+              Insights & Stories
+            </p>
+            <h1 className="text-4xl font-semibold leading-tight text-white md:text-5xl">
+              Training intel for runners chasing <span className="text-orange-400">26.2</span>
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg text-neutral-400">
+              Practical tactics, mindset shifts, and data-backed lessons from our coaching lab. Everything we learn while
+              helping athletes go from couch to marathon lives here.
+            </p>
+          </div>
           <Link href="/">
-            <Button>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
+            <Button variant="ghost" className="self-start text-orange-400 hover:bg-orange-500/10">
+              <ArrowLeft className="mr-2 h-4 w-4" /> Back to home
             </Button>
           </Link>
         </div>
-      </div>
-    );
-  }
+      </header>
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-orange-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center justify-between mb-6">
-            <Link href="/">
-              <Button variant="ghost" className="text-orange-600 hover:text-orange-700">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
-          
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Running & Training Blog
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Expert insights, training tips, and inspiring stories to help you on your running journey
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Featured Posts Section */}
+      <main className="mx-auto max-w-6xl px-6 py-16 space-y-16">
         {featuredPosts.length > 0 && !searchQuery && !selectedTag && (
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Featured Articles</h2>
-            {isLoading ? (
-              <div className="grid md:grid-cols-2 gap-8">
-                {[1, 2].map((i) => (
-                  <div key={i} className="space-y-4">
-                    <Skeleton className="h-48 w-full" />
-                    <Skeleton className="h-6 w-3/4" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-2/3" />
-                  </div>
-                ))}
+          <section className="space-y-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">Editor's picks</p>
+                <h2 className="text-2xl font-semibold text-white">Highlighted reads</h2>
               </div>
-            ) : (
-              <div className="grid md:grid-cols-2 gap-8">
-                {featuredPosts.slice(0, 2).map((post) => (
-                  <BlogCard key={post.id} post={post} featured />
-                ))}
-              </div>
-            )}
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {featuredPosts.slice(0, 2).map((post) => (
+                <BlogCard key={post.id} post={post} featured />
+              ))}
+            </div>
           </section>
         )}
 
-        {/* Search and Filter */}
         <SearchFilter
           onSearch={setSearchQuery}
           onTagFilter={setSelectedTag}
@@ -109,60 +83,44 @@ export default function BlogPage() {
           searchQuery={searchQuery}
         />
 
-        {/* All Posts Section */}
-        <section>
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">
-              {searchQuery || selectedTag ? "Search Results" : "All Articles"}
-            </h2>
-            <span className="text-sm text-gray-600">
-              {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
-            </span>
+        <section className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">
+                {searchQuery || selectedTag ? "Search results" : "All posts"}
+              </p>
+              <h2 className="text-2xl font-semibold text-white">{filteredPosts.length} article(s)</h2>
+            </div>
+            {(searchQuery || selectedTag) && (
+              <Button
+                variant="ghost"
+                className="text-sm text-neutral-300 hover:bg-neutral-900/60"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedTag(null);
+                }}
+              >
+                Clear filters
+              </Button>
+            )}
           </div>
 
-          {isLoading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="space-y-4">
-                  <Skeleton className="h-40 w-full" />
-                  <Skeleton className="h-6 w-3/4" />
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-2/3" />
-                </div>
-              ))}
-            </div>
-          ) : filteredPosts.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="max-w-md mx-auto">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  No articles found
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  {searchQuery || selectedTag
-                    ? "Try adjusting your search terms or filters."
-                    : "Check back soon for new content!"}
-                </p>
-                {(searchQuery || selectedTag) && (
-                  <Button
-                    onClick={() => {
-                      setSearchQuery("");
-                      setSelectedTag(null);
-                    }}
-                  >
-                    Clear Filters
-                  </Button>
-                )}
-              </div>
+          {filteredPosts.length === 0 ? (
+            <div className="rounded-3xl border border-neutral-900 bg-neutral-900/40 p-12 text-center">
+              <h3 className="text-xl font-semibold text-white">Nothing matched just yet</h3>
+              <p className="mt-2 text-neutral-400">
+                Try tweaking your search terms or explore a different tag — we add fresh drops every sprint.
+              </p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredPosts.map((post) => (
                 <BlogCard key={post.id} post={post} />
               ))}
             </div>
           )}
         </section>
-      </div>
+      </main>
     </div>
   );
 }

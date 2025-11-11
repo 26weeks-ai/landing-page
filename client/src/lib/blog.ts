@@ -1,7 +1,18 @@
-import matter from 'gray-matter';
-import type { BlogPost } from '@shared/schema';
+import fm from "front-matter";
 
-export interface BlogPostMeta {
+export interface BlogFrontMatter {
+  title?: string;
+  excerpt?: string;
+  author?: string;
+  publishedAt?: string;
+  tags?: string[];
+  readingTime?: number;
+  featured?: boolean;
+}
+
+export interface BlogPost {
+  id: string;
+  slug: string;
   title: string;
   excerpt: string;
   author: string;
@@ -9,100 +20,110 @@ export interface BlogPostMeta {
   tags: string[];
   readingTime: number;
   featured: boolean;
-}
-
-export interface ParsedBlogPost extends BlogPostMeta {
-  slug: string;
   content: string;
 }
 
-// Utility to parse markdown files with frontmatter
-export function parseBlogPost(content: string, slug: string): ParsedBlogPost {
-  const { data, content: markdownContent } = matter(content);
-  
-  return {
-    slug,
-    title: data.title || '',
-    excerpt: data.excerpt || '',
-    author: data.author || '',
-    publishedAt: data.publishedAt || '',
-    tags: data.tags || [],
-    readingTime: data.readingTime || 5,
-    featured: data.featured || false,
-    content: markdownContent
-  };
+const markdownFiles = import.meta.glob("../content/blog/*.md", {
+  eager: true,
+  as: "raw",
+}) as Record<string, string>;
+
+const allPosts: BlogPost[] = Object.entries(markdownFiles)
+  .map(([path, raw]) => {
+    const slug = path.split("/").pop()?.replace(/\.md$/, "") ?? "post";
+    const { attributes, body } = fm<BlogFrontMatter>(raw);
+
+    return {
+      id: slug,
+      slug,
+      title: attributes.title ?? slug,
+      excerpt: attributes.excerpt ?? "",
+      author: attributes.author ?? "26weeks.ai",
+      publishedAt: attributes.publishedAt ?? new Date().toISOString(),
+      tags: Array.isArray(attributes.tags) ? attributes.tags : [],
+      readingTime:
+        typeof attributes.readingTime === "number"
+          ? attributes.readingTime
+          : calculateReadingTime(body),
+      featured: Boolean(attributes.featured),
+      content: body.trim(),
+    };
+  })
+  .sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
+
+export function getAllPosts(): BlogPost[] {
+  return allPosts;
 }
 
-// Format date for display
+export function getFeaturedPosts(): BlogPost[] {
+  return allPosts.filter((post) => post.featured);
+}
+
+export function getPostBySlug(slug: string): BlogPost | undefined {
+  return allPosts.find((post) => post.slug === slug);
+}
+
+export function getRelatedPosts(post: BlogPost, limit = 3): BlogPost[] {
+  const postTags = post.tags ?? [];
+  if (postTags.length === 0) return [];
+
+  return allPosts
+    .filter((candidate) => candidate.slug !== post.slug)
+    .filter((candidate) => candidate.tags?.some((tag) => postTags.includes(tag)))
+    .slice(0, limit);
+}
+
 export function formatDate(dateString: string): string {
-  if (!dateString) return 'Invalid Date';
-  
-  // Handle different date formats
-  let date: Date;
-  
-  // If it's already a valid date string (ISO format)
-  if (dateString.includes('T') || dateString.includes('Z')) {
-    date = new Date(dateString);
-  } 
-  // If it's a simple date format like "2024-07-20"
-  else if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
-    date = new Date(dateString + 'T00:00:00.000Z');
+  if (!dateString) return "Invalid Date";
+  const parsed = new Date(dateString);
+  if (Number.isNaN(parsed.getTime())) {
+    return "Invalid Date";
   }
-  // Try parsing as-is
-  else {
-    date = new Date(dateString);
-  }
-  
-  // Check if date is valid
-  if (isNaN(date.getTime())) {
-    return 'Invalid Date';
-  }
-  
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+
+  return parsed.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
-// Calculate reading time based on content
 export function calculateReadingTime(content: string): number {
   const wordsPerMinute = 200;
   const words = content.trim().split(/\s+/).length;
   return Math.ceil(words / wordsPerMinute);
 }
 
-// Generate social sharing URLs
-export function generateShareUrls(post: BlogPost, baseUrl: string = window.location.origin) {
-  const url = `${baseUrl}/blog/${post.slug}`;
+export function generateShareUrls(post: BlogPost, baseUrl?: string) {
+  const origin = baseUrl ?? (typeof window !== "undefined" ? window.location.origin : "https://26weeks.ai");
+  const url = `${origin}/blog/${post.slug}`;
   const text = `Check out this article: ${post.title}`;
-  
+
   return {
     twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
     email: `mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(`${text}\n\n${url}`)}`,
-    copy: url
+    copy: url,
   };
 }
 
-// Extract tags from blog posts for filtering
 export function extractUniqueTags(posts: BlogPost[]): string[] {
-  const allTags = posts.flatMap(post => post.tags || []);
+  const allTags = posts.flatMap((post) => post.tags || []);
   return Array.from(new Set(allTags)).sort();
 }
 
-// Filter posts by tag
 export function filterPostsByTag(posts: BlogPost[], tag: string): BlogPost[] {
-  return posts.filter(post => post.tags?.includes(tag));
+  return posts.filter((post) => post.tags?.includes(tag));
 }
 
-// Search posts by title, excerpt, or content
 export function searchPosts(posts: BlogPost[], query: string): BlogPost[] {
   const lowercaseQuery = query.toLowerCase();
-  return posts.filter(post => 
-    post.title.toLowerCase().includes(lowercaseQuery) ||
-    post.excerpt.toLowerCase().includes(lowercaseQuery) ||
-    post.content.toLowerCase().includes(lowercaseQuery)
+  return posts.filter(
+    (post) =>
+      post.title.toLowerCase().includes(lowercaseQuery) ||
+      post.excerpt.toLowerCase().includes(lowercaseQuery) ||
+      post.content.toLowerCase().includes(lowercaseQuery),
   );
 }

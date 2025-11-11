@@ -1,40 +1,9 @@
 import { Link } from "wouter";
 import { Twitter, Instagram, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
+import { WAITLIST_FORM_URL } from "@/components/waitlist-form";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      await apiRequest("POST", "/api/subscribe", { email });
-
-      toast({
-        title: "Successfully subscribed!",
-        description: "You'll receive our latest updates and training tips.",
-      });
-      setEmail("");
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Subscription failed",
-        description:
-          error instanceof Error ? error.message : "Please try again later.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -143,36 +112,17 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* Newsletter */}
+          {/* Waitlist CTA */}
           <div className="animate__animated animate__fadeIn animate__delay-3s">
-            <h3 className="text-white font-semibold mb-4">Stay Updated</h3>
-            <p id="newsletter-description" className="text-neutral-400 mb-4">
-              Get the latest updates and training tips.
+            <h3 className="text-white font-semibold mb-4">Join the Waitlist</h3>
+            <p className="text-neutral-400 mb-4">
+              Be the first to hear about launch updates, product news, and training drops.
             </p>
-            <form onSubmit={handleSubscribe} className="space-y-2">
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email address for newsletter subscription
-              </label>
-              <Input
-                id="newsletter-email"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
-                required
-                disabled={isSubmitting}
-                aria-describedby="newsletter-description"
-              />
-              <Button
-                type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-                disabled={isSubmitting}
-                aria-label={isSubmitting ? "Subscribing to newsletter..." : "Subscribe to newsletter"}
-              >
-                {isSubmitting ? "Subscribing..." : "Subscribe"}
-              </Button>
-            </form>
+            <Button asChild className="w-full bg-orange-500 hover:bg-orange-600 text-white">
+              <a href={WAITLIST_FORM_URL} target="_blank" rel="noopener noreferrer">
+                Open Waitlist Form
+              </a>
+            </Button>
           </div>
         </div>
 

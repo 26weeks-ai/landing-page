@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';

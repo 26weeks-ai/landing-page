@@ -1,0 +1,337 @@
+{
+  "name": "26weeks.ai Design Tokens",
+  "version": "1.0.0",
+  "colors": {
+    "core": {
+      "orange": {
+        "50": "#FFF0E8",
+        "100": "#FFE5D6",
+        "200": "#FFC9AE",
+        "300": "#FFA06F",
+        "400": "#FF7B36",
+        "500": "#FF5B04",
+        "600": "#E25400",
+        "700": "#BF4600",
+        "800": "#9A3900",
+        "900": "#7B2E00"
+      },
+      "midnightGreen": {
+        "50": "#E6EDEE",
+        "100": "#CDE0E2",
+        "200": "#A5C8CB",
+        "300": "#7EAFB2",
+        "400": "#5A979A",
+        "500": "#3B8083",
+        "600": "#075056",
+        "700": "#063F44",
+        "800": "#032D2F",
+        "900": "#011F21"
+      },
+      "gunmetal": {
+        "50": "#E9EAEB",
+        "100": "#D3D5D7",
+        "200": "#A7ACAF",
+        "300": "#7B8287",
+        "400": "#4E595F",
+        "500": "#233038",
+        "600": "#1C262C",
+        "700": "#151C21",
+        "800": "#0E1316",
+        "900": "#080C0E"
+      },
+      "ivory": {
+        "50": "#FDF6E3",
+        "100": "#FCF0D1",
+        "200": "#F9E9BD",
+        "300": "#F3E1AA",
+        "400": "#EBDBA0",
+        "500": "#E3D497"
+      },
+      "sandYellow": {
+        "50": "#FDF9ED",
+        "100": "#FBF2D7",
+        "200": "#FAEDCA",
+        "300": "#F8E5B0",
+        "400": "#F6DC96",
+        "500": "#F4D47C",
+        "600": "#DBBE6F",
+        "700": "#B79E5C"
+      },
+      "lightSilver": {
+        "500": "#D3DBDD"
+      },
+      "support": {
+        "success": "#1B9E77",
+        "warning": "#D88C00",
+        "error": "#D64545"
+      },
+      "utility": {
+        "onPrimary": "#0B0E10",
+        "onSecondary": "#FDF6E3"
+      }
+    },
+    "scales": {
+      "orange": {
+        "50": "#FFF0E8",
+        "100": "#FFE5D6",
+        "200": "#FFC9AE",
+        "300": "#FFA06F",
+        "400": "#FF7B36",
+        "500": "#FF5B04",
+        "600": "#E25400",
+        "700": "#BF4600",
+        "800": "#9A3900",
+        "900": "#7B2E00"
+      },
+      "midnightGreen": {
+        "50": "#E6EDEE",
+        "100": "#CDE0E2",
+        "200": "#A5C8CB",
+        "300": "#7EAFB2",
+        "400": "#5A979A",
+        "500": "#3B8083",
+        "600": "#075056",
+        "700": "#063F44",
+        "800": "#032D2F",
+        "900": "#011F21"
+      },
+      "gunmetal": {
+        "50": "#E9EAEB",
+        "100": "#D3D5D7",
+        "200": "#A7ACAF",
+        "300": "#7B8287",
+        "400": "#4E595F",
+        "500": "#233038",
+        "600": "#1C262C",
+        "700": "#151C21",
+        "800": "#0E1316",
+        "900": "#080C0E"
+      },
+      "ivory": {
+        "50": "#FDF6E3",
+        "100": "#FCF0D1",
+        "200": "#F9E9BD",
+        "300": "#F3E1AA",
+        "400": "#EBDBA0",
+        "500": "#E3D497"
+      },
+      "sandYellow": {
+        "50": "#FDF9ED",
+        "100": "#FBF2D7",
+        "200": "#FAEDCA",
+        "300": "#F8E5B0",
+        "400": "#F6DC96",
+        "500": "#F4D47C",
+        "600": "#DBBE6F",
+        "700": "#B79E5C"
+      },
+      "lightSilver": {
+        "500": "#D3DBDD"
+      },
+      "support": {
+        "success": "#1B9E77",
+        "warning": "#D88C00",
+        "error": "#D64545"
+      },
+      "utility": {
+        "onPrimary": "#0B0E10",
+        "onSecondary": "#FDF6E3"
+      }
+    },
+    "semantic": {
+      "light": {
+        "background": "#FDF6E3",
+        "surface": "#FBF2D7",
+        "text": {
+          "primary": "#233038",
+          "secondary": "#38444B",
+          "muted": "#5A6A75"
+        },
+        "border": "#D3DBDD",
+        "focus": "#FF5B04",
+        "link": "#FF5B04",
+        "brand": {
+          "primary": "#FF5B04",
+          "secondary": "#075056"
+        },
+        "button": {
+          "primary": {
+            "bg": "#BF4600",
+            "text": "#0B0E10",
+            "hover": "#E25400",
+            "pressed": "#9A3900"
+          },
+          "secondary": {
+            "bg": "#075056",
+            "text": "#FDF6E3",
+            "hover": "#3B8083",
+            "pressed": "#063F44"
+          }
+        },
+        "feedback": {
+          "success": "#1B9E77",
+          "warning": "#D88C00",
+          "error": "#D64545"
+        },
+        "chart": {
+          "series1": "#FF5B04",
+          "series2": "#F4D47C",
+          "series3": "#4AB3A6",
+          "series4": "#8EC3E6",
+          "series5": "#D3DBDD",
+          "grid": "#D3DBDD",
+          "axis": "#233038"
+        }
+      },
+      "dark": {
+        "background": "#233038",
+        "surface": "#2B3A48",
+        "text": {
+          "primary": "#FDF6E3",
+          "secondary": "#D3DBDD",
+          "muted": "#A7ACAF"
+        },
+        "border": "#3A4A58",
+        "focus": "#FF5B04",
+        "link": "#FF5B04",
+        "brand": {
+          "primary": "#FF5B04",
+          "secondary": "#075056"
+        },
+        "button": {
+          "primary": {
+            "bg": "#BF4600",
+            "text": "#0B0E10",
+            "hover": "#E25400",
+            "pressed": "#9A3900"
+          },
+          "secondary": {
+            "bg": "#075056",
+            "text": "#FDF6E3",
+            "hover": "#3B8083",
+            "pressed": "#063F44"
+          }
+        },
+        "feedback": {
+          "success": "#1B9E77",
+          "warning": "#D88C00",
+          "error": "#D64545"
+        },
+        "chart": {
+          "series1": "#FF5B04",
+          "series2": "#F4D47C",
+          "series3": "#4AB3A6",
+          "series4": "#8EC3E6",
+          "series5": "#D3DBDD",
+          "grid": "#3A4A58",
+          "axis": "#D3DBDD"
+        }
+      }
+    }
+  },
+  "spacing": {
+    "0": 0,
+    "px": 1,
+    "2": 2,
+    "4": 4,
+    "8": 8,
+    "12": 12,
+    "16": 16,
+    "20": 20,
+    "24": 24,
+    "32": 32,
+    "40": 40,
+    "48": 48,
+    "56": 56,
+    "64": 64
+  },
+  "radius": {
+    "xs": 4,
+    "sm": 6,
+    "md": 8,
+    "lg": 12,
+    "xl": 16,
+    "2xl": 24,
+    "pill": 999
+  },
+  "elevation": {
+    "light": {
+      "level1": "0 1px 2px rgba(0,0,0,0.06)",
+      "level2": "0 2px 8px rgba(0,0,0,0.08)",
+      "level3": "0 8px 16px rgba(0,0,0,0.12)"
+    },
+    "dark": {
+      "level1": "0 1px 2px rgba(0,0,0,0.5)",
+      "level2": "0 2px 8px rgba(0,0,0,0.55)",
+      "level3": "0 8px 16px rgba(0,0,0,0.6)"
+    }
+  },
+  "typography": {
+    "fontFamilies": {
+      "brand": "Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+      "code": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace"
+    },
+    "fontSizes": {
+      "xs": 12,
+      "sm": 14,
+      "md": 16,
+      "lg": 18,
+      "xl": 20,
+      "2xl": 24,
+      "3xl": 30,
+      "4xl": 36
+    },
+    "lineHeights": {
+      "tight": 1.2,
+      "snug": 1.35,
+      "normal": 1.5,
+      "relaxed": 1.65
+    }
+  },
+  "components": {
+    "buttonPrimary": {
+      "dark": {
+        "bg": "#BF4600",
+        "text": "#0B0E10",
+        "hover": "#E25400",
+        "pressed": "#9A3900"
+      },
+      "light": {
+        "bg": "#BF4600",
+        "text": "#0B0E10",
+        "hover": "#E25400",
+        "pressed": "#9A3900"
+      }
+    },
+    "buttonSecondary": {
+      "dark": {
+        "bg": "#075056",
+        "text": "#FDF6E3",
+        "hover": "#3B8083",
+        "pressed": "#063F44"
+      },
+      "light": {
+        "bg": "#075056",
+        "text": "#FDF6E3",
+        "hover": "#3B8083",
+        "pressed": "#063F44"
+      }
+    },
+    "input": {
+      "dark": {
+        "bg": "#1C262C",
+        "border": "#4E595F",
+        "borderHover": "#7B8287",
+        "placeholder": "#D3DBDD",
+        "focus": "#FF5B04"
+      },
+      "light": {
+        "bg": "#FBF2D7",
+        "border": "#D3DBDD",
+        "borderHover": "#A7ACAF",
+        "placeholder": "#5A6A75",
+        "focus": "#FF5B04"
+      }
+    }
+  }
+}
