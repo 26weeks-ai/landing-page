@@ -90,11 +90,11 @@ export default function BlogPostPage() {
               ))}
             </div>
 
-            <h1 className="text-4xl font-semibold leading-tight text-white md:text-5xl">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-white text-balance">
               {post.title}
             </h1>
 
-            <p className="text-xl text-neutral-300 leading-relaxed">
+            <p className="text-base sm:text-lg text-neutral-300 leading-relaxed text-balance">
               {post.excerpt}
             </p>
 
@@ -126,17 +126,17 @@ export default function BlogPostPage() {
             rehypePlugins={[rehypeHighlight]}
             components={{
               h1: ({ children }) => (
-                <h1 className="text-3xl font-bold text-gray-900 mb-6 mt-8 first:mt-0">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 mt-8 first:mt-0">
                   {children}
                 </h1>
               ),
               h2: ({ children }) => (
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 mt-8">
                   {children}
                 </h2>
               ),
               h3: ({ children }) => (
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 mt-6">
                   {children}
                 </h3>
               ),

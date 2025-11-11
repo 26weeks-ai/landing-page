@@ -43,8 +43,8 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
           <p className="mb-4 line-clamp-3 text-neutral-400">
             {post.excerpt}
           </p>
-          <div className="flex items-center justify-between text-sm text-neutral-400">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-3 text-sm text-neutral-400 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <div className="flex items-center gap-1">
                 <User className="w-4 h-4" />
                 <span>{post.author}</span>
@@ -54,7 +54,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
                 <span>{post.readingTime} min read</span>
               </div>
             </div>
-            <time dateTime={post.publishedAt}>
+            <time dateTime={post.publishedAt} className="text-neutral-500 sm:text-right">
               {formatDate(post.publishedAt)}
             </time>
           </div>

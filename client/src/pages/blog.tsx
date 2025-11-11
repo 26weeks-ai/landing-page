@@ -61,10 +61,10 @@ export default function BlogPage() {
               <Sparkles className="h-4 w-4 text-orange-500" />
               Insights & Stories
             </p>
-            <h1 className="text-4xl font-semibold leading-tight text-white md:text-5xl">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-white text-balance">
               Training intel for runners chasing <span className="text-orange-400">26.2</span>
             </h1>
-            <p className="mt-4 max-w-2xl text-lg text-neutral-400">
+            <p className="mt-4 max-w-2xl text-base sm:text-lg text-neutral-400 text-balance">
               Practical tactics, mindset shifts, and data-backed lessons from our coaching lab. Everything we learn while
               helping athletes go from couch to marathon lives here.
             </p>

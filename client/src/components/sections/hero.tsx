@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import WaitlistForm from '@/components/waitlist-form';
 import { hero } from '@/content/copy';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function Hero() {
-  const isMobile = useIsMobile();
   const [isLoaded, setIsLoaded] = useState(false);
   
   // Simple CSS animations instead of heavy framer-motion
@@ -22,13 +20,13 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_#FF6B00_0,_transparent_60%)] opacity-20" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,_#FF6B00_0,_transparent_50%)] opacity-10" />
 
-      <div className="container mx-auto px-4 py-16 relative z-10 flex justify-center">
-        <div className="max-w-3xl w-full">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10 flex justify-center">
+        <div className="max-w-4xl w-full">
           {/* Text Content with CSS transitions instead of Framer Motion */}
           <div 
             className={`text-center transition-opacity duration-500 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'}`}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-md">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-md text-balance leading-tight">
               {hero.title.prefix}{' '}
               <span className="text-orange-500 inline-block">{hero.title.highlight}</span>,{' '}
               {hero.title.suffix}{' '}
@@ -37,7 +35,7 @@ export default function Hero() {
             </h1>
 
             <p 
-              className={`text-xl text-neutral-200 mb-8 max-w-2xl mx-auto transition-opacity duration-500 ease-out delay-150 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'} drop-shadow-sm`}
+              className={`text-[clamp(1rem,2vw,1.35rem)] text-neutral-100/90 leading-relaxed mb-8 max-w-3xl mx-auto transition-opacity duration-500 ease-out delay-150 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'} drop-shadow-sm text-balance`}
               style={{ 
                 transitionDelay: '150ms' 
               }}
