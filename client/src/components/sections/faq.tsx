@@ -5,41 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const faqs = [
-  {
-    question: "Do I need any running experience to start?",
-    answer: "No prior running experience is needed! Our AI-powered program starts from your current fitness level and gradually builds your endurance. We've successfully trained complete beginners to finish marathons."
-  },
-  {
-    question: "How does the AI personalization work?",
-    answer: "Our AI analyzes your daily performance data, recovery patterns, and progress to continuously adjust your training plan. It considers factors like heart rate, pace, distance, and perceived effort to optimize your training schedule."
-  },
-  {
-    question: "What if I miss a training day?",
-    answer: "The AI automatically adjusts your training plan to accommodate missed sessions. It redistributes workouts and modifies intensities to keep you on track for your marathon goal without overtraining."
-  },
-  {
-    question: "Can I use my existing fitness devices?",
-    answer: "Yes! We integrate with popular fitness devices and apps including Garmin, Fitbit, Apple Watch, and Strava. Your data syncs automatically to provide the most accurate training adjustments."
-  },
-  {
-    question: "What support do I get if I struggle?",
-    answer: "You'll have access to our community of runners, dedicated support team, and AI-powered chat assistance. Pro and Elite plans include direct access to experienced running coaches."
-  },
-  {
-    question: "How does the money-back guarantee work?",
-    answer: "If you're not satisfied with your progress within the first 30 days, simply contact our support team and we'll process a full refund. No questions asked, no complicated procedures."
-  },
-  {
-    question: "Will the training fit around my busy schedule?",
-    answer: "Absolutely! The AI creates flexible training plans that adapt to your availability. You can set preferred training times and the system will optimize your schedule accordingly."
-  },
-  {
-    question: "What happens if I get injured?",
-    answer: "Our injury prevention system monitors your training load to minimize risk. If you do experience an injury, the AI adjusts your plan and provides recovery protocols. Medical advice should always be sought for serious injuries."
-  }
-];
+import { faqs } from "@/content/faq";
 
 export default function FAQ() {
   return (

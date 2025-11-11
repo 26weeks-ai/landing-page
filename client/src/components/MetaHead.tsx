@@ -10,6 +10,8 @@ interface MetaHeadProps {
   url?: string;
   type?: 'website' | 'article';
   tags?: string[];
+  aiSummary?: string[];
+  noIndex?: boolean;
 }
 
 export function MetaHead({ 
@@ -21,7 +23,9 @@ export function MetaHead({
   image,
   url,
   type = 'article',
-  tags 
+  tags,
+  aiSummary,
+  noIndex = false,
 }: MetaHeadProps) {
   useEffect(() => {
     // Update document title
@@ -31,12 +35,6 @@ export function MetaHead({
       document.title = '26weeks.ai - Your AI Marathon Coach';
     }
     
-    // Clear existing JSON-LD structured data
-    const existingJsonLd = document.querySelector('script[type="application/ld+json"]');
-    if (existingJsonLd) {
-      existingJsonLd.remove();
-    }
-
     // Update or create meta tags
     const updateMetaTag = (name: string, content: string, property?: boolean) => {
       const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`;
@@ -51,7 +49,14 @@ export function MetaHead({
         }
         document.head.appendChild(meta);
       }
-      meta.setAttribute('content', content);
+      if (content) {
+        meta.setAttribute('content', content);
+      }
+    };
+
+    const removeMetaTag = (name: string, property?: boolean) => {
+      const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      document.querySelectorAll(selector).forEach((meta) => meta.remove());
     };
 
     // Basic meta tags
@@ -65,6 +70,15 @@ export function MetaHead({
 
     if (tags && tags.length > 0) {
       updateMetaTag('keywords', tags.join(', '));
+    }
+
+    updateMetaTag('robots', noIndex ? 'noindex, nofollow' : 'index, follow');
+    updateMetaTag('og:locale', 'en_US', true);
+
+    if (aiSummary && aiSummary.length > 0) {
+      updateMetaTag('ai-summary', aiSummary.join(' | '));
+    } else {
+      removeMetaTag('ai-summary');
     }
 
     // Open Graph tags
@@ -84,8 +98,7 @@ export function MetaHead({
     
     // Use provided image or default to the 26weeks.ai banner
     const baseImageUrl = image || (typeof window !== 'undefined' ? `${window.location.origin}/banner-social.svg` : 'https://26weeks.ai/banner-social.svg');
-    // Add timestamp to force refresh for social media crawlers
-    const ogImage = `${baseImageUrl}?v=${Date.now()}`;
+    const ogImage = baseImageUrl;
     updateMetaTag('og:image', ogImage, true);
     updateMetaTag('og:image:width', '1200', true);
     updateMetaTag('og:image:height', '630', true);
@@ -107,9 +120,18 @@ export function MetaHead({
     
     // Use the same image as OG
     updateMetaTag('twitter:image', ogImage);
+    updateMetaTag('twitter:image:alt', title || '26weeks.ai - Your AI Marathon Coach');
     
     // Add site name
     updateMetaTag('og:site_name', '26weeks.ai', true);
+
+    if (type !== 'article') {
+      removeMetaTag('article:published_time', true);
+      removeMetaTag('article:author', true);
+      removeMetaTag('twitter:label1');
+      removeMetaTag('twitter:data1');
+      removeMetaTag('article:tag', true);
+    }
 
     // Article specific meta tags
     if (type === 'article') {
@@ -151,12 +173,15 @@ export function MetaHead({
 
     // JSON-LD structured data for articles
     if (type === 'article' && title && description && author && publishedAt) {
-      let jsonLd = document.querySelector('script[type="application/ld+json"]');
-      if (!jsonLd) {
-        jsonLd = document.createElement('script');
-        jsonLd.setAttribute('type', 'application/ld+json');
-        document.head.appendChild(jsonLd);
+      const existingJsonLd = document.querySelector('script[data-meta-head="article"]');
+      if (existingJsonLd) {
+        existingJsonLd.remove();
       }
+
+      const jsonLd = document.createElement('script');
+      jsonLd.setAttribute('type', 'application/ld+json');
+      jsonLd.setAttribute('data-meta-head', 'article');
+      document.head.appendChild(jsonLd);
       
       const structuredData: any = {
         '@context': 'https://schema.org',
@@ -193,7 +218,7 @@ export function MetaHead({
       jsonLd.textContent = JSON.stringify(structuredData);
     }
 
-  }, [title, description, author, publishedAt, readingTime, image, url, type, tags]);
+  }, [title, description, author, publishedAt, readingTime, image, url, type, tags, aiSummary, noIndex]);
 
   return null; // This component doesn't render anything
 }

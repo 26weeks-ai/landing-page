@@ -1,7 +1,10 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, useMemo, lazy, Suspense } from 'react';
 import Navbar from '@/components/layout/navbar';
 import Hero from '@/components/sections/hero';
 import { Skeleton } from '@/components/ui/skeleton';
+import { MetaHead } from '@/components/MetaHead';
+import { SiteStructuredData } from '@/components/seo/SiteStructuredData';
+import { faqs } from '@/content/faq';
 
 // Lazy load below-the-fold sections for performance
 const Features = lazy(() => import('@/components/sections/features'));
@@ -24,6 +27,14 @@ const SectionLoader = () => (
 );
 
 export default function Home() {
+  const aiSummary = useMemo(
+    () => [
+      "Hyper-personalized marathon plans that adapt every day using your biometrics and feedback.",
+      "Integrated wearable data, nutrition nudges, and injury-prevention cues for confident training.",
+      "Human-backed AI coaching that carries you from couch to marathon-ready in 26 weeks or less.",
+    ],
+    []
+  );
 
   useEffect(() => {
     const anchors = Array.from(document.querySelectorAll('a[href^="#"]')) as HTMLAnchorElement[];
@@ -50,7 +61,23 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-background overflow-x-hidden">
+    <>
+      <MetaHead
+        type="website"
+        title="AI Marathon Training in 26 Weeks"
+        description="Train for 26.2 with an adaptive AI coach that syncs with your wearables, personalizes every workout, and keeps you healthy from day one to race day."
+        url="https://26weeks.ai/"
+        image="https://26weeks.ai/og-image.svg"
+        tags={[
+          "AI marathon coach",
+          "adaptive training plan",
+          "couch to marathon",
+          "personalized running program",
+        ]}
+        aiSummary={aiSummary}
+      />
+      <SiteStructuredData faqs={faqs} />
+      <div className="relative min-h-screen bg-background overflow-x-hidden">
       {/* Removed animated background as requested */}
       
       {/* Content overlay */}
@@ -86,6 +113,7 @@ export default function Home() {
           <Footer />
         </Suspense>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
