@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
+import { brandIdentity } from '@/content/brand';
 
-export const WAITLIST_FORM_URL = 'https://forms.gle/26weeksWaitlist';
+export const WAITLIST_FORM_URL = brandIdentity.links.waitlist;
 
 export default function WaitlistForm() {
   return (

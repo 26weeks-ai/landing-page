@@ -1,18 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { MetaHead } from "@/components/MetaHead";
+import { seo } from "@/content/brand";
 
 export default function NotFound() {
   return (
     <>
-      <MetaHead
-        type="website"
-        title="Page Missing"
-        description="The page you were looking for doesn't exist on 26weeks.ai."
-        url="https://26weeks.ai/404"
-        image="https://26weeks.ai/og-image.svg"
-        noIndex
-      />
+      <MetaHead {...seo.notFound} />
       <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
         <Card className="w-full max-w-md mx-4">
           <CardContent className="pt-6">

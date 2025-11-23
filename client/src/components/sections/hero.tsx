@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import WaitlistForm from '@/components/waitlist-form';
-import { hero } from '@/content/copy';
+import { hero } from '@/content/brand';
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);

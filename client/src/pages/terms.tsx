@@ -1,17 +1,11 @@
 import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
+import { seo } from "@/content/brand";
 
 export default function Terms() {
   return (
     <>
-      <MetaHead
-        type="website"
-        title="Terms of Service"
-        description="Review the subscription terms, user responsibilities, and refund policies that govern your 26weeks.ai marathon coaching membership."
-        url="https://26weeks.ai/terms"
-        image="https://26weeks.ai/og-image.svg"
-        tags={["terms of service", "subscription terms", "runner agreement"]}
-      />
+      <MetaHead {...seo.terms} />
       <div className="min-h-screen bg-white py-20">
         <div className="container mx-auto px-4 max-w-4xl">
           <h1 className="text-4xl font-bold text-neutral-900 mb-8">Terms of Service</h1>

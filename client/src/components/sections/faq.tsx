@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { faqs } from "@/content/faq";
+import { faqs } from "@/content/brand";
 
 export default function FAQ() {
   return (

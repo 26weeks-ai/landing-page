@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
-import { testimonials, type Testimonial } from '@/content/copy';
+import { testimonials, type Testimonial } from '@/content/brand';
 
 export default function Testimonials() {
   return (

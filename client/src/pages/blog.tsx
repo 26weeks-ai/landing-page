@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
+import { seo } from "@/content/brand";
 import {
   extractUniqueTags,
   filterPostsByTag,
@@ -34,25 +35,9 @@ export default function BlogPage() {
     return result;
   }, [posts, searchQuery, selectedTag]);
 
-  const aiSummary = useMemo(
-    () => [
-      "Weekly drops from the 26weeks.ai coaching lab covering training, recovery, and mindset.",
-      "Data-backed lessons for AI-assisted running plans, wearable integrations, and race prep.",
-    ],
-    []
-  );
-
   return (
     <>
-      <MetaHead
-        type="website"
-        title="Run Smarter – 26weeks.ai Blog"
-        description="Long-form breakdowns on AI coaching, marathon science, and runner stories from the 26weeks.ai team."
-        url="https://26weeks.ai/blog"
-        image="https://26weeks.ai/og-image.svg"
-        tags={["marathon blog", "AI training insights", "running tips"]}
-        aiSummary={aiSummary}
-      />
+      <MetaHead {...seo.blog} />
       <div className="min-h-screen bg-neutral-950 text-white">
       <header className="border-b border-neutral-900 bg-gradient-to-b from-neutral-950 to-neutral-900/50">
         <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-16 md:flex-row md:items-center md:justify-between">

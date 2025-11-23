@@ -10,7 +10,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { features, featuresList, runningQuotes } from "@/content/copy";
+import { features, featuresList, runningQuotes } from "@/content/brand";
 
 // Map Lucide icons to features
 const featureIcons = {

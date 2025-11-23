@@ -1,17 +1,11 @@
 import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
+import { seo } from "@/content/brand";
 
 export default function Cancellations() {
   return (
     <>
-      <MetaHead
-        type="website"
-        title="Cancellations & Refunds"
-        description="See how the 30-day money-back guarantee and subscription cancellation process works for every 26weeks.ai plan."
-        url="https://26weeks.ai/cancellations"
-        image="https://26weeks.ai/og-image.svg"
-        tags={["refund policy", "subscription cancellation", "money-back guarantee"]}
-      />
+      <MetaHead {...seo.cancellations} />
       <div className="min-h-screen bg-white py-20">
         <div className="container mx-auto px-4 max-w-4xl">
           <h1 className="text-4xl font-bold text-neutral-900 mb-8">Cancellations and Refunds</h1>

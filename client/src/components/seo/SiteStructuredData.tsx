@@ -1,12 +1,12 @@
-import { pricing, featuresList } from "@/content/copy";
-import type { FAQItem } from "@/content/faq";
+import { pricing, featuresList, faqs, brandIdentity } from "@/content/brand";
+import type { FAQItem } from "@/content/brand";
 
 interface SiteStructuredDataProps {
   faqs: FAQItem[];
 }
 
-const siteUrl = "https://26weeks.ai";
-const defaultImage = `${siteUrl}/og-image.svg`;
+const siteUrl = brandIdentity.domain;
+const defaultImage = brandIdentity.defaultOgImage;
 
 const howToSteps = [
   {
@@ -35,18 +35,18 @@ export function SiteStructuredData({ faqs }: SiteStructuredDataProps) {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "26weeks.ai",
+    name: brandIdentity.name,
     url: siteUrl,
-    logo: `${siteUrl}/icon-corners.svg`,
+    logo: brandIdentity.logo,
     sameAs: [
-      "https://x.com/26weeks_ai",
-      "https://www.instagram.com/26weeks.ai/",
-      "https://www.linkedin.com/company/26weeks-ai/",
+      brandIdentity.social.twitter,
+      brandIdentity.social.instagram,
+      brandIdentity.social.linkedin,
     ],
     contactPoint: [
       {
         "@type": "ContactPoint",
-        email: "support@26weeks.ai",
+        email: brandIdentity.contactEmail,
         contactType: "customer support",
         areaServed: "Worldwide",
         availableLanguage: ["English"],

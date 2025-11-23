@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import WaitlistForm from '@/components/waitlist-form';
-import { pricing } from '@/content/copy';
+import { pricing } from '@/content/brand';
 
 export default function Pricing() {
   return (

@@ -1,17 +1,11 @@
 import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
+import { seo } from "@/content/brand";
 
 export default function Privacy() {
   return (
     <>
-      <MetaHead
-        type="website"
-        title="Privacy Policy"
-        description="Understand how 26weeks.ai collects, encrypts, and uses your training data to personalize marathon coaching."
-        url="https://26weeks.ai/privacy"
-        image="https://26weeks.ai/og-image.svg"
-        tags={["privacy policy", "data protection", "runner data privacy"]}
-      />
+      <MetaHead {...seo.privacy} />
       <div className="min-h-screen bg-white py-20">
         <div className="container mx-auto px-4 max-w-4xl">
           <h1 className="text-4xl font-bold text-neutral-900 mb-8">Privacy Policy</h1>
