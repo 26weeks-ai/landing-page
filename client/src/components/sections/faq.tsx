@@ -11,7 +11,7 @@ export default function FAQ() {
   return (
     <section 
       id="faq" 
-      className="py-20 bg-white"
+      className="py-20 bg-white scroll-mt-24"
       aria-label="Frequently asked questions about 26weeks.ai"
     >
       <div className="container mx-auto px-4">

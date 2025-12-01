@@ -1,41 +1,31 @@
-import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import WaitlistForm from '@/components/waitlist-form';
+import { WAITLIST_FORM_URL } from '@/components/waitlist-form';
 import { pricing } from '@/content/brand';
 
 export default function Pricing() {
   return (
     <section 
       id="pricing" 
-      className="py-20 bg-white"
+      className="py-20 bg-white scroll-mt-24"
       aria-label="Pricing plans and subscription options"
     >
       <div className="container mx-auto px-4">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-neutral-900 mb-4">
             {pricing.title}
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
             {pricing.subtitle}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {pricing.plans.map((plan, index) => (
-            <motion.div
+            <div
               key={index}
               className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 
                 ${plan.popular ? 'border-orange-500' : 'border-neutral-100'} 
                 overflow-hidden relative flex flex-col h-full`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
             >
               {plan.popular && (
                 <div className="absolute top-0 right-0 bg-orange-500 text-white px-4 py-1 text-sm font-semibold">
@@ -59,16 +49,19 @@ export default function Pricing() {
                   </ul>
                 </div>
                 <div className="mt-auto">
-                  <button 
+                  <a
+                    href={WAITLIST_FORM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`w-full ${plan.popular ? 'bg-orange-500 hover:bg-orange-600' : 'bg-neutral-900 hover:bg-neutral-800'} 
-                      text-white rounded-full py-3 font-semibold transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500`}
-                    aria-label={`Select ${plan.name} plan for $${plan.price}`}
+                      text-white rounded-full py-3 font-semibold transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 inline-flex items-center justify-center`}
+                    aria-label={`Choose ${plan.name} plan for $${plan.price} and join waitlist`}
                   >
-                    Choose {plan.name}
-                  </button>
+                    Choose {plan.name} & Join Waitlist
+                  </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

@@ -41,6 +41,18 @@ const item = {
 
 export default function Features() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,15 +65,15 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="py-20 bg-white"
+      className="py-20 bg-white scroll-mt-24"
       aria-label="Key features and benefits of 26weeks.ai"
     >
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
         >
           <h2 className="text-4xl font-bold text-neutral-900 mb-4">
             {features.title}{" "}
@@ -75,9 +87,9 @@ export default function Features() {
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
+          initial={prefersReducedMotion ? false : "hidden"}
+          whileInView={prefersReducedMotion ? undefined : "show"}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
         >
           {featuresList.map((feature, index) => {
             const Icon =
@@ -105,15 +117,8 @@ export default function Features() {
 
         {/* Inspirational Quotes Section */}
         <div className="mt-20 max-w-4xl mx-auto text-center relative h-32">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuoteIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 flex items-center justify-center"
-            >
+          {prefersReducedMotion ? (
+            <div className="absolute inset-0 flex items-center justify-center">
               <div>
                 <p className="text-xl text-neutral-600 italic mb-2">
                   "{runningQuotes[currentQuoteIndex].quote}"
@@ -122,8 +127,28 @@ export default function Features() {
                   — {runningQuotes[currentQuoteIndex].author}
                 </p>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          ) : (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentQuoteIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div>
+                  <p className="text-xl text-neutral-600 italic mb-2">
+                    "{runningQuotes[currentQuoteIndex].quote}"
+                  </p>
+                  <p className="text-sm text-neutral-500">
+                    — {runningQuotes[currentQuoteIndex].author}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          )}
         </div>
       </div>
     </section>

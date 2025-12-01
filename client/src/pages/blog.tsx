@@ -55,7 +55,10 @@ export default function BlogPage() {
             </p>
           </div>
           <Link href="/">
-            <Button variant="ghost" className="self-start text-orange-400 hover:bg-orange-500/10">
+            <Button
+              variant="ghost"
+              className="self-start text-orange-400 hover:text-orange-200 hover:bg-orange-500/15 focus-visible:ring-orange-500/60"
+            >
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to home
             </Button>
           </Link>

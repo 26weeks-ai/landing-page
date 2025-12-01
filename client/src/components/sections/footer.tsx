@@ -99,12 +99,12 @@ export default function Footer() {
               Cancellations & Refunds
             </Link>
             <a
-              href="mailto:diwakar@26weeks.ai"
+              href="mailto:coach@26weeks.ai"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 flex items-center gap-2 focus:text-white"
-              aria-label="Send email to diwakar@26weeks.ai"
+              aria-label="Send email to coach@26weeks.ai"
             >
               <Mail className="w-4 h-4" aria-hidden="true" />
-              diwakar@26weeks.ai
+              coach@26weeks.ai
             </a>
           </div>
 

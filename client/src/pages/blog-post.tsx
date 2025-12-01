@@ -69,7 +69,10 @@ export default function BlogPostPage() {
       <div className="border-b border-neutral-900 bg-gradient-to-b from-neutral-950 to-neutral-900/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <Link href="/blog">
-            <Button variant="ghost" className="mb-6 text-orange-400 hover:bg-orange-500/10">
+            <Button
+              variant="ghost"
+              className="mb-6 text-orange-400 hover:text-orange-200 hover:bg-orange-500/15 focus-visible:ring-orange-500/60"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
             </Button>
@@ -126,34 +129,39 @@ export default function BlogPostPage() {
             rehypePlugins={[rehypeHighlight]}
             components={{
               h1: ({ children }) => (
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 mt-8 first:mt-0">
+                <h1 className="text-2xl sm:text-3xl font-bold text-neutral-50 mb-6 mt-8 first:mt-0">
                   {children}
                 </h1>
               ),
               h2: ({ children }) => (
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 mt-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-neutral-100 mb-4 mt-8">
                   {children}
                 </h2>
               ),
               h3: ({ children }) => (
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 mt-6">
+                <h3 className="text-lg sm:text-xl font-semibold text-neutral-200 mb-3 mt-6">
                   {children}
                 </h3>
               ),
               p: ({ children }) => (
-                <p className="text-gray-700 leading-relaxed mb-4">
+                <p className="text-neutral-200 leading-relaxed mb-4">
                   {children}
                 </p>
               ),
               ul: ({ children }) => (
-                <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700">
+                <ul className="list-disc list-inside space-y-2 mb-4 text-neutral-200">
                   {children}
                 </ul>
               ),
               ol: ({ children }) => (
-                <ol className="list-decimal list-inside space-y-2 mb-4 text-gray-700">
+                <ol className="list-decimal list-inside space-y-2 mb-4 text-neutral-200">
                   {children}
                 </ol>
+              ),
+              li: ({ children }) => (
+                <li className="text-neutral-200 leading-relaxed [&>p]:inline [&>p]:m-0">
+                  {children}
+                </li>
               ),
               blockquote: ({ children }) => (
                 <blockquote className="my-6 border-l-4 border-orange-500/40 bg-orange-500/10 px-6 py-2 text-neutral-100 italic">

@@ -34,25 +34,25 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
       name: "Twitter",
       icon: Twitter,
       url: shareUrls.twitter,
-      className: "hover:bg-blue-50 hover:text-blue-600",
+      className: "hover:bg-blue-500/10 hover:text-blue-200",
     },
     {
       name: "Facebook",
       icon: Facebook,
       url: shareUrls.facebook,
-      className: "hover:bg-blue-50 hover:text-blue-700",
+      className: "hover:bg-blue-500/10 hover:text-blue-200",
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
       url: shareUrls.linkedin,
-      className: "hover:bg-blue-50 hover:text-blue-800",
+      className: "hover:bg-blue-500/10 hover:text-blue-200",
     },
     {
       name: "Email",
       icon: Mail,
       url: shareUrls.email,
-      className: "hover:bg-gray-50 hover:text-gray-700",
+      className: "hover:bg-neutral-800 hover:text-neutral-50",
     },
   ];
 

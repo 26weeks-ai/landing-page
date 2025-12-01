@@ -34,7 +34,7 @@ export default function Cancellations() {
               To request a refund, please:
             </p>
             <ol>
-              <li>Email our support team at <a href="mailto:support@26weeks.ai" className="text-orange-500 hover:text-orange-600">support@26weeks.ai</a></li>
+              <li>Email our support team at <a href="mailto:coach@26weeks.ai" className="text-orange-500 hover:text-orange-600">coach@26weeks.ai</a></li>
               <li>Include "Refund Request" in your subject line</li>
               <li>Provide your account email and reason for cancellation</li>
             </ol>
@@ -68,7 +68,7 @@ export default function Cancellations() {
             <h2>Contact Us</h2>
             <p>
               If you have any questions about our cancellation and refund policy, please contact us at{" "}
-              <a href="mailto:support@26weeks.ai" className="text-orange-500 hover:text-orange-600">support@26weeks.ai</a>.
+              <a href="mailto:coach@26weeks.ai" className="text-orange-500 hover:text-orange-600">coach@26weeks.ai</a>.
             </p>
 
             <div className="mt-8">

@@ -12,7 +12,7 @@ export const brandIdentity = {
   domain: "https://26weeks.ai",
   defaultOgImage: "https://26weeks.ai/og-image.svg",
   logo: "https://26weeks.ai/icon-corners.svg",
-  contactEmail: "support@26weeks.ai",
+  contactEmail: "coach@26weeks.ai",
   links: {
     waitlist: "https://forms.gle/26weeksWaitlist",
     sitemap: "https://26weeks.ai/sitemap.xml",
@@ -322,7 +322,7 @@ export const faqs: FAQItem[] = [
   {
     question: "How does the money-back guarantee work?",
     answer:
-      "If you’re not satisfied within the first 30 days, email support@26weeks.ai and we’ll issue a full refund—no hoops or hidden clauses.",
+      "If you’re not satisfied within the first 30 days, email coach@26weeks.ai and we’ll issue a full refund—no hoops or hidden clauses.",
   },
   {
     question: "Will the training fit around my busy schedule?",
