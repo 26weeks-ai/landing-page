@@ -1,5 +1,5 @@
-import { useRoute } from "wouter";
 import { lazy, Suspense } from "react";
+import { Link, useRoute } from "wouter";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -8,9 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import { SocialShare } from "@/components/blog/social-share";
 import { MetaHead } from "@/components/MetaHead";
 import { ArrowLeft, Clock, User, Calendar } from "lucide-react";
-import { Link } from "wouter";
-import { formatDate, getPostBySlug, getRelatedPosts } from "@/lib/blog";
-import "highlight.js/styles/github.css";
+import WaitlistForm from "@/components/waitlist-form";
+import { formatDate, formatTagLabel, getPostBySlug, getRelatedPosts } from "@/lib/blog";
+import "highlight.js/styles/github-dark-dimmed.css";
 
 // Lazy load related posts for better performance
 const LazyRelatedPosts = lazy(() => import("@/components/blog/RelatedPosts"));
@@ -27,12 +27,12 @@ export default function BlogPostPage() {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Article not found</h2>
-          <p className="text-gray-600 mb-6">The blog post you're looking for doesn't exist.</p>
+      <div className="min-h-screen bg-neutral-950 text-white flex items-center justify-center px-6">
+        <div className="max-w-md text-center">
+          <h2 className="text-2xl font-semibold text-white mb-4">Article not found</h2>
+          <p className="text-neutral-400 mb-6">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
-            <Button>
+            <Button className="bg-orange-500 text-neutral-950 hover:bg-orange-400 focus-visible:ring-orange-500">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
             </Button>
@@ -88,7 +88,7 @@ export default function BlogPostPage() {
               )}
               {post.tags?.map((tag) => (
                 <Badge key={tag} variant="outline" className="border-neutral-800 text-neutral-300">
-                  {tag}
+                  {formatTagLabel(tag)}
                 </Badge>
               ))}
             </div>
@@ -168,14 +168,72 @@ export default function BlogPostPage() {
                   {children}
                 </blockquote>
               ),
+              a: ({ href, children }) => {
+                const className =
+                  "text-orange-300 underline decoration-orange-500/40 underline-offset-4 hover:text-orange-200";
+
+                if (!href) {
+                  return <span>{children}</span>;
+                }
+
+                if (href.startsWith("#")) {
+                  return (
+                    <a href={href} className={className}>
+                      {children}
+                    </a>
+                  );
+                }
+
+                if (href.startsWith("/")) {
+                  return (
+                    <Link href={href} className={className}>
+                      {children}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <a
+                    href={href}
+                    className={className}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                  </a>
+                );
+              },
+              hr: () => <hr className="my-10 border-neutral-800" />,
+              pre: ({ children }) => (
+                <pre className="my-6 overflow-x-auto rounded-lg border border-neutral-800 bg-transparent p-0">
+                  {children}
+                </pre>
+              ),
+              table: ({ children }) => (
+                <div className="my-6 overflow-x-auto rounded-lg border border-neutral-800">
+                  <table className="w-full border-collapse text-sm">{children}</table>
+                </div>
+              ),
+              thead: ({ children }) => <thead className="bg-neutral-900/60">{children}</thead>,
+              th: ({ children }) => (
+                <th className="border-b border-neutral-800 px-4 py-3 text-left font-semibold text-neutral-100">
+                  {children}
+                </th>
+              ),
+              td: ({ children }) => (
+                <td className="border-b border-neutral-900/70 px-4 py-3 align-top text-neutral-200">
+                  {children}
+                </td>
+              ),
               code: ({ children, className }) => {
                 if (className) {
                   return (
-                    <code className={`${className} block rounded-lg bg-neutral-900/70 p-4 text-sm`}>
+                    <code className={`text-sm ${className}`}>
                       {children}
                     </code>
                   );
                 }
+
                 return (
                   <code className="rounded bg-neutral-900/70 px-2 py-1 text-sm text-neutral-100">
                     {children}
@@ -187,6 +245,19 @@ export default function BlogPostPage() {
             {post.content}
           </ReactMarkdown>
         </article>
+
+        <div className="mt-12 rounded-3xl border border-neutral-900 bg-neutral-900/40 p-8">
+          <h2 className="text-xl sm:text-2xl font-semibold text-white">
+            Want an adaptive plan for your next race?
+          </h2>
+          <p className="mt-2 max-w-2xl text-neutral-300">
+            Join the 26weeks.ai waitlist for early access to AI coaching that adjusts workouts using your schedule,
+            recovery, and goals.
+          </p>
+          <div className="mt-6">
+            <WaitlistForm label="Join waitlist" />
+          </div>
+        </div>
 
         {/* Social Share */}
         <div className="mt-12 border-t border-neutral-900 pt-8">

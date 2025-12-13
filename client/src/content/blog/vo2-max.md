@@ -1,11 +1,11 @@
 ---
 title: "VO2 Max 101: Elevate Endurance with Proven Strategies"
 excerpt: "A complete, science-backed guide on VO2 Max for runners and endurance athletes—definitions, tests, training tips, and an 8-week plan to boost your aerobic engine."
-author: "Coach"
-publishedAt: "2025-07-21"
-tags: ["VO2 Max", "endurance", "running", "training", "guide"]
+author: "Coach Diwakar"
+publishedAt: "2025-12-12"
+tags: ["vo2 max", "endurance", "running", "marathon training"]
 readingTime: 14
-featured: true
+featured: false
 ---
 
 > *“If you can measure it, you can improve it.”* — Every data-driven coach, ever
@@ -208,22 +208,22 @@ Your VO2 max isn’t a destiny; it’s a **starting line**. By understanding the
 Every 6–8 weeks during a dedicated VO2 block or after a consistent 5 % gain in peak 5-min power.
 
 **2. Can beginners improve VO2 max without intervals?**
-Yes—boost weekly easy mileage first; intervals add extra polish once an aerobic base is set. (*“improve VO2 max without HIIT”*)
+Yes—boost weekly easy mileage first; intervals add extra polish once an aerobic base is set.
 
 **3. Do smartwatches give accurate VO2 max numbers?**
-They’re useful trends but can be ± 5 %. Confirm with a lab test quarterly. (*“wearable VO2 max accuracy”*)
+They’re useful trends but can be ± 5 %. Confirm with a lab test quarterly.
 
 **4. What’s a good VO2 max for a 40-year-old runner?**
-Anything above 46 ml·kg⁻¹·min⁻¹ is considered excellent for men; 37 + for women. (*“VO2 max chart by age and gender”*)
+Anything above 46 ml·kg⁻¹·min⁻¹ is considered excellent for men; 37 + for women.
 
 **5. Does weight loss always raise VO2 max?**
-Relative VO2 max may rise as body mass drops, but extreme dieting can lower haemoglobin and negate gains. (*“VO2 max and weight loss”*)
+Relative VO2 max may rise as body mass drops, but extreme dieting can lower haemoglobin and negate gains.
 
 ---
 
-### Enjoyed the read?
+### Next step
 
-If this guide levelled-up your training IQ, **share it with your run crew** and tag a friend who needs a fresh endurance boost! What’s the biggest VO2 max myth you’ve heard? Drop it in the comments.
+Want a plan that adjusts your VO2 work, easy mileage, and recovery day-by-day? [Join the 26weeks.ai waitlist](/waitlist).
 
 ---
 

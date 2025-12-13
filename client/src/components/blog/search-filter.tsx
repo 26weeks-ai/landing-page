@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Search, X } from "lucide-react";
+import { formatTagLabel } from "@/lib/blog";
 
 interface SearchFilterProps {
   onSearch: (query: string) => void;
@@ -81,7 +82,7 @@ export function SearchFilter({
               variant="secondary"
               className="flex items-center gap-1 border border-neutral-700 bg-neutral-800 text-neutral-200"
             >
-              Tag: {selectedTag}
+              Tag: {formatTagLabel(selectedTag)}
               <button onClick={clearTag} className="rounded-full bg-transparent p-1 text-neutral-300">
                 <X className="h-3 w-3" />
               </button>
@@ -117,7 +118,7 @@ export function SearchFilter({
               }
               onClick={() => onTagFilter(tag)}
             >
-              {tag}
+              {formatTagLabel(tag)}
             </Button>
           ))}
         </div>

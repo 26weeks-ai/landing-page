@@ -6,6 +6,7 @@ import { ArrowLeft, Sparkles } from "lucide-react";
 import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
 import { seo } from "@/content/brand";
+import WaitlistForm from "@/components/waitlist-form";
 import {
   extractUniqueTags,
   filterPostsByTag,
@@ -126,6 +127,17 @@ export default function BlogPage() {
               ))}
             </div>
           )}
+        </section>
+
+        <section className="rounded-3xl border border-neutral-900 bg-neutral-900/40 p-10 text-center">
+          <h2 className="text-2xl font-semibold text-white">Want a personalized plan?</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-neutral-400">
+            Join the 26weeks.ai waitlist for early access to adaptive coaching built for real schedules and real
+            recovery.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <WaitlistForm label="Join waitlist" />
+          </div>
         </section>
       </main>
       </div>

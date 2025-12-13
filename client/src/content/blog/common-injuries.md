@@ -1,9 +1,9 @@
 ---
 title: "Marathon Training Injury Guide: Avoid Common & Rare Setbacks"
 excerpt: "From runner’s knee to stress fractures, learn how to dodge the injuries that derail Marathon Training—plus science-backed strategies to keep you running strong all season long."
-author: "Coach"
-publishedAt: "2025-07-21"
-tags: ["marathon", "injuries", "training", "prevention"]
+author: "Coach Diwakar"
+publishedAt: "2025-11-18"
+tags: ["marathon training", "injuries", "injury prevention", "marathon"]
 readingTime: 11
 featured: true
 ---
@@ -166,9 +166,9 @@ Injuries may be common, but they’re *not inevitable*. By respecting progressiv
 
 ---
 
-## We’d Love Your Feedback!
+### Next step
 
-Did these strategies help you rethink your injury-prevention game? **Which tip will you apply first—and why?** Drop your thoughts below, share this guide with a training partner, and let’s keep the conversation (and the miles) rolling! 🚀
+Want help spotting risk spikes before they turn into injuries? [Join the 26weeks.ai waitlist](/waitlist).
 
 ---
 
@@ -184,4 +184,4 @@ Did these strategies help you rethink your injury-prevention game? **Which tip w
 [2]: https://www.hss.edu/health-library/move-better/running-injury-prevention "Injury Prevention for First-Time Marathon Runners"
 [3]: https://www.tomsguide.com/wellness/running/runners-you-need-to-read-this-study-suggests-a-simple-training-tip-could-be-the-key-to-avoiding-injury "Runners, you need to read this — study suggests a simple training tip could be the key to avoiding injury | Tom's Guide"
 [4]: https://www.dartmouth-health.org/articles/9-common-running-injuries-and-prevention-tips-keep-you-track "9 Common Running Injuries and Prevention Tips to Keep You on Track | Dartmouth Health"
-[5]: https://www.brighamandwomens.org/assets/bwh/patients-and-families/rehabilitation-services/pdfs/le-running-injury-prevention-tips-and-return-to-running-program-bwh.pdf?utm_source=chatgpt.com "[PDF] Running Injury Prevention Tips & Return to Running Program"
+[5]: https://www.brighamandwomens.org/assets/bwh/patients-and-families/rehabilitation-services/pdfs/le-running-injury-prevention-tips-and-return-to-running-program-bwh.pdf "[PDF] Running Injury Prevention Tips & Return to Running Program"

@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, User } from "lucide-react";
 import { Link } from "wouter";
 import type { BlogPost } from "@/lib/blog";
-import { formatDate } from "@/lib/blog";
+import { formatDate, formatTagLabel } from "@/lib/blog";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -27,7 +27,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
             )}
             {post.tags?.slice(0, 2).map((tag) => (
               <Badge key={tag} variant="outline" className="text-xs border-neutral-800 text-neutral-300">
-                {tag}
+                {formatTagLabel(tag)}
               </Badge>
             ))}
           </div>

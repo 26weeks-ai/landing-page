@@ -1,11 +1,11 @@
 ---
 title: "Marathon Training Breathwork: Pranayama to Boost HRV & VO2"
 excerpt: "Unlock better heart-rate variability, a lower resting pulse, and more oxygen per stride with science-backed breathing drills tailor-made for every runner."
-author: "Coach"
-publishedAt: "2025-07-21"
-tags: ["breathwork", "pranayama", "Marathon Training", "VO2 Max", "HRV"]
+author: "Coach Diwakar"
+publishedAt: "2025-12-09"
+tags: ["breathwork", "pranayama", "marathon training", "vo2 max", "hrv"]
 readingTime: 12
-featured: true
+featured: false
 ---
 
 ## Introduction
@@ -110,7 +110,7 @@ Coaching staples like Hal Higdon’s Novice 1 call for four runs a week, yet alm
 3. **VO2 Max estimates** climb faster when runners combine HIIT with respiratory-muscle sessions, as confirmed by meta-analyses on interval training. ([ScienceDirect][9])
 4. **CO₂ Tolerance Test**: Time a breath hold after passive exhale. Anything >45 s suggests good ventilatory efficiency for marathon pace.
 
-*Unique insight:* Use the \**Garmin “Performance Condition” metric in the first 5 minutes of a workout to spot whether poor HRV overnight has translated into reduced readiness—then dial back pace or add extra breathwork in warm-up.*
+*Unique insight:* Use the **Garmin “Performance Condition”** metric in the first 5 minutes of a workout to spot whether poor HRV overnight has translated into reduced readiness—then dial back pace or add extra breathwork in warm-up.
 
 ---
 
@@ -146,26 +146,26 @@ A decade ago, talking about *breathwork* in a running club earned eye rolls. Tod
 
 ## FAQs
 
-1. **What’s the fastest way to *increase heart-rate variability naturally*?**
+1. **What’s the fastest way to improve HRV?**
    Combine nightly 4-7-8 breathing with adequate sleep; most runners see HRV upticks within a week.
 
-2. **Can *breathwork for endurance athletes* replace an easy run?**
+2. **Can breathwork replace an easy run?**
    No. View it as complementary conditioning—like strength work for your diaphragm.
 
-3. **How does *nasal breathing running* improve VO2 Max?**
+3. **Does nasal breathing improve VO2 Max?**
    Restricting airflow forces slower, deeper breaths, enhancing ventilatory efficiency and oxygen extraction.
 
-4. **Is *diaphragmatic breathing marathon*-specific or useful for 5-Ks too?**
+4. **Is diaphragmatic breathing useful for shorter races too?**
    It benefits all distances by stabilizing the core and optimizing gas exchange at any pace.
 
-5. **Do I need special gear for *VO2 Max breathing exercises*?**
+5. **Do I need special gear for breathwork?**
    A timer and a nose are enough, though a simple respiratory-muscle trainer can accelerate gains.
 
 ---
 
-## We’d Love Your Feedback!
+### Next step
 
-Did today’s breathing drills unlock a new gear in your long run? Share your experience in the comments or tag **@26weeks.ai** on social with your favorite breath-hack moment. *Which technique felt hardest—and which gave you that “light-legs” feeling?* Your story might inspire the next PR-chaser!
+Want a plan that adapts your breathing drills to your workouts, recovery, and goals? [Join the 26weeks.ai waitlist](/waitlist).
 
 ---
 
@@ -180,12 +180,12 @@ Did today’s breathing drills unlock a new gear in your long run? Share your ex
 7. Low-resistance respiratory-muscle training and VO2 Max. ([ScienceDirect][3])
 8. Meta-analysis: HIIT protocols and VO2 Max. ([ScienceDirect][9])
 
-[1]: https://www.runnersworld.com/training/a19492479/marathon-training-plans/?utm_source=chatgpt.com "The Best Marathon Training Plans for Every Level of Runner"
-[2]: https://pmc.ncbi.nlm.nih.gov/articles/PMC4959333/?utm_source=chatgpt.com "Yoga and heart rate variability: A comprehensive review of the ..."
-[3]: https://www.sciencedirect.com/science/article/pii/S1728869X24000169?utm_source=chatgpt.com "The influence of low resistance respiratory muscle training on ..."
-[4]: https://pmc.ncbi.nlm.nih.gov/articles/PMC7039472/?utm_source=chatgpt.com "Effects of 3 Weeks Yogic Breathing Practice on Ventilation and ..."
-[5]: https://www.othership.us/resources/hrv-breathing?utm_source=chatgpt.com "How to Improve Your HRV with Breathing Exercises & Breathwork"
-[6]: https://pmc.ncbi.nlm.nih.gov/articles/PMC4479905/?utm_source=chatgpt.com "Resting heart rate variability after yogic training and swimming"
-[7]: https://www.halhigdon.com/training/marathon-training/?utm_source=chatgpt.com "Marathon Training for All Skill Levels | Hal Higdon"
-[8]: https://www.nike.com/running/marathon-training-plan?utm_source=chatgpt.com "Marathon Training Plan. Nike.com"
-[9]: https://www.sciencedirect.com/science/article/abs/pii/S1440244018309198?utm_source=chatgpt.com "Effects of different protocols of high intensity interval training for ..."
+[1]: https://www.runnersworld.com/training/a19492479/marathon-training-plans/ "The Best Marathon Training Plans for Every Level of Runner"
+[2]: https://pmc.ncbi.nlm.nih.gov/articles/PMC4959333/ "Yoga and heart rate variability: A comprehensive review of the ..."
+[3]: https://www.sciencedirect.com/science/article/pii/S1728869X24000169 "The influence of low resistance respiratory muscle training on ..."
+[4]: https://pmc.ncbi.nlm.nih.gov/articles/PMC7039472/ "Effects of 3 Weeks Yogic Breathing Practice on Ventilation and ..."
+[5]: https://www.othership.us/resources/hrv-breathing "How to Improve Your HRV with Breathing Exercises & Breathwork"
+[6]: https://pmc.ncbi.nlm.nih.gov/articles/PMC4479905/ "Resting heart rate variability after yogic training and swimming"
+[7]: https://www.halhigdon.com/training/marathon-training/ "Marathon Training for All Skill Levels | Hal Higdon"
+[8]: https://www.nike.com/running/marathon-training-plan "Marathon Training Plan. Nike.com"
+[9]: https://www.sciencedirect.com/science/article/abs/pii/S1440244018309198 "Effects of different protocols of high intensity interval training for ..."

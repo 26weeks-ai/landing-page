@@ -23,6 +23,39 @@ export interface BlogPost {
   content: string;
 }
 
+const TAG_LABEL_OVERRIDES: Record<string, string> = {
+  "vo2 max": "VO2 Max",
+  hrv: "HRV",
+  rhr: "RHR",
+  "it band": "IT band",
+  "itb syndrome": "ITB syndrome",
+};
+
+export function normalizeTag(tag: string): string {
+  return tag.trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+export function formatTagLabel(tag: string): string {
+  const normalized = normalizeTag(tag);
+  const override = TAG_LABEL_OVERRIDES[normalized];
+  if (override) return override;
+
+  return normalized
+    .split(" ")
+    .map((word) => {
+      if (!word) return word;
+      const firstLetterIndex = word.search(/[a-z]/i);
+      if (firstLetterIndex === -1) return word;
+
+      return (
+        word.slice(0, firstLetterIndex) +
+        word[firstLetterIndex].toUpperCase() +
+        word.slice(firstLetterIndex + 1)
+      );
+    })
+    .join(" ");
+}
+
 const markdownFiles = import.meta.glob("../content/blog/*.md", {
   eager: true,
   query: "?raw",
@@ -41,7 +74,9 @@ const allPosts: BlogPost[] = Object.entries(markdownFiles)
       excerpt: attributes.excerpt ?? "",
       author: attributes.author ?? "26weeks.ai",
       publishedAt: attributes.publishedAt ?? new Date().toISOString(),
-      tags: Array.isArray(attributes.tags) ? attributes.tags : [],
+      tags: Array.isArray(attributes.tags)
+        ? attributes.tags.map(normalizeTag).filter(Boolean)
+        : [],
       readingTime:
         typeof attributes.readingTime === "number"
           ? attributes.readingTime
@@ -112,7 +147,9 @@ export function generateShareUrls(post: BlogPost, baseUrl?: string) {
 
 export function extractUniqueTags(posts: BlogPost[]): string[] {
   const allTags = posts.flatMap((post) => post.tags || []);
-  return Array.from(new Set(allTags)).sort();
+  return Array.from(new Set(allTags)).sort((a, b) =>
+    formatTagLabel(a).localeCompare(formatTagLabel(b)),
+  );
 }
 
 export function filterPostsByTag(posts: BlogPost[], tag: string): BlogPost[] {
@@ -125,6 +162,7 @@ export function searchPosts(posts: BlogPost[], query: string): BlogPost[] {
     (post) =>
       post.title.toLowerCase().includes(lowercaseQuery) ||
       post.excerpt.toLowerCase().includes(lowercaseQuery) ||
-      post.content.toLowerCase().includes(lowercaseQuery),
+      post.content.toLowerCase().includes(lowercaseQuery) ||
+      post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery)),
   );
 }

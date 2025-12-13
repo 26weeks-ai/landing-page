@@ -2,10 +2,10 @@
 title: "Marathon Training: Strength Work That Powers Every Mile"
 excerpt: "Discover why strength workouts are the secret weapon for runners of all levels and learn exactly how to weave them into your marathon plan—without burning out."
 author: "Coach Diwakar"
-publishedAt: "2025-07-21"
+publishedAt: "2025-11-25"
 tags: ["strength training", "marathon training", "injury prevention", "performance"]
 readingTime: 12
-featured: true
+featured: false
 ---
 
 ## Introduction
@@ -167,9 +167,9 @@ Mileage alone won’t carry you smoothly across 26.2 miles. Integrating strength
 
 ---
 
-## We’d Love Your Feedback!
+### Next step
 
-Did these tips help you rethink the role of strength in your running? Share your biggest “aha!” moment below and tag a training partner who skips the gym—let’s keep everyone healthy and fast.
+Want your strength work and running plan to stay in sync automatically? [Join the 26weeks.ai waitlist](/waitlist).
 
 ---
 

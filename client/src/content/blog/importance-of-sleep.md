@@ -1,11 +1,11 @@
 ---
 title: "Sleep: The Missing Piece in Marathon Training"
 excerpt: "Most runners obsess over mileage, pace, and nutrition—but ignore the recovery powerhouse that happens when the lights go out. Discover how mastering sleep can unlock faster times, stronger muscles, and a happier training cycle."
-author: "Coach"
-publishedAt: "2025-07-21"
+author: "Coach Diwakar"
+publishedAt: "2025-12-02"
 tags: ["sleep", "recovery", "marathon training"]
 readingTime: 12
-featured: true
+featured: false
 ---
 
 ## Introduction
@@ -151,9 +151,9 @@ Mileage may build fitness, but **sleep cements it**. By treating bedtime as seri
 
 ---
 
-## We’d Love Your Feedback!
+### Next step
 
-Did these tips help you rethink the way you recover? Drop a comment below or tag **@26weeks.ai** on social with your biggest sleep win from this week’s training. *What one change will you make tonight to sleep like a champion?* Your insights could inspire another runner chasing the same finish-line dream.
+Want coaching that adjusts your training to your recovery (including sleep)? [Join the 26weeks.ai waitlist](/waitlist).
 
 ---
 
@@ -165,13 +165,13 @@ Did these tips help you rethink the way you recover? Drop a comment below or tag
 * PsyPost, “Circadian Preferences and Running Performance.”([PsyPost - Psychology News][5])
 * Tom’s Guide, “Experts Say What to Do If You Can’t Sleep After a Workout.”([Tom's Guide][7])
 
-[1]: https://www.sleepfoundation.org/physical-activity/athletic-performance-and-sleep?utm_source=chatgpt.com "Sleep, Athletic Performance, and Recovery - Sleep Foundation"
-[2]: https://mplsheart.org/news/importance-sleep-runners-heart-and-health?utm_source=chatgpt.com "Importance of Sleep for a Runner's Heart and Health"
-[3]: https://cowtownmarathon.org/sleep-and-its-effect-on-runners/?utm_source=chatgpt.com "Sleep and it's Effect on Runners - The Cowtown Marathon"
-[4]: https://www.news-medical.net/news/20240414/Sleep-strategies-may-boost-ultramarathon-performance-study-finds.aspx?utm_source=chatgpt.com "Sleep strategies may boost ultramarathon performance, study finds"
-[5]: https://www.psypost.org/circadian-preferences-and-running-performance-late-night-tendencies-linked-to-slower-marathon-times/?utm_source=chatgpt.com "Circadian preferences and running performance - PsyPost"
-[6]: https://www.runnersworld.com/health-injuries/a64255909/sleep-deprivation-performance-tip-study/?utm_source=chatgpt.com "Sleep Deprivation Tanks Performance: A Science-Backed Trick Helps"
-[7]: https://www.tomsguide.com/wellness/fitness/struggling-to-sleep-after-exercise-experts-recommend-doing-these-two-things?utm_source=chatgpt.com "Experts say this is what to do if you can't sleep after a workout"
-[8]: https://www.sleepfoundation.org/insomnia/exercise-and-insomnia?utm_source=chatgpt.com "Exercise and Insomnia - Sleep Foundation"
-[9]: https://www.sleepfoundation.org/physical-health/diet-exercise-sleep?utm_source=chatgpt.com "The Connection Between Diet, Exercise, and Sleep"
-[10]: https://www.sleepfoundation.org/sleep-apnea?utm_source=chatgpt.com "Sleep Apnea: Symptoms and Causes - Sleep Foundation"
+[1]: https://www.sleepfoundation.org/physical-activity/athletic-performance-and-sleep "Sleep, Athletic Performance, and Recovery - Sleep Foundation"
+[2]: https://mplsheart.org/news/importance-sleep-runners-heart-and-health "Importance of Sleep for a Runner's Heart and Health"
+[3]: https://cowtownmarathon.org/sleep-and-its-effect-on-runners/ "Sleep and it's Effect on Runners - The Cowtown Marathon"
+[4]: https://www.news-medical.net/news/20240414/Sleep-strategies-may-boost-ultramarathon-performance-study-finds.aspx "Sleep strategies may boost ultramarathon performance, study finds"
+[5]: https://www.psypost.org/circadian-preferences-and-running-performance-late-night-tendencies-linked-to-slower-marathon-times/ "Circadian preferences and running performance - PsyPost"
+[6]: https://www.runnersworld.com/health-injuries/a64255909/sleep-deprivation-performance-tip-study/ "Sleep Deprivation Tanks Performance: A Science-Backed Trick Helps"
+[7]: https://www.tomsguide.com/wellness/fitness/struggling-to-sleep-after-exercise-experts-recommend-doing-these-two-things "Experts say this is what to do if you can't sleep after a workout"
+[8]: https://www.sleepfoundation.org/insomnia/exercise-and-insomnia "Exercise and Insomnia - Sleep Foundation"
+[9]: https://www.sleepfoundation.org/physical-health/diet-exercise-sleep "The Connection Between Diet, Exercise, and Sleep"
+[10]: https://www.sleepfoundation.org/sleep-apnea "Sleep Apnea: Symptoms and Causes - Sleep Foundation"
