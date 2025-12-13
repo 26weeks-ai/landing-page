@@ -1,11 +1,17 @@
 import { Check } from 'lucide-react';
-import { WAITLIST_FORM_URL } from '@/components/waitlist-form';
+import WaitlistForm from '@/components/waitlist-form';
 import { pricing } from '@/content/brand';
+
+const formatMoney = (amount: number) =>
+  amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+const formatMonthly = (amount: number) =>
+  amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export default function Pricing() {
   return (
     <section 
-      id="pricing" 
+      id="pricing"
       className="py-20 bg-white scroll-mt-24"
       aria-label="Pricing plans and subscription options"
     >
@@ -28,7 +34,7 @@ export default function Pricing() {
                 overflow-hidden relative flex flex-col h-full`}
             >
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-orange-500 text-white px-4 py-1 text-sm font-semibold">
+                <div className="absolute top-0 right-0 bg-orange-500 text-neutral-950 px-4 py-1 text-sm font-semibold">
                   POPULAR
                 </div>
               )}
@@ -36,9 +42,28 @@ export default function Pricing() {
                 <div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-4">{plan.name}</h3>
                   <div className="flex items-baseline mb-8">
-                    <span className="text-5xl font-bold text-neutral-900">${plan.price}</span>
-                    <span className="text-neutral-600 ml-2">/{plan.name.toLowerCase()}</span>
+                    <span className="text-5xl font-bold text-neutral-900">${formatMoney(plan.price)}</span>
+                    <span className="text-neutral-600 ml-2">
+                      {plan.billingIntervalMonths === 1
+                        ? "/month"
+                        : plan.billingIntervalMonths === 12
+                          ? "/year"
+                          : `/${plan.billingIntervalMonths} months`}
+                    </span>
                   </div>
+                  <p className="text-sm text-neutral-600 -mt-6 mb-8">
+                    {plan.billingIntervalMonths === 1
+                      ? "Billed monthly"
+                      : plan.billingIntervalMonths === 12
+                        ? "Billed yearly"
+                        : `Billed every ${plan.billingIntervalMonths} months`}
+                    {plan.billingIntervalMonths > 1 && (
+                      <>
+                        {" · "}
+                        ≈ ${formatMonthly(plan.price / plan.billingIntervalMonths)}/mo
+                      </>
+                    )}
+                  </p>
                   <ul className="space-y-4 mb-8">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-neutral-700">
@@ -49,16 +74,11 @@ export default function Pricing() {
                   </ul>
                 </div>
                 <div className="mt-auto">
-                  <a
-                    href={WAITLIST_FORM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-full ${plan.popular ? 'bg-orange-500 hover:bg-orange-600' : 'bg-neutral-900 hover:bg-neutral-800'} 
-                      text-white rounded-full py-3 font-semibold transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 inline-flex items-center justify-center`}
-                    aria-label={`Choose ${plan.name} plan for $${plan.price} and join waitlist`}
-                  >
-                    Choose {plan.name} & Join Waitlist
-                  </a>
+                  <WaitlistForm
+                    label="Join waitlist"
+                    planId={plan.id}
+                    className="w-full sm:w-full rounded-full py-3 text-sm shadow-none hover:scale-100 active:scale-100"
+                  />
                 </div>
               </div>
             </div>

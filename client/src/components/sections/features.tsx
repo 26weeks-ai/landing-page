@@ -55,16 +55,17 @@ export default function Features() {
   }, []);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const interval = setInterval(() => {
       setCurrentQuoteIndex((prev) => (prev + 1) % runningQuotes.length);
     }, 5000); // Change quote every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <section 
-      id="features" 
+      id="features"
       className="py-20 bg-white scroll-mt-24"
       aria-label="Key features and benefits of 26weeks.ai"
     >

@@ -9,8 +9,8 @@ interface MetaHeadProps {
   image?: string;
   url?: string;
   type?: 'website' | 'article';
-  tags?: string[];
-  aiSummary?: string[];
+  tags?: readonly string[];
+  aiSummary?: readonly string[];
   noIndex?: boolean;
 }
 
@@ -96,19 +96,50 @@ export function MetaHead({
       updateMetaTag('og:url', url, true);
     }
     
-    // Use provided image or default to the 26weeks.ai banner
-    const baseImageUrl = image || (typeof window !== 'undefined' ? `${window.location.origin}/banner-social.svg` : 'https://26weeks.ai/banner-social.svg');
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://26weeks.ai";
+    const toAbsoluteUrl = (maybeUrl: string) => {
+      if (!maybeUrl) return maybeUrl;
+      if (/^(https?:)?\/\//i.test(maybeUrl) || maybeUrl.startsWith("data:")) return maybeUrl;
+      if (maybeUrl.startsWith("/")) return `${origin}${maybeUrl}`;
+      return `${origin}/${maybeUrl}`;
+    };
+
+    const inferImageType = (imageUrl: string) => {
+      const normalized = imageUrl.split("#")[0]?.split("?")[0]?.toLowerCase() ?? "";
+      if (normalized.endsWith(".png")) return "image/png";
+      if (normalized.endsWith(".jpg") || normalized.endsWith(".jpeg")) return "image/jpeg";
+      if (normalized.endsWith(".webp")) return "image/webp";
+      if (normalized.endsWith(".svg")) return "image/svg+xml";
+      return undefined;
+    };
+
+    // Use provided image or default to the 26weeks.ai banner.
+    const baseImageUrl = image ? toAbsoluteUrl(image) : `${origin}/banner-social.png`;
     const ogImage = baseImageUrl;
+    const ogImageType = inferImageType(ogImage);
     updateMetaTag('og:image', ogImage, true);
-    updateMetaTag('og:image:width', '1200', true);
-    updateMetaTag('og:image:height', '630', true);
-    updateMetaTag('og:image:type', 'image/svg+xml', true);
+    if (ogImageType) {
+      updateMetaTag("og:image:type", ogImageType, true);
+    } else {
+      removeMetaTag("og:image:type", true);
+    }
+
+    const shouldSetOgDimensions = /\/(banner-social|og-image)\.(png|jpg|jpeg|webp|svg)$/i.test(
+      ogImage.split("#")[0]?.split("?")[0] ?? "",
+    );
+    if (shouldSetOgDimensions) {
+      updateMetaTag("og:image:width", "1200", true);
+      updateMetaTag("og:image:height", "630", true);
+    } else {
+      removeMetaTag("og:image:width", true);
+      removeMetaTag("og:image:height", true);
+    }
     updateMetaTag('og:image:alt', title || '26weeks.ai - Your AI Marathon Coach', true);
 
     // Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:site', '@26weeksai');
-    updateMetaTag('twitter:creator', '@26weeksai');
+    updateMetaTag("twitter:site", "@26weeks_ai");
+    updateMetaTag("twitter:creator", "@26weeks_ai");
     
     if (title) {
       updateMetaTag('twitter:title', title);

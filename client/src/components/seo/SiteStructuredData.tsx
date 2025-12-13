@@ -1,4 +1,4 @@
-import { pricing, featuresList, faqs, brandIdentity } from "@/content/brand";
+import { pricing, featuresList, brandIdentity } from "@/content/brand";
 import type { FAQItem } from "@/content/brand";
 
 interface SiteStructuredDataProps {
@@ -86,11 +86,6 @@ export function SiteStructuredData({ faqs }: SiteStructuredDataProps) {
     applicationCategory: "SportsApplication",
     offers: applicationOffers,
     image: defaultImage,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "120",
-    },
     creator: {
       "@type": "Organization",
       name: "26weeks.ai",

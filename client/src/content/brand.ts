@@ -10,11 +10,11 @@ export const brandIdentity = {
   name: "26weeks.ai",
   tagline: "Your AI Marathon Coach",
   domain: "https://26weeks.ai",
-  defaultOgImage: "https://26weeks.ai/og-image.svg",
+  defaultOgImage: "https://26weeks.ai/og-image.png",
   logo: "https://26weeks.ai/icon-corners.svg",
   contactEmail: "coach@26weeks.ai",
   links: {
-    waitlist: "https://forms.gle/26weeksWaitlist",
+    waitlist: "/waitlist",
     sitemap: "https://26weeks.ai/sitemap.xml",
   },
   social: {
@@ -83,6 +83,15 @@ export const seo = {
     url: `${brandIdentity.domain}/cancellations`,
     image: brandIdentity.defaultOgImage,
     tags: ["refund policy", "subscription cancellation", "money-back guarantee"],
+  },
+  waitlist: {
+    type: "website",
+    title: "Join the Waitlist",
+    description:
+      "Get launch updates, early access invites, and training drops from 26weeks.ai.",
+    url: `${brandIdentity.domain}/waitlist`,
+    image: brandIdentity.defaultOgImage,
+    tags: ["waitlist", "marathon training app", "AI marathon coach"],
   },
   notFound: {
     type: "website",
@@ -231,8 +240,10 @@ export const pricing = {
     "No questions asked return policy. No credit card required. 3 plans.",
   plans: [
     {
+      id: "monthly",
       name: "Monthly",
-      price: "20",
+      price: 20,
+      billingIntervalMonths: 1,
       description: "Start your journey",
       features: [
         "Full Access to AI Coach",
@@ -242,15 +253,19 @@ export const pricing = {
       ],
     },
     {
+      id: "six-months",
       name: "6 Months",
-      price: "100",
+      price: 100,
+      billingIntervalMonths: 6,
       description: "Most Popular Choice",
       popular: true,
       features: ["All Monthly Features", "Priority Support", "Save 17%"],
     },
     {
+      id: "yearly",
       name: "Yearly",
-      price: "200",
+      price: 200,
+      billingIntervalMonths: 12,
       description: "Best value",
       features: ["All 6-Month Features", "VIP Support", "Save 17%"],
     },
@@ -259,12 +274,12 @@ export const pricing = {
 
 export const testimonials = {
   title: "Success Stories",
-  subtitle: "Join thousands of runners who have achieved their marathon dreams",
+  subtitle: "Join runners training smarter with personalized marathon coaching",
   reviews: [
     {
       name: "Sarah Johnson",
       role: "First-time Marathoner",
-      image: "https://ui-avatars.com/api/?name=Sarah+Johnson",
+      image: "",
       quote:
         "26weeks.ai transformed me from someone who couldn't run a mile to completing my first marathon. The AI adapts perfectly to your progress.",
       stars: 5,
@@ -272,7 +287,7 @@ export const testimonials = {
     {
       name: "Michael Chen",
       role: "Experienced Runner",
-      image: "https://ui-avatars.com/api/?name=Michael+Chen",
+      image: "",
       quote:
         "Even as an experienced runner, the AI coaching helped me improve my times and prevent injuries. The personalization is incredible.",
       stars: 5,
@@ -280,7 +295,7 @@ export const testimonials = {
     {
       name: "Emma Wilson",
       role: "Busy Professional",
-      image: "https://ui-avatars.com/api/?name=Emma+Wilson",
+      image: "",
       quote:
         "The flexibility of the program allowed me to train for a marathon while maintaining my busy schedule. The results speak for themselves.",
       stars: 5,

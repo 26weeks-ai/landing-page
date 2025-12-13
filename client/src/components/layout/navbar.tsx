@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 
@@ -23,6 +26,7 @@ const pageLinks = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,18 +81,24 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Navigation */}
-          <Sheet>
+          <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" className="md:hidden text-white" size="icon" aria-label="Open navigation menu">
                 <Menu className="h-6 w-6" />
+                <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent className="bg-neutral-900 border-neutral-800">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Navigation</SheetTitle>
+                <SheetDescription className="sr-only">Site navigation links</SheetDescription>
+              </SheetHeader>
               <nav className="flex flex-col space-y-4 mt-8">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
+                    onClick={() => setIsMobileNavOpen(false)}
                     className="text-white hover:text-orange-500 transition-all px-4 py-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500"
                   >
                     {link.label}
@@ -97,6 +107,7 @@ export default function Navbar() {
                 {pageLinks.map((link) => (
                   <Link key={link.href} href={link.href}>
                     <span
+                      onClick={() => setIsMobileNavOpen(false)}
                       className="text-white hover:text-orange-500 transition-colors px-4 py-2 rounded-lg cursor-pointer block"
                     >
                       {link.label}

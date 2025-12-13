@@ -92,7 +92,7 @@ export function PerformanceLogger(): null {
   const metrics = usePerformance();
   
   useEffect(() => {
-    if (metrics.isDataCollected && process.env.NODE_ENV !== 'production') {
+    if (metrics.isDataCollected && import.meta.env.DEV) {
       console.log('Performance Metrics:', {
         'Load Time': `${metrics.loadTime}ms`,
         'Time to First Byte': `${metrics.timeToFirstByte}ms`,

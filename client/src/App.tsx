@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const Home = lazy(() => import("@/pages/home"));
 const Blog = lazy(() => import("@/pages/blog"));
 const BlogPost = lazy(() => import("@/pages/blog-post"));
+const Waitlist = lazy(() => import("@/pages/waitlist"));
 const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cancellations = lazy(() => import("@/pages/cancellations"));
@@ -34,6 +35,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogPost} />
+        <Route path="/waitlist" component={Waitlist} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
         <Route path="/cancellations" component={Cancellations} />

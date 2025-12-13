@@ -25,7 +25,8 @@ export interface BlogPost {
 
 const markdownFiles = import.meta.glob("../content/blog/*.md", {
   eager: true,
-  as: "raw",
+  query: "?raw",
+  import: "default",
 }) as Record<string, string>;
 
 const allPosts: BlogPost[] = Object.entries(markdownFiles)

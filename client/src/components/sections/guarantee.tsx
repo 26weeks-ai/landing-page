@@ -22,7 +22,7 @@ const trustPoints = [
 export default function Guarantee() {
   return (
     <section 
-      id="guarantee" 
+      id="guarantee"
       className="py-20 bg-neutral-900 scroll-mt-24"
       aria-label="Money-back guarantee and trust indicators"
     >

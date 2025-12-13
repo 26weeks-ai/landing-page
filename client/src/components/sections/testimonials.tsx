@@ -1,10 +1,18 @@
 import { Star } from 'lucide-react';
 import { testimonials, type Testimonial } from '@/content/brand';
 
+const getInitials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("");
+
 export default function Testimonials() {
   return (
     <section 
-      id="testimonials" 
+      id="testimonials"
       className="py-20 bg-neutral-50 scroll-mt-24"
       aria-label="Customer testimonials and reviews"
     >
@@ -27,12 +35,21 @@ export default function Testimonials() {
               className="bg-white rounded-2xl shadow-lg p-8 transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="flex items-center mb-6">
-                <img
-                  src={testimonial.image}
-                  alt={`${testimonial.name}, ${testimonial.role}`}
-                  className="w-16 h-16 rounded-full mr-4"
-                  loading="lazy"
-                />
+                {testimonial.image ? (
+                  <img
+                    src={testimonial.image}
+                    alt={`${testimonial.name}, ${testimonial.role}`}
+                    className="w-16 h-16 rounded-full mr-4"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div
+                    className="w-16 h-16 rounded-full mr-4 bg-neutral-200 text-neutral-900 flex items-center justify-center font-semibold"
+                    aria-hidden="true"
+                  >
+                    {getInitials(testimonial.name)}
+                  </div>
+                )}
                 <div>
                   <h3 className="font-semibold text-lg">{testimonial.name}</h3>
                   <p className="text-neutral-600">{testimonial.role}</p>

@@ -6,20 +6,33 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqs } from "@/content/brand";
+import { useEffect, useState } from "react";
 
 export default function FAQ() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
   return (
     <section 
-      id="faq" 
+      id="faq"
       className="py-20 bg-white scroll-mt-24"
       aria-label="Frequently asked questions about 26weeks.ai"
     >
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
         >
           <h2 className="text-4xl font-bold text-neutral-900 mb-4">
             Frequently Asked Questions
@@ -31,19 +44,19 @@ export default function FAQ() {
 
         <motion.div 
           className="max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? undefined : { delay: 0.2 }}
         >
           <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? undefined : { delay: index * 0.1 }}
               >
                 <AccordionItem value={`item-${index}`} className="border rounded-lg px-4">
                   <AccordionTrigger className="text-left hover:no-underline">

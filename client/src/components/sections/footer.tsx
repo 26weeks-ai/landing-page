@@ -1,16 +1,8 @@
 import { Link } from "wouter";
 import { Twitter, Instagram, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { WAITLIST_FORM_URL } from "@/components/waitlist-form";
+import WaitlistForm from "@/components/waitlist-form";
 
 export default function Footer() {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <footer 
       id="footer" 
@@ -21,7 +13,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
-          <div className="animate__animated animate__fadeIn">
+          <div>
             <div className="text-2xl font-bold text-white mb-4">26weeks.ai</div>
             <p className="text-neutral-400 mb-6">
               Transform your running journey with AI-powered marathon training.
@@ -49,37 +41,37 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="animate__animated animate__fadeIn animate__delay-1s">
+          <div>
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-            <button
-              onClick={() => scrollToSection("features")}
+            <a
+              href="#features"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
             >
               Features
-            </button>
-            <button
-              onClick={() => scrollToSection("pricing")}
+            </a>
+            <a
+              href="#pricing"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
             >
               Pricing
-            </button>
-            <button
-              onClick={() => scrollToSection("testimonials")}
+            </a>
+            <a
+              href="#testimonials"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
             >
               Testimonials
-            </button>
+            </a>
           </div>
 
           {/* Support */}
-          <div className="animate__animated animate__fadeIn animate__delay-2s">
+          <div>
             <h3 className="text-white font-semibold mb-4">Support</h3>
-            <button
-              onClick={() => scrollToSection("faq")}
+            <a
+              href="#faq"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
             >
               FAQ
-            </button>
+            </a>
             <Link
               href="/privacy"
               className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
@@ -109,19 +101,15 @@ export default function Footer() {
           </div>
 
           {/* Waitlist CTA */}
-          <div className="animate__animated animate__fadeIn animate__delay-3s">
+          <div>
             <h3 className="text-white font-semibold mb-4">Join the Waitlist</h3>
             <p className="text-neutral-400 mb-4">
               Be the first to hear about launch updates, product news, and training drops.
             </p>
-            <Button
-              asChild
-              className="w-full bg-orange-500 text-neutral-950 font-semibold shadow-lg shadow-orange-500/30 hover:bg-orange-400 focus-visible:ring-orange-500 transition-transform duration-150 hover:scale-[1.01] active:scale-[0.99]"
-            >
-              <a href={WAITLIST_FORM_URL} target="_blank" rel="noopener noreferrer">
-                Open Waitlist Form
-              </a>
-            </Button>
+            <WaitlistForm
+              label="Join waitlist"
+              className="w-full sm:w-full hover:scale-100 active:scale-100"
+            />
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense, useState } from 'react';
 import Navbar from '@/components/layout/navbar';
 import Hero from '@/components/sections/hero';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -27,30 +27,20 @@ const SectionLoader = () => (
 );
 
 export default function Home() {
+  const [renderBelowFold, setRenderBelowFold] = useState(false);
+  useEffect(() => {
+    setRenderBelowFold(true);
+  }, []);
 
   useEffect(() => {
-    const anchors = Array.from(document.querySelectorAll('a[href^="#"]')) as HTMLAnchorElement[];
-    const handleAnchorClick = (event: Event) => {
-      event.preventDefault();
-      const target = event.currentTarget as HTMLAnchorElement;
-      const href = target.getAttribute('href');
-      if (href) {
-        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-      }
-    };
+    if (!renderBelowFold || typeof window === "undefined") return;
+    if (!window.location.hash) return;
 
-    anchors.forEach((anchor) => anchor.addEventListener('click', handleAnchorClick));
-
-    const timer = setTimeout(() => {
-      import('@/components/sections/features');
-      import('@/components/sections/footer');
-    }, 2000);
-
-    return () => {
-      anchors.forEach((anchor) => anchor.removeEventListener('click', handleAnchorClick));
-      clearTimeout(timer);
-    };
-  }, []);
+    const target = document.querySelector(window.location.hash);
+    if (target instanceof HTMLElement) {
+      target.scrollIntoView();
+    }
+  }, [renderBelowFold]);
 
   return (
     <>
@@ -61,36 +51,48 @@ export default function Home() {
       
       {/* Content overlay */}
       <div className="relative z-10">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-neutral-900 focus:shadow-lg"
+        >
+          Skip to content
+        </a>
         <Navbar />
-        <main>
+        <main id="main-content">
           {/* Critical content loaded immediately */}
           <Hero />
           
-          {/* Lazy loaded sections with suspense boundaries */}
-          <Suspense fallback={<SectionLoader />}>
-            <Features />
-          </Suspense>
+          {/* Below-the-fold content mounts after first paint */}
+          {renderBelowFold && (
+            <>
+              <Suspense fallback={<SectionLoader />}>
+                <Features />
+              </Suspense>
           
-          <Suspense fallback={<SectionLoader />}>
-            <Guarantee />
-          </Suspense>
+              <Suspense fallback={<SectionLoader />}>
+                <Guarantee />
+              </Suspense>
           
-          <Suspense fallback={<SectionLoader />}>
-            <Pricing />
-          </Suspense>
+              <Suspense fallback={<SectionLoader />}>
+                <Pricing />
+              </Suspense>
           
-          <Suspense fallback={<SectionLoader />}>
-            <Testimonials />
-          </Suspense>
+              <Suspense fallback={<SectionLoader />}>
+                <Testimonials />
+              </Suspense>
           
-          <Suspense fallback={<SectionLoader />}>
-            <FAQ />
-          </Suspense>
+              <Suspense fallback={<SectionLoader />}>
+                <FAQ />
+              </Suspense>
+            </>
+          )}
         </main>
         
-        <Suspense fallback={<SectionLoader />}>
-          <Footer />
-        </Suspense>
+        {renderBelowFold && (
+          <Suspense fallback={<SectionLoader />}>
+            <Footer />
+          </Suspense>
+        )}
       </div>
       </div>
     </>

@@ -1,17 +1,34 @@
-import { Button } from '@/components/ui/button';
-import { brandIdentity } from '@/content/brand';
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { brandIdentity } from "@/content/brand";
+import { useLocation } from "wouter";
 
-export const WAITLIST_FORM_URL = brandIdentity.links.waitlist;
+export const WAITLIST_PATH = brandIdentity.links.waitlist;
 
-export default function WaitlistForm() {
+interface WaitlistFormProps {
+  label?: string;
+  planId?: string;
+  className?: string;
+}
+
+export default function WaitlistForm({
+  label = "Join Waitlist",
+  planId,
+  className,
+}: WaitlistFormProps) {
+  const [, setLocation] = useLocation();
+  const href = planId ? `${WAITLIST_PATH}?plan=${encodeURIComponent(planId)}` : WAITLIST_PATH;
+
   return (
     <Button
-      asChild
-      className="w-full sm:w-auto bg-orange-500 text-neutral-950 font-semibold shadow-lg shadow-orange-500/30 hover:bg-orange-400 focus-visible:ring-orange-500 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] px-6 py-5 text-base"
+      type="button"
+      className={cn(
+        "w-full sm:w-auto bg-orange-500 text-neutral-950 font-semibold shadow-lg shadow-orange-500/30 hover:bg-orange-400 focus-visible:ring-orange-500 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] px-6 py-5 text-base",
+        className,
+      )}
+      onClick={() => setLocation(href)}
     >
-      <a href={WAITLIST_FORM_URL} target="_blank" rel="noopener noreferrer">
-        Join Waitlist
-      </a>
+      {label}
     </Button>
   );
 }
