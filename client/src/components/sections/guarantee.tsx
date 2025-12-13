@@ -1,23 +1,12 @@
 import { Check, Clock, Lock } from 'lucide-react';
 import WaitlistForm from '@/components/waitlist-form';
+import { guarantee, trustPoints } from "@/content/brand";
 
-const trustPoints = [
-  {
-    icon: Clock,
-    title: "30-Day Trial",
-    description: "Full access to all features for a complete experience"
-  },
-  {
-    icon: Check,
-    title: "No Contract",
-    description: "Cancel anytime with no hidden fees"
-  },
-  {
-    icon: Lock,
-    title: "Secure Payment",
-    description: "SSL encrypted checkout for your security"
-  }
-];
+const trustPointIcons = {
+  "30-Day Trial": Clock,
+  "No Contract": Check,
+  "Secure Payment": Lock,
+} as const;
 
 export default function Guarantee() {
   return (
@@ -42,12 +31,11 @@ export default function Guarantee() {
               </div>
               
               <h2 className="text-4xl font-bold text-white mb-6">
-                100% Money-Back Guarantee
+                {guarantee.title}
               </h2>
               
               <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
-                If you're not satisfied with your progress within the first 30 days,
-                we'll refund every penny. No questions asked.
+                {guarantee.description}
               </p>
               
               <WaitlistForm />
@@ -57,18 +45,23 @@ export default function Guarantee() {
           <div 
             className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
           >
-            {trustPoints.map((point, index) => (
-              <div 
-                key={index}
-                className="bg-neutral-800 rounded-xl p-6 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-              >
-                <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <point.icon className="w-8 h-8 text-blue-500" aria-hidden="true" />
+            {trustPoints.map((point) => {
+              const Icon =
+                trustPointIcons[point.title as keyof typeof trustPointIcons] ?? Check;
+
+              return (
+                <div
+                  key={point.title}
+                  className="bg-neutral-800 rounded-xl p-6 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+                >
+                  <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-8 h-8 text-blue-500" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">{point.title}</h3>
+                  <p className="text-neutral-400">{point.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{point.title}</h3>
-                <p className="text-neutral-400">{point.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

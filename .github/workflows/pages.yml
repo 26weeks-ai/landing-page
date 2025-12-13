@@ -33,6 +33,7 @@ jobs:
 
       - name: Verify static SEO files
         run: |
+          test -f dist/public/CNAME
           test -f dist/public/robots.txt
           test -f dist/public/sitemap.xml
           test -f dist/public/og-image.png
