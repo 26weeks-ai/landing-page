@@ -6,12 +6,11 @@ export default function Privacy() {
   return (
     <>
       <MetaHead {...seo.privacy} />
-      <div className="min-h-screen bg-background text-foreground py-20">
+      <div className="min-h-screen bg-white py-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="rounded-3xl border border-border bg-card p-8 shadow-elev-2">
-          <h1 className="text-4xl font-semibold text-foreground mb-8">Privacy Policy</h1>
+          <h1 className="text-4xl font-bold text-neutral-900 mb-8">Privacy Policy</h1>
           
-          <div className="prose prose-lg prose-invert max-w-none">
+          <div className="prose prose-lg">
             <p>Last updated: February 10, 2025</p>
 
             <h2>1. Information We Collect</h2>
@@ -54,11 +53,10 @@ export default function Privacy() {
             </ul>
 
             <div className="mt-8">
-              <Link href="/" className="text-ring hover:text-ring/90 underline decoration-ring/40 underline-offset-4">
+              <Link href="/" className="text-orange-500 hover:text-orange-600">
                 Return to Home
               </Link>
             </div>
-          </div>
           </div>
         </div>
       </div>

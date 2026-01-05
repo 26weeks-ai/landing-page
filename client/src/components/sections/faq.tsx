@@ -24,7 +24,7 @@ export default function FAQ() {
   return (
     <section 
       id="faq"
-      className="py-24 bg-background scroll-mt-24"
+      className="py-20 bg-white scroll-mt-24"
       aria-label="Frequently asked questions about 26weeks.ai"
     >
       <div className="container mx-auto px-4">
@@ -34,10 +34,10 @@ export default function FAQ() {
           whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={prefersReducedMotion ? undefined : { once: true }}
         >
-          <h2 className="text-4xl font-semibold text-foreground mb-4">
+          <h2 className="text-4xl font-bold text-neutral-900 mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
             Everything you need to know about our AI-powered marathon training
           </p>
         </motion.div>
@@ -58,16 +58,13 @@ export default function FAQ() {
                 viewport={prefersReducedMotion ? undefined : { once: true }}
                 transition={prefersReducedMotion ? undefined : { delay: index * 0.1 }}
               >
-                <AccordionItem
-                  value={`item-${index}`}
-                  className="border border-border bg-card rounded-2xl px-4"
-                >
+                <AccordionItem value={`item-${index}`} className="border rounded-lg px-4">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <span className="text-lg font-semibold text-foreground">
+                    <span className="text-lg font-semibold text-neutral-900">
                       {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-neutral-600">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

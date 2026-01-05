@@ -66,7 +66,7 @@ export default function Features() {
   return (
     <section 
       id="features"
-      className="py-24 bg-background scroll-mt-24"
+      className="py-20 bg-white scroll-mt-24"
       aria-label="Key features and benefits of 26weeks.ai"
     >
       <div className="container mx-auto px-4">
@@ -76,17 +76,17 @@ export default function Features() {
           whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={prefersReducedMotion ? undefined : { once: true }}
         >
-          <h2 className="text-4xl font-semibold text-foreground mb-4">
+          <h2 className="text-4xl font-bold text-neutral-900 mb-4">
             {features.title}{" "}
-            <span className="text-ring">{features.titleHighlight}</span>
+            <span className="text-orange-500">{features.titleHighlight}</span>
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
             {features.subtitle}
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={container}
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView={prefersReducedMotion ? undefined : "show"}
@@ -99,32 +99,32 @@ export default function Features() {
             return (
               <motion.div
                 key={index}
-                className="group bg-card border border-border p-6 rounded-3xl shadow-elev-2 hover:shadow-elev-3 transition-all duration-300 hover:-translate-y-1"
+                className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                 variants={item}
               >
                 <div
-                  className={`w-14 h-14 ${feature.bgClass} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-14 h-14 ${feature.bgClass} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
                 >
                   <Icon className={`w-8 h-8 ${feature.iconClass}`} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-foreground">
+                <h3 className="text-xl font-semibold mb-3 text-neutral-900">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <p className="text-neutral-600">{feature.description}</p>
               </motion.div>
             );
           })}
         </motion.div>
 
         {/* Inspirational Quotes Section */}
-        <div className="mt-16 max-w-4xl mx-auto text-center relative h-32">
+        <div className="mt-20 max-w-4xl mx-auto text-center relative h-32">
           {prefersReducedMotion ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <div>
-                <p className="text-lg sm:text-xl text-muted-foreground italic mb-2">
+                <p className="text-xl text-neutral-600 italic mb-2">
                   "{runningQuotes[currentQuoteIndex].quote}"
                 </p>
-                <p className="text-sm text-subtle">
+                <p className="text-sm text-neutral-500">
                   — {runningQuotes[currentQuoteIndex].author}
                 </p>
               </div>
@@ -140,10 +140,10 @@ export default function Features() {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <div>
-                  <p className="text-lg sm:text-xl text-muted-foreground italic mb-2">
+                  <p className="text-xl text-neutral-600 italic mb-2">
                     "{runningQuotes[currentQuoteIndex].quote}"
                   </p>
-                  <p className="text-sm text-subtle">
+                  <p className="text-sm text-neutral-500">
                     — {runningQuotes[currentQuoteIndex].author}
                   </p>
                 </div>

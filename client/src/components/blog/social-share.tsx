@@ -34,25 +34,25 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
       name: "Twitter",
       icon: Twitter,
       url: shareUrls.twitter,
-      className: "hover:bg-chart-4/10 hover:text-chart-4",
+      className: "hover:bg-blue-500/10 hover:text-blue-200",
     },
     {
       name: "Facebook",
       icon: Facebook,
       url: shareUrls.facebook,
-      className: "hover:bg-chart-4/10 hover:text-chart-4",
+      className: "hover:bg-blue-500/10 hover:text-blue-200",
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
       url: shareUrls.linkedin,
-      className: "hover:bg-chart-4/10 hover:text-chart-4",
+      className: "hover:bg-blue-500/10 hover:text-blue-200",
     },
     {
       name: "Email",
       icon: Mail,
       url: shareUrls.email,
-      className: "hover:bg-secondary/12 hover:text-foreground",
+      className: "hover:bg-neutral-800 hover:text-neutral-50",
     },
   ];
 
@@ -66,7 +66,7 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
           key={button.name}
           variant="outline"
           size="sm"
-          className={`border-border bg-background/20 text-muted-foreground hover:bg-card/50 ${button.className}`}
+          className={`border-neutral-800 bg-neutral-950/40 text-neutral-200 hover:bg-neutral-900 ${button.className}`}
           onClick={() => window.open(button.url, '_blank', 'noopener,noreferrer')}
         >
           <button.icon className="w-4 h-4 mr-2" />
@@ -76,7 +76,7 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
       <Button
         variant="outline"
         size="sm"
-        className="border-border bg-background/20 text-muted-foreground hover:bg-chart-3/10 hover:text-chart-3"
+        className="border-neutral-800 bg-neutral-950/40 text-neutral-200 hover:bg-green-500/10 hover:text-green-300"
         onClick={handleCopyLink}
       >
         <Copy className="w-4 h-4 mr-2" />
