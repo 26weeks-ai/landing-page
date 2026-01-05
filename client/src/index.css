@@ -3,49 +3,85 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
-  --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
-  --card-foreground: 20 14.3% 4.1%;
-  --border: 20 5.9% 90%;
-  --input: 20 5.9% 90%;
-  --primary: 22 82% 51%;
-  --primary-foreground: 18 100% 99%;
-  --secondary: 60 4.8% 95.9%;
-  --secondary-foreground: 24 9.8% 10%;
-  --accent: 60 4.8% 95.9%;
-  --accent-foreground: 24 9.8% 10%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --ring: 20 14.3% 4.1%;
-  --radius: 0.5rem;
+  /* 26weeks.ai — semantic.dark (from ../codebase/mobile/design/design_tokens.json) */
+  --background: 202.9 23.1% 17.8%; /* #233038 */
+  --foreground: 43.8 86.7% 94.1%; /* #FDF6E3 */
+
+  --card: 209 25.2% 22.5%; /* #2B3A48 */
+  --card-foreground: 43.8 86.7% 94.1%;
+
+  --popover: 209 25.2% 22.5%;
+  --popover-foreground: 43.8 86.7% 94.1%;
+
+  --muted: 202.5 22.2% 14.1%; /* #1C262C */
+  --muted-foreground: 192 12.8% 84.7%; /* #D3DBDD */
+  --subtle: 202.5 4.8% 67.1%; /* #A7ACAF */
+
+  --border: 208 20.5% 28.6%; /* #3A4A58 */
+  --input: 201.2 9.8% 33.9%; /* #4E595F */
+  --input-hover: 205 4.8% 50.6%; /* #7B8287 */
+
+  /* Buttons */
+  --primary: 22 100% 37.5%; /* #BF4600 */
+  --primary-hover: 22.3 100% 44.3%; /* #E25400 */
+  --primary-pressed: 22.2 100% 30.2%; /* #9A3900 */
+  --primary-foreground: 204 18.5% 5.3%; /* #0B0E10 */
+
+  --secondary: 184.6 84.9% 18.2%; /* #075056 */
+  --secondary-hover: 182.5 37.9% 37.3%; /* #3B8083 */
+  --secondary-pressed: 184.8 83.8% 14.5%; /* #063F44 */
+  --secondary-foreground: 43.8 86.7% 94.1%;
+
+  --accent: 182.7 88% 9.8%; /* #032D2F */
+  --accent-foreground: 43.8 86.7% 94.1%;
+
+  --destructive: 0 63.9% 55.5%; /* #D64545 */
+  --destructive-foreground: 43.8 86.7% 94.1%;
+
+  --ring: 20.8 100% 50.8%; /* #FF5B04 */
+
+  --chart-1: 20.8 100% 50.8%; /* #FF5B04 */
+  --chart-2: 44 84.5% 72.2%; /* #F4D47C */
+  --chart-3: 172.6 41.5% 49.6%; /* #4AB3A6 */
+  --chart-4: 203.9 63.8% 72.9%; /* #8EC3E6 */
+  --chart-5: 192 12.8% 84.7%; /* #D3DBDD */
+
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --primary: 22 82% 51%;
-  --primary-foreground: 18 100% 99%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --ring: 240 4.9% 83.9%;
-  --radius: 0.5rem;
+  /* Dark-only product; keep dark class aligned with :root for compatibility. */
+  --background: 202.9 23.1% 17.8%;
+  --foreground: 43.8 86.7% 94.1%;
+  --card: 209 25.2% 22.5%;
+  --card-foreground: 43.8 86.7% 94.1%;
+  --popover: 209 25.2% 22.5%;
+  --popover-foreground: 43.8 86.7% 94.1%;
+  --muted: 202.5 22.2% 14.1%;
+  --muted-foreground: 192 12.8% 84.7%;
+  --subtle: 202.5 4.8% 67.1%;
+  --border: 208 20.5% 28.6%;
+  --input: 201.2 9.8% 33.9%;
+  --input-hover: 205 4.8% 50.6%;
+  --primary: 22 100% 37.5%;
+  --primary-hover: 22.3 100% 44.3%;
+  --primary-pressed: 22.2 100% 30.2%;
+  --primary-foreground: 204 18.5% 5.3%;
+  --secondary: 184.6 84.9% 18.2%;
+  --secondary-hover: 182.5 37.9% 37.3%;
+  --secondary-pressed: 184.8 83.8% 14.5%;
+  --secondary-foreground: 43.8 86.7% 94.1%;
+  --accent: 182.7 88% 9.8%;
+  --accent-foreground: 43.8 86.7% 94.1%;
+  --destructive: 0 63.9% 55.5%;
+  --destructive-foreground: 43.8 86.7% 94.1%;
+  --ring: 20.8 100% 50.8%;
+  --chart-1: 20.8 100% 50.8%;
+  --chart-2: 44 84.5% 72.2%;
+  --chart-3: 172.6 41.5% 49.6%;
+  --chart-4: 203.9 63.8% 72.9%;
+  --chart-5: 192 12.8% 84.7%;
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -63,16 +99,13 @@
 
   /* Improve accessibility and performance */
   :focus-visible {
-    @apply outline-2 outline-orange-500 outline-offset-2;
+    @apply outline-2 outline-ring outline-offset-2;
   }
 
   /* High contrast mode support */
   @media (prefers-contrast: high) {
-    .text-neutral-600 {
-      @apply text-neutral-800;
-    }
-    .text-neutral-400 {
-      @apply text-neutral-700;
+    .text-muted-foreground {
+      @apply text-foreground;
     }
   }
 
@@ -89,5 +122,23 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+@layer base {
+  ::selection {
+    background: hsl(var(--ring) / 0.28);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .bg-dot-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      hsl(var(--border) / 0.55) 1px,
+      transparent 0
+    );
+    background-size: 24px 24px;
   }
 }

@@ -27,12 +27,12 @@ export default function BlogPostPage() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-neutral-950 text-white flex items-center justify-center px-6">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-6">
         <div className="max-w-md text-center">
-          <h2 className="text-2xl font-semibold text-white mb-4">Article not found</h2>
-          <p className="text-neutral-400 mb-6">The blog post you're looking for doesn't exist.</p>
+          <h2 className="text-2xl font-semibold text-foreground mb-4">Article not found</h2>
+          <p className="text-muted-foreground mb-6">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
-            <Button className="bg-orange-500 text-neutral-950 hover:bg-orange-400 focus-visible:ring-orange-500">
+            <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
             </Button>
@@ -51,7 +51,7 @@ export default function BlogPostPage() {
     : `https://26weeks.ai/logo-corners-1080p.png`;
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Dynamic Meta Tags */}
       <MetaHead
         title={post.title}
@@ -66,12 +66,12 @@ export default function BlogPostPage() {
       />
       
       {/* Header */}
-      <div className="border-b border-neutral-900 bg-gradient-to-b from-neutral-950 to-neutral-900/60">
+      <div className="border-b border-border bg-gradient-to-b from-background to-card/35">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <Link href="/blog">
             <Button
               variant="ghost"
-              className="mb-6 text-orange-400 hover:text-orange-200 hover:bg-orange-500/15 focus-visible:ring-orange-500/60"
+              className="mb-6 text-ring hover:text-ring/90 hover:bg-ring/10 focus-visible:ring-ring/60"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
@@ -82,26 +82,26 @@ export default function BlogPostPage() {
           <div className="space-y-6">
             <div className="flex flex-wrap gap-2">
               {post.featured && (
-                <Badge className="bg-orange-500/20 text-orange-200">
+                <Badge className="bg-ring/15 text-ring">
                   Featured
                 </Badge>
               )}
               {post.tags?.map((tag) => (
-                <Badge key={tag} variant="outline" className="border-neutral-800 text-neutral-300">
+                <Badge key={tag} variant="outline" className="border-border text-muted-foreground">
                   {formatTagLabel(tag)}
                 </Badge>
               ))}
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-white text-balance">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-foreground text-balance">
               {post.title}
             </h1>
 
-            <p className="text-base sm:text-lg text-neutral-300 leading-relaxed text-balance">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed text-balance">
               {post.excerpt}
             </p>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-400">
+            <div className="flex flex-wrap items-center gap-6 text-sm text-subtle">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
                 <span className="font-medium">{post.author}</span>
@@ -129,48 +129,48 @@ export default function BlogPostPage() {
             rehypePlugins={[rehypeHighlight]}
             components={{
               h1: ({ children }) => (
-                <h1 className="text-2xl sm:text-3xl font-bold text-neutral-50 mb-6 mt-8 first:mt-0">
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 mt-8 first:mt-0">
                   {children}
                 </h1>
               ),
               h2: ({ children }) => (
-                <h2 className="text-xl sm:text-2xl font-bold text-neutral-100 mb-4 mt-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 mt-8">
                   {children}
                 </h2>
               ),
               h3: ({ children }) => (
-                <h3 className="text-lg sm:text-xl font-semibold text-neutral-200 mb-3 mt-6">
+                <h3 className="text-lg sm:text-xl font-semibold text-muted-foreground mb-3 mt-6">
                   {children}
                 </h3>
               ),
               p: ({ children }) => (
-                <p className="text-neutral-200 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   {children}
                 </p>
               ),
               ul: ({ children }) => (
-                <ul className="list-disc list-inside space-y-2 mb-4 text-neutral-200">
+                <ul className="list-disc list-inside space-y-2 mb-4 text-muted-foreground">
                   {children}
                 </ul>
               ),
               ol: ({ children }) => (
-                <ol className="list-decimal list-inside space-y-2 mb-4 text-neutral-200">
+                <ol className="list-decimal list-inside space-y-2 mb-4 text-muted-foreground">
                   {children}
                 </ol>
               ),
               li: ({ children }) => (
-                <li className="text-neutral-200 leading-relaxed [&>p]:inline [&>p]:m-0">
+                <li className="text-muted-foreground leading-relaxed [&>p]:inline [&>p]:m-0">
                   {children}
                 </li>
               ),
               blockquote: ({ children }) => (
-                <blockquote className="my-6 border-l-4 border-orange-500/40 bg-orange-500/10 px-6 py-2 text-neutral-100 italic">
+                <blockquote className="my-6 border-l-4 border-ring/40 bg-ring/10 px-6 py-2 text-foreground italic">
                   {children}
                 </blockquote>
               ),
               a: ({ href, children }) => {
                 const className =
-                  "text-orange-300 underline decoration-orange-500/40 underline-offset-4 hover:text-orange-200";
+                  "text-ring underline decoration-ring/40 underline-offset-4 hover:text-ring/90";
 
                 if (!href) {
                   return <span>{children}</span>;
@@ -203,25 +203,25 @@ export default function BlogPostPage() {
                   </a>
                 );
               },
-              hr: () => <hr className="my-10 border-neutral-800" />,
+              hr: () => <hr className="my-10 border-border" />,
               pre: ({ children }) => (
-                <pre className="my-6 overflow-x-auto rounded-lg border border-neutral-800 bg-transparent p-0">
+                <pre className="my-6 overflow-x-auto rounded-lg border border-border bg-transparent p-0">
                   {children}
                 </pre>
               ),
               table: ({ children }) => (
-                <div className="my-6 overflow-x-auto rounded-lg border border-neutral-800">
+                <div className="my-6 overflow-x-auto rounded-lg border border-border">
                   <table className="w-full border-collapse text-sm">{children}</table>
                 </div>
               ),
-              thead: ({ children }) => <thead className="bg-neutral-900/60">{children}</thead>,
+              thead: ({ children }) => <thead className="bg-card/60">{children}</thead>,
               th: ({ children }) => (
-                <th className="border-b border-neutral-800 px-4 py-3 text-left font-semibold text-neutral-100">
+                <th className="border-b border-border px-4 py-3 text-left font-semibold text-foreground">
                   {children}
                 </th>
               ),
               td: ({ children }) => (
-                <td className="border-b border-neutral-900/70 px-4 py-3 align-top text-neutral-200">
+                <td className="border-b border-border/70 px-4 py-3 align-top text-muted-foreground">
                   {children}
                 </td>
               ),
@@ -235,7 +235,7 @@ export default function BlogPostPage() {
                 }
 
                 return (
-                  <code className="rounded bg-neutral-900/70 px-2 py-1 text-sm text-neutral-100">
+                  <code className="rounded bg-background/60 px-2 py-1 text-sm text-foreground border border-border/60">
                     {children}
                   </code>
                 );
@@ -246,11 +246,11 @@ export default function BlogPostPage() {
           </ReactMarkdown>
         </article>
 
-        <div className="mt-12 rounded-3xl border border-neutral-900 bg-neutral-900/40 p-8">
-          <h2 className="text-xl sm:text-2xl font-semibold text-white">
+        <div className="mt-12 rounded-3xl border border-border bg-card p-8 shadow-elev-2">
+          <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
             Want an adaptive plan for your next race?
           </h2>
-          <p className="mt-2 max-w-2xl text-neutral-300">
+          <p className="mt-2 max-w-2xl text-muted-foreground">
             Join the 26weeks.ai waitlist for early access to AI coaching that adjusts workouts using your schedule,
             recovery, and goals.
           </p>
@@ -260,20 +260,23 @@ export default function BlogPostPage() {
         </div>
 
         {/* Social Share */}
-        <div className="mt-12 border-t border-neutral-900 pt-8">
+        <div className="mt-12 border-t border-border pt-8">
           <SocialShare post={post} />
         </div>
 
         {/* Related Posts */}
         <Suspense fallback={
-          <div className="mt-16 border-t border-neutral-900 pt-8">
+          <div className="mt-16 border-t border-border pt-8">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="rounded-2xl border border-neutral-900 bg-neutral-900/40 p-6">
+                <div
+                  key={i}
+                  className="rounded-2xl border border-border bg-card p-6 shadow-elev-1"
+                >
                   <div className="space-y-3">
-                    <div className="h-4 w-full animate-pulse rounded bg-neutral-800"></div>
-                    <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-800"></div>
-                    <div className="h-3 w-1/2 animate-pulse rounded bg-neutral-800"></div>
+                    <div className="h-4 w-full animate-pulse rounded bg-muted"></div>
+                    <div className="h-4 w-3/4 animate-pulse rounded bg-muted"></div>
+                    <div className="h-3 w-1/2 animate-pulse rounded bg-muted"></div>
                   </div>
                 </div>
               ))}

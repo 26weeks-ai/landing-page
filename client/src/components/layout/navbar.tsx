@@ -39,7 +39,9 @@ export default function Navbar() {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-neutral-900/95 backdrop-blur-md border-b border-neutral-800 translate-y-0 shadow-lg shadow-black/30' : 'bg-neutral-900/80 backdrop-blur-sm'
+        isScrolled
+          ? "bg-background border-b border-border translate-y-0 shadow-elev-2"
+          : "bg-background/95 border-b border-transparent"
       }`}
     >
       <nav className="container mx-auto px-4 py-4">
@@ -49,10 +51,10 @@ export default function Navbar() {
               className="font-bold cursor-pointer flex items-center transition-transform duration-150 hover:scale-105 active:scale-95"
             >
               <span className="text-2xl">
-                <span className="text-orange-500">26</span>
-                <span className="text-white">weeks</span>
-                <span className="text-orange-500">.</span>
-                <span className="text-white">ai</span>
+                <span className="text-ring">26</span>
+                <span className="text-foreground">weeks</span>
+                <span className="text-ring">.</span>
+                <span className="text-foreground">ai</span>
               </span>
             </div>
           </Link>
@@ -63,7 +65,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-white/90 hover:text-orange-500 transition-all duration-150 hover:scale-105 inline-flex"
+                className="text-muted-foreground hover:text-foreground transition-all duration-150 hover:scale-105 inline-flex"
               >
                 {link.label}
               </a>
@@ -71,7 +73,7 @@ export default function Navbar() {
             {pageLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <span
-                  className="text-white/90 hover:text-orange-500 transition-all duration-150 cursor-pointer inline-flex hover:scale-105"
+                  className="text-muted-foreground hover:text-foreground transition-all duration-150 cursor-pointer inline-flex hover:scale-105"
                 >
                   {link.label}
                 </span>
@@ -83,12 +85,17 @@ export default function Navbar() {
           {/* Mobile Navigation */}
           <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden text-white" size="icon" aria-label="Open navigation menu">
+              <Button
+                variant="ghost"
+                className="md:hidden text-foreground"
+                size="icon"
+                aria-label="Open navigation menu"
+              >
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent className="bg-neutral-900 border-neutral-800">
+            <SheetContent className="bg-card border-border">
               <SheetHeader>
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
                 <SheetDescription className="sr-only">Site navigation links</SheetDescription>
@@ -99,7 +106,7 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMobileNavOpen(false)}
-                    className="text-white hover:text-orange-500 transition-all px-4 py-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500"
+                    className="text-foreground hover:text-ring transition-all px-4 py-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
                   >
                     {link.label}
                   </a>
@@ -108,7 +115,7 @@ export default function Navbar() {
                   <Link key={link.href} href={link.href}>
                     <span
                       onClick={() => setIsMobileNavOpen(false)}
-                      className="text-white hover:text-orange-500 transition-colors px-4 py-2 rounded-lg cursor-pointer block"
+                      className="text-foreground hover:text-ring transition-colors px-4 py-2 rounded-lg cursor-pointer block"
                     >
                       {link.label}
                     </span>

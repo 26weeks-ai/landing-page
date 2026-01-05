@@ -6,11 +6,12 @@ export default function Terms() {
   return (
     <>
       <MetaHead {...seo.terms} />
-      <div className="min-h-screen bg-white py-20">
+      <div className="min-h-screen bg-background text-foreground py-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-4xl font-bold text-neutral-900 mb-8">Terms of Service</h1>
+          <div className="rounded-3xl border border-border bg-card p-8 shadow-elev-2">
+          <h1 className="text-4xl font-semibold text-foreground mb-8">Terms of Service</h1>
           
-          <div className="prose prose-lg">
+          <div className="prose prose-lg prose-invert max-w-none">
             <p>Last updated: February 10, 2025</p>
 
             <h2>1. Acceptance of Terms</h2>
@@ -55,10 +56,11 @@ export default function Terms() {
             </p>
 
             <div className="mt-8">
-              <Link href="/" className="text-orange-500 hover:text-orange-600">
+              <Link href="/" className="text-ring hover:text-ring/90 underline decoration-ring/40 underline-offset-4">
                 Return to Home
               </Link>
             </div>
+          </div>
           </div>
         </div>
       </div>

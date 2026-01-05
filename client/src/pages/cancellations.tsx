@@ -6,11 +6,12 @@ export default function Cancellations() {
   return (
     <>
       <MetaHead {...seo.cancellations} />
-      <div className="min-h-screen bg-white py-20">
+      <div className="min-h-screen bg-background text-foreground py-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-4xl font-bold text-neutral-900 mb-8">Cancellations and Refunds</h1>
+          <div className="rounded-3xl border border-border bg-card p-8 shadow-elev-2">
+          <h1 className="text-4xl font-semibold text-foreground mb-8">Cancellations and Refunds</h1>
           
-          <div className="prose prose-lg">
+          <div className="prose prose-lg prose-invert max-w-none">
             <p>Last updated: February 26, 2025</p>
 
             <h2>30-Day Money-Back Guarantee</h2>
@@ -34,7 +35,15 @@ export default function Cancellations() {
               To request a refund, please:
             </p>
             <ol>
-              <li>Email our support team at <a href="mailto:coach@26weeks.ai" className="text-orange-500 hover:text-orange-600">coach@26weeks.ai</a></li>
+              <li>
+                Email our support team at{" "}
+                <a
+                  href="mailto:coach@26weeks.ai"
+                  className="text-ring hover:text-ring/90 underline decoration-ring/40 underline-offset-4"
+                >
+                  coach@26weeks.ai
+                </a>
+              </li>
               <li>Include "Refund Request" in your subject line</li>
               <li>Provide your account email and reason for cancellation</li>
             </ol>
@@ -68,14 +77,21 @@ export default function Cancellations() {
             <h2>Contact Us</h2>
             <p>
               If you have any questions about our cancellation and refund policy, please contact us at{" "}
-              <a href="mailto:coach@26weeks.ai" className="text-orange-500 hover:text-orange-600">coach@26weeks.ai</a>.
+              <a
+                href="mailto:coach@26weeks.ai"
+                className="text-ring hover:text-ring/90 underline decoration-ring/40 underline-offset-4"
+              >
+                coach@26weeks.ai
+              </a>
+              .
             </p>
 
             <div className="mt-8">
-              <Link href="/" className="text-orange-500 hover:text-orange-600">
+              <Link href="/" className="text-ring hover:text-ring/90 underline decoration-ring/40 underline-offset-4">
                 Return to Home
               </Link>
             </div>
+          </div>
           </div>
         </div>
       </div>

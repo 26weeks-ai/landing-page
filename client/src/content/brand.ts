@@ -112,68 +112,68 @@ export const hero = {
     suffixWeeks: "weeks!",
   },
   subtitle:
-    "Adaptive and Intelligent Coaching that tailors your training to your performance, recovery, and progress—turning your 26.2-mile dream into reality in 26 weeks or less.",
+    "An adaptive AI coach that syncs with your wearables and adjusts workouts using effort + recovery—so you build endurance without burning out.",
 };
 
 export const features = {
   title: "Why Choose",
   titleHighlight: "26weeks.ai",
   subtitle:
-    "Cutting-edge AI technology combined with proven scientific training methods to transform you into a marathon runner",
+    "A 26‑week system that plans the week, adjusts the day, and keeps you healthy to the start line.",
 };
 
 export const featuresList = [
   {
     title: "Personalized & Adaptive",
     description:
-      "Training plans that starts with your fitness level and dynamically adapt to you.",
-    bgClass: "bg-blue-100",
-    iconClass: "text-blue-600",
+      "Starts from your current fitness level and recalibrates as you improve.",
+    bgClass: "bg-chart-4/12",
+    iconClass: "text-chart-4",
   },
   {
     title: "Daily Check-ins",
     description:
-      "Get real-time feedback and adjustments based on your performance",
-    bgClass: "bg-orange-100",
-    iconClass: "text-orange-500",
+      "Quick feedback loops that tune intensity before little issues become injuries.",
+    bgClass: "bg-ring/12",
+    iconClass: "text-ring",
   },
   {
     title: "Deep Integrations",
     description:
-      "Seamlessly connects with your favorite fitness apps and devices (Apple Fitness, Garmin, Whoop, Strava, etc)",
-    bgClass: "bg-green-100",
-    iconClass: "text-green-500",
+      "Pulls data from Garmin, Apple Watch, Strava, WHOOP, and more—automatically.",
+    bgClass: "bg-chart-3/12",
+    iconClass: "text-chart-3",
   },
   {
     title: "Progress Tracking",
-    description: "Visual insights and analytics to monitor your journey",
-    bgClass: "bg-purple-100",
-    iconClass: "text-purple-500",
+    description: "Clear trends on load, pace, and recovery so you know what’s working.",
+    bgClass: "bg-secondary/14",
+    iconClass: "text-chart-5",
   },
   {
     title: "Injury Prevention",
     description:
-      "Smart mobility and stretching with every training session to keep you safe and healthy",
-    bgClass: "bg-red-100",
-    iconClass: "text-red-500",
+      "Mobility cues, recovery protocols, and load guardrails to keep you running.",
+    bgClass: "bg-secondary/18",
+    iconClass: "text-chart-3",
   },
   {
     title: "Nutrition Guide",
-    description: "Personalized nutrition advice and meal plans",
-    bgClass: "bg-yellow-100",
-    iconClass: "text-yellow-500",
+    description: "Simple fueling guidance for training blocks and long-run weekends.",
+    bgClass: "bg-chart-2/14",
+    iconClass: "text-chart-2",
   },
   {
     title: "Community Support",
-    description: "Connect with fellow dreamers, discuss and share experiences",
-    bgClass: "bg-indigo-100",
-    iconClass: "text-indigo-500",
+    description: "A place to ask, share, and stay accountable when motivation dips.",
+    bgClass: "bg-chart-5/10",
+    iconClass: "text-chart-5",
   },
   {
     title: "Money-Back Guarantee",
-    description: "30-day money-back guarantee, no questions asked",
-    bgClass: "bg-teal-100",
-    iconClass: "text-teal-500",
+    description: "Try it for 30 days. If it’s not helping, get every penny back.",
+    bgClass: "bg-ring/12",
+    iconClass: "text-ring",
   },
 ];
 
@@ -237,7 +237,7 @@ export const trustPoints = [
 export const pricing = {
   title: "Simple, Transparent Pricing",
   subtitle:
-    "No questions asked return policy. No credit card required. 3 plans.",
+    "Three plans, cancel anytime, and a 30‑day money‑back guarantee. No credit card to join the waitlist.",
   plans: [
     {
       id: "monthly",
@@ -249,7 +249,7 @@ export const pricing = {
         "Full Access to AI Coach",
         "Personalized Training Plan",
         "Progress Tracking",
-        "Communities and Content",
+        "Runner Community + Training Library",
       ],
     },
     {
@@ -274,30 +274,30 @@ export const pricing = {
 
 export const testimonials = {
   title: "Success Stories",
-  subtitle: "Join runners training smarter with personalized marathon coaching",
+  subtitle: "Join runners training smarter with an adaptive marathon plan",
   reviews: [
     {
       name: "Sarah Johnson",
-      role: "First-time Marathoner",
+      role: "First-time marathoner",
       image: "",
       quote:
-        "26weeks.ai transformed me from someone who couldn't run a mile to completing my first marathon. The AI adapts perfectly to your progress.",
+        "The daily check-ins nailed the balance between pushing and backing off. I stayed consistent, avoided niggles, and finally felt in control of my training.",
       stars: 5,
     },
     {
       name: "Michael Chen",
-      role: "Experienced Runner",
+      role: "Experienced runner",
       image: "",
       quote:
-        "Even as an experienced runner, the AI coaching helped me improve my times and prevent injuries. The personalization is incredible.",
+        "The plan adjusted around travel weeks without derailing my long runs. The trend view made it obvious when I needed more recovery — and it worked.",
       stars: 5,
     },
     {
       name: "Emma Wilson",
-      role: "Busy Professional",
+      role: "Busy professional",
       image: "",
       quote:
-        "The flexibility of the program allowed me to train for a marathon while maintaining my busy schedule. The results speak for themselves.",
+        "I don’t have time to guess. Having workouts adapt to my schedule and energy kept me training through the messy weeks — without guilt or burnout.",
       stars: 5,
     },
   ] as Testimonial[],
