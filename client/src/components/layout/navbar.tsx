@@ -39,31 +39,32 @@ export default function Navbar() {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-neutral-900/95 backdrop-blur-md border-b border-neutral-800 translate-y-0 shadow-lg shadow-black/30' : 'bg-neutral-900/80 backdrop-blur-sm'
+        isScrolled ? 'bg-background border-b border-border' : 'bg-background/95 border-b border-border'
       }`}
     >
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex justify-between items-center">
-          <Link href="/">
-            <div 
-              className="font-bold cursor-pointer flex items-center transition-transform duration-150 hover:scale-105 active:scale-95"
-            >
-              <span className="text-2xl">
-                <span className="text-orange-500">26</span>
-                <span className="text-white">weeks</span>
-                <span className="text-orange-500">.</span>
-                <span className="text-white">ai</span>
-              </span>
-            </div>
-          </Link>
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <Link href="/">
+          <div
+            className="cursor-pointer flex items-center transition-transform duration-150 hover:scale-[1.01] active:scale-[0.99]"
+            aria-label="26weeks.ai"
+          >
+            <span className="text-xl sm:text-2xl leading-none">
+              <span className="font-serif font-semibold tracking-[-0.03em] text-copper-500">26</span>
+              <span className="ml-1 font-semibold tracking-tight text-paper">weeks</span>
+              <span className="text-copper-500">.</span>
+              <span className="font-semibold tracking-tight text-paper">ai</span>
+            </span>
+          </div>
+        </Link>
 
+        <div className="flex items-center gap-3">
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 items-center">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-white/90 hover:text-orange-500 transition-all duration-150 hover:scale-105 inline-flex"
+                className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary hover:text-paper transition-colors"
               >
                 {link.label}
               </a>
@@ -71,24 +72,24 @@ export default function Navbar() {
             {pageLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <span
-                  className="text-white/90 hover:text-orange-500 transition-all duration-150 cursor-pointer inline-flex hover:scale-105"
+                  className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary hover:text-paper transition-colors cursor-pointer"
                 >
                   {link.label}
                 </span>
               </Link>
             ))}
-            <WaitlistForm />
+            <WaitlistForm label="Join waitlist" />
           </div>
 
           {/* Mobile Navigation */}
           <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden text-white" size="icon" aria-label="Open navigation menu">
-                <Menu className="h-6 w-6" />
+              <Button variant="ghost" className="md:hidden text-paper" size="icon" aria-label="Open navigation menu">
+                <Menu className="h-6 w-6" strokeWidth={1.75} />
                 <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent className="bg-neutral-900 border-neutral-800">
+            <SheetContent className="bg-popover border-border">
               <SheetHeader>
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
                 <SheetDescription className="sr-only">Site navigation links</SheetDescription>
@@ -99,7 +100,7 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMobileNavOpen(false)}
-                    className="text-white hover:text-orange-500 transition-all px-4 py-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500"
+                    className="rounded-lg px-4 py-2 text-sm font-semibold text-paper hover:bg-accent"
                   >
                     {link.label}
                   </a>
@@ -108,14 +109,14 @@ export default function Navbar() {
                   <Link key={link.href} href={link.href}>
                     <span
                       onClick={() => setIsMobileNavOpen(false)}
-                      className="text-white hover:text-orange-500 transition-colors px-4 py-2 rounded-lg cursor-pointer block"
+                      className="block cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-paper hover:bg-accent"
                     >
                       {link.label}
                     </span>
                   </Link>
                 ))}
                 <div className="px-4 pt-4">
-                  <WaitlistForm />
+                  <WaitlistForm label="Join waitlist" className="w-full" />
                 </div>
               </nav>
             </SheetContent>

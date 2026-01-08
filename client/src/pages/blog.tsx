@@ -7,6 +7,8 @@ import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
 import { seo } from "@/content/brand";
 import WaitlistForm from "@/components/waitlist-form";
+import { Masthead } from "@/components/editorial/masthead";
+import { Hairline } from "@/components/editorial/hairline";
 import {
   extractUniqueTags,
   filterPostsByTag,
@@ -39,107 +41,132 @@ export default function BlogPage() {
   return (
     <>
       <MetaHead {...seo.blog} />
-      <div className="min-h-screen bg-neutral-950 text-white">
-      <header className="border-b border-neutral-900 bg-gradient-to-b from-neutral-950 to-neutral-900/50">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-16 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="mb-4 inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-neutral-400">
-              <Sparkles className="h-4 w-4 text-orange-500" />
-              Insights & Stories
-            </p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-white text-balance">
-              Training intel for runners chasing <span className="text-orange-400">26.2</span>
-            </h1>
-            <p className="mt-4 max-w-2xl text-base sm:text-lg text-neutral-400 text-balance">
-              Practical tactics, mindset shifts, and data-backed lessons from our coaching lab. Everything we learn while
-              helping athletes go from couch to marathon lives here.
-            </p>
-          </div>
-          <Link href="/">
-            <Button
-              variant="ghost"
-              className="self-start text-orange-400 hover:text-orange-200 hover:bg-orange-500/15 focus-visible:ring-orange-500/60"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to home
-            </Button>
-          </Link>
-        </div>
-      </header>
+      <div className="min-h-screen bg-background text-paper">
+        <header className="border-b border-border">
+          <div className="mx-auto max-w-6xl px-6 py-14">
+            <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+              <Masthead
+                kicker="BLOG"
+                stamp="ARCHIVE"
+                title={
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.06]">
+                    Training intel for runners chasing{" "}
+                    <span className="text-copper-500">26.2</span>
+                  </h1>
+                }
+                subtitle={
+                  <>
+                    Practical tactics, mindset shifts, and data-backed lessons from our coaching lab. Everything we
+                    learn while helping athletes go from couch to marathon lives here.
+                  </>
+                }
+                showRule={false}
+              />
 
-      <main className="mx-auto max-w-6xl px-6 py-16 space-y-16">
-        {featuredPosts.length > 0 && !searchQuery && !selectedTag && (
-          <section className="space-y-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">Editor's picks</p>
-                <h2 className="text-2xl font-semibold text-white">Highlighted reads</h2>
-              </div>
+              <Link href="/">
+                <Button variant="outline" className="self-start">
+                  <ArrowLeft className="mr-2 h-4 w-4" /> Back to home
+                </Button>
+              </Link>
             </div>
-            <div className="grid gap-6 md:grid-cols-2">
-              {featuredPosts.slice(0, 2).map((post) => (
-                <BlogCard key={post.id} post={post} featured />
-              ))}
+            <div className="mt-10 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
+              <Sparkles className="h-4 w-4 text-midnight-400" aria-hidden="true" strokeWidth={1.75} />
+              Insights & stories
+            </div>
+          </div>
+        </header>
+
+        <main className="mx-auto max-w-6xl px-6 py-16 space-y-16">
+          {featuredPosts.length > 0 && !searchQuery && !selectedTag && (
+            <section className="space-y-8">
+              <div className="flex items-center justify-between gap-6">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-muted">
+                    Editor's picks
+                  </p>
+                  <h2 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.02em] text-paper">
+                    Highlighted reads
+                  </h2>
+                </div>
+              </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                {featuredPosts.slice(0, 2).map((post) => (
+                  <BlogCard key={post.id} post={post} featured />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <SearchFilter
+            onSearch={setSearchQuery}
+            onTagFilter={setSelectedTag}
+            availableTags={availableTags}
+            selectedTag={selectedTag}
+            searchQuery={searchQuery}
+          />
+
+          <section className="space-y-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-muted">
+                  {searchQuery || selectedTag ? "Search results" : "All posts"}
+                </p>
+                <h2 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.02em] text-paper">
+                  {filteredPosts.length} article(s)
+                </h2>
+              </div>
+              {(searchQuery || selectedTag) && (
+                <Button
+                  variant="ghost"
+                  className="w-fit text-paper-secondary hover:text-paper"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedTag(null);
+                  }}
+                >
+                  Clear filters
+                </Button>
+              )}
+            </div>
+
+            <Hairline className="opacity-70" />
+
+            {filteredPosts.length === 0 ? (
+              <div className="rounded-3xl border border-border bg-card p-12 text-center">
+                <h3 className="font-serif text-2xl font-semibold tracking-[-0.02em] text-paper">
+                  Nothing matched just yet
+                </h3>
+                <p className="mt-3 text-paper-secondary">
+                  Try tweaking your search terms or explore a different tag — we add fresh drops every sprint.
+                </p>
+              </div>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {filteredPosts.map((post) => (
+                  <BlogCard key={post.id} post={post} />
+                ))}
+              </div>
+            )}
+          </section>
+
+          <section className="rounded-3xl border border-border bg-card p-10">
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-muted">
+                  Want a personalized plan?
+                </p>
+                <h2 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.02em] text-paper">
+                  Join the waitlist
+                </h2>
+                <p className="mt-3 max-w-2xl text-paper-secondary">
+                  Join the 26weeks.ai waitlist for early access to adaptive coaching built for real schedules and real
+                  recovery.
+                </p>
+              </div>
+              <WaitlistForm label="Join waitlist" className="md:w-auto" />
             </div>
           </section>
-        )}
-
-        <SearchFilter
-          onSearch={setSearchQuery}
-          onTagFilter={setSelectedTag}
-          availableTags={availableTags}
-          selectedTag={selectedTag}
-          searchQuery={searchQuery}
-        />
-
-        <section className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">
-                {searchQuery || selectedTag ? "Search results" : "All posts"}
-              </p>
-              <h2 className="text-2xl font-semibold text-white">{filteredPosts.length} article(s)</h2>
-            </div>
-            {(searchQuery || selectedTag) && (
-              <Button
-                variant="ghost"
-                className="text-sm text-neutral-300 hover:bg-neutral-900/60"
-                onClick={() => {
-                  setSearchQuery("");
-                  setSelectedTag(null);
-                }}
-              >
-                Clear filters
-              </Button>
-            )}
-          </div>
-
-          {filteredPosts.length === 0 ? (
-            <div className="rounded-3xl border border-neutral-900 bg-neutral-900/40 p-12 text-center">
-              <h3 className="text-xl font-semibold text-white">Nothing matched just yet</h3>
-              <p className="mt-2 text-neutral-400">
-                Try tweaking your search terms or explore a different tag — we add fresh drops every sprint.
-              </p>
-            </div>
-          ) : (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        <section className="rounded-3xl border border-neutral-900 bg-neutral-900/40 p-10 text-center">
-          <h2 className="text-2xl font-semibold text-white">Want a personalized plan?</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-neutral-400">
-            Join the 26weeks.ai waitlist for early access to adaptive coaching built for real schedules and real
-            recovery.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <WaitlistForm label="Join waitlist" />
-          </div>
-        </section>
-      </main>
+        </main>
       </div>
     </>
   );

@@ -3,49 +3,93 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
-  --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
-  --card-foreground: 20 14.3% 4.1%;
-  --border: 20 5.9% 90%;
-  --input: 20 5.9% 90%;
-  --primary: 22 82% 51%;
-  --primary-foreground: 18 100% 99%;
-  --secondary: 60 4.8% 95.9%;
-  --secondary-foreground: 24 9.8% 10%;
-  --accent: 60 4.8% 95.9%;
-  --accent-foreground: 24 9.8% 10%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --ring: 20 14.3% 4.1%;
-  --radius: 0.5rem;
+  color-scheme: dark;
+
+  /* Noir editorial (dark-only) — aligned with `design/tokens/figma_tokens.json`. */
+  --background: 203 22.2% 7.1%; /* gunmetal.800 / ink #0E1316 */
+  --foreground: 44 86.7% 94.1%; /* ivory.50 #FDF6E3 */
+
+  --card: 213 20% 8.8%; /* surface #12161B */
+  --card-foreground: 44 86.7% 94.1%;
+
+  --popover: 213 20% 10.8%; /* surfaceElevated #161B21 */
+  --popover-foreground: 44 86.7% 94.1%;
+
+  --muted: 213 20% 10.8%;
+  --muted-foreground: 35 13.6% 75.5%; /* lightSilver #C9C2B8 */
+
+  --border: 214 17.4% 18%; /* hairline #262D36 */
+  --input: 214 17.4% 18%;
+
+  /* Primary action fill = copper.700 (hover/pressed are handled at component level). */
+  --primary: 23 54.1% 35.9%; /* copper.700 #8D502A */
+  --primary-foreground: 204 18.5% 5.3%; /* onPrimary #0B0E10 */
+
+  /* Secondary action fill = midnightGreen.600. */
+  --secondary: 185 84.9% 18.2%; /* midnightGreen.600 #075056 */
+  --secondary-foreground: 44 86.7% 94.1%; /* ivory.50 */
+
+  /* Accent surfaces (hover backgrounds, subtle fills). */
+  --accent: 213 20% 10.8%;
+  --accent-foreground: 44 86.7% 94.1%;
+
+  --destructive: 0 63.9% 55.5%; /* error #D64545 */
+  --destructive-foreground: 44 86.7% 94.1%;
+
+  /* Focus + links = copper.500. */
+  --ring: 24 49.8% 50.8%; /* copper.500 #C07543 */
+
+  /* Charts (dark). */
+  --chart-1: 24 49.8% 50.8%; /* copper.500 */
+  --chart-2: 44 84.5% 72.2%; /* sandYellow.500 #F4D47C */
+  --chart-3: 173 41.5% 49.6%; /* #4AB3A6 */
+  --chart-4: 204 63.8% 72.9%; /* #8EC3E6 */
+  --chart-5: 35 13.6% 75.5%; /* lightSilver */
+
+  /* Sidebar (kept for shadcn components; mapped to noir). */
+  --sidebar-background: 213 20% 8.8%;
+  --sidebar-foreground: 44 86.7% 94.1%;
+  --sidebar-primary: 23 54.1% 35.9%;
+  --sidebar-primary-foreground: 204 18.5% 5.3%;
+  --sidebar-accent: 213 20% 10.8%;
+  --sidebar-accent-foreground: 44 86.7% 94.1%;
+  --sidebar-border: 214 17.4% 18%;
+  --sidebar-ring: 24 49.8% 50.8%;
+
+  /* Brand scales (subset) — for direct Tailwind usage without hard-coded hex. */
+  --copper-50: 26 100% 95.9%;
+  --copper-100: 23 100% 92%;
+  --copper-200: 25 81.4% 81%;
+  --copper-300: 27 71.6% 66.9%;
+  --copper-400: 25 60% 56.9%;
+  --copper-500: 24 49.8% 50.8%;
+  --copper-600: 24 51.4% 43.5%;
+  --copper-700: 23 54.1% 35.9%;
+  --copper-800: 23 55.9% 28.4%;
+  --copper-900: 22 56.5% 22.5%;
+
+  --midnight-50: 187 19% 91.8%;
+  --midnight-100: 186 26.6% 84.5%;
+  --midnight-200: 185 26.8% 72.2%;
+  --midnight-300: 183 25.2% 59.6%;
+  --midnight-400: 183 26.2% 47.8%;
+  --midnight-500: 183 37.9% 37.3%;
+  --midnight-600: 185 84.9% 18.2%;
+  --midnight-700: 185 83.8% 14.5%;
+  --midnight-800: 183 88% 9.8%;
+  --midnight-900: 184 94.1% 6.7%;
+
+  --sand-500: 44 84.5% 72.2%;
+
+  --paper: 44 86.7% 94.1%;
+  --paper-secondary: 35 13.6% 75.5%;
+  --paper-muted: 40 5% 53.3%;
+
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --primary: 22 82% 51%;
-  --primary-foreground: 18 100% 99%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --ring: 240 4.9% 83.9%;
-  --radius: 0.5rem;
+  color-scheme: dark;
 }
 
 @layer base {
@@ -63,7 +107,8 @@
 
   /* Improve accessibility and performance */
   :focus-visible {
-    @apply outline-2 outline-orange-500 outline-offset-2;
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 
   /* High contrast mode support */

@@ -15,7 +15,7 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 
 // Loading fallback
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-neutral-50">
+  <div className="min-h-screen flex items-center justify-center bg-background">
     <div className="w-full max-w-md space-y-4 p-4">
       <Skeleton className="h-12 w-3/4 mx-auto" />
       <Skeleton className="h-64 w-full" />

@@ -1,26 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#171717"/>
-  <rect x="0" y="0" width="1200" height="630" fill="#171717"/>
-  
-  <!-- Orange gradient background -->
-  <defs>
-    <radialGradient id="orangeGlow" cx="100%" cy="100%" r="100%">
-      <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.3"/>
-      <stop offset="100%" style="stop-color:#171717;stop-opacity:0"/>
-    </radialGradient>
-  </defs>
-  <rect width="1200" height="630" fill="url(#orangeGlow)"/>
-  
-  <!-- Main Text -->
-  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-weight="bold" font-size="120" fill="#ffffff" style="word-spacing: -10px;">
-    <tspan fill="#f97316">26</tspan>
-    <tspan fill="#ffffff">weeks</tspan>
-    <tspan fill="#f97316">.</tspan>
-    <tspan fill="#ffffff">ai</tspan>
+  <rect width="1200" height="630" fill="#0E1316"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#262D36" stroke-width="2"/>
+
+  <!-- Top rail -->
+  <text x="80" y="96" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#C9C2B8">
+    AI MARATHON COACH
   </text>
-  
+  <rect x="940" y="74" width="180" height="34" rx="17" fill="#12161B" stroke="#262D36" stroke-width="1"/>
+  <text x="1030" y="97" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" letter-spacing="3" fill="#C9C2B8">
+    EDITION 01
+  </text>
+  <line x1="80" y1="128" x2="1120" y2="128" stroke="#262D36" stroke-width="1"/>
+
+  <!-- Wordmark -->
+  <text x="80" y="310" font-family="Spectral, Georgia, serif" font-size="140" font-weight="700" fill="#C07543">26</text>
+  <text x="265" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="650" fill="#FDF6E3">weeks</text>
+  <text x="705" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="650" fill="#C07543">.</text>
+  <text x="748" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="650" fill="#FDF6E3">ai</text>
+
   <!-- Subtitle -->
-  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system" font-size="40" fill="#f3f4f6">
-    Couch to Marathon, in 26 weeks!
+  <text x="80" y="395" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="44" font-weight="400" fill="#C9C2B8">
+    Couch to Marathon, in 26 weeks.
   </text>
+  <text x="80" y="450" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="#8E8A82">
+    Adaptive plans. Quiet confidence. One week at a time.
+  </text>
+
+  <!-- Bottom rail -->
+  <line x1="80" y1="520" x2="1120" y2="520" stroke="#262D36" stroke-width="1"/>
+  <circle cx="1120" cy="520" r="4" fill="#C07543"/>
 </svg>

@@ -5,6 +5,10 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Spectral", "ui-serif", "Georgia", "serif"],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -60,6 +64,38 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        copper: {
+          50: "hsl(var(--copper-50))",
+          100: "hsl(var(--copper-100))",
+          200: "hsl(var(--copper-200))",
+          300: "hsl(var(--copper-300))",
+          400: "hsl(var(--copper-400))",
+          500: "hsl(var(--copper-500))",
+          600: "hsl(var(--copper-600))",
+          700: "hsl(var(--copper-700))",
+          800: "hsl(var(--copper-800))",
+          900: "hsl(var(--copper-900))",
+        },
+        midnight: {
+          50: "hsl(var(--midnight-50))",
+          100: "hsl(var(--midnight-100))",
+          200: "hsl(var(--midnight-200))",
+          300: "hsl(var(--midnight-300))",
+          400: "hsl(var(--midnight-400))",
+          500: "hsl(var(--midnight-500))",
+          600: "hsl(var(--midnight-600))",
+          700: "hsl(var(--midnight-700))",
+          800: "hsl(var(--midnight-800))",
+          900: "hsl(var(--midnight-900))",
+        },
+        sand: {
+          500: "hsl(var(--sand-500))",
+        },
+        paper: {
+          DEFAULT: "hsl(var(--paper))",
+          secondary: "hsl(var(--paper-secondary))",
+          muted: "hsl(var(--paper-muted))",
         },
       },
       keyframes: {

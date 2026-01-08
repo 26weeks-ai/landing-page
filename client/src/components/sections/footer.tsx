@@ -1,21 +1,27 @@
 import { Link } from "wouter";
 import { Twitter, Instagram, Mail } from "lucide-react";
 import WaitlistForm from "@/components/waitlist-form";
+import { Hairline } from "@/components/editorial/hairline";
 
 export default function Footer() {
   return (
     <footer 
       id="footer" 
-      className="bg-neutral-900 pt-20 pb-10"
+      className="border-t border-border bg-background pt-20 pb-10"
       role="contentinfo"
       aria-label="Site footer with company information and links"
     >
-      <div className="container mx-auto px-4">
+      <div className="mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
           <div>
-            <div className="text-2xl font-bold text-white mb-4">26weeks.ai</div>
-            <p className="text-neutral-400 mb-6">
+            <div className="text-xl leading-none mb-4">
+              <span className="font-serif font-semibold tracking-[-0.03em] text-copper-500">26</span>
+              <span className="ml-1 font-semibold tracking-tight text-paper">weeks</span>
+              <span className="text-copper-500">.</span>
+              <span className="font-semibold tracking-tight text-paper">ai</span>
+            </div>
+            <p className="text-paper-secondary mb-6">
               Transform your running journey with AI-powered marathon training.
             </p>
             <div className="flex space-x-4">
@@ -23,41 +29,41 @@ export default function Footer() {
                 href="https://x.com/26weeks_ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors duration-300 focus:text-white"
+                className="text-paper-secondary hover:text-paper transition-colors duration-300 focus:text-paper"
                 aria-label="Follow us on Twitter (opens in new tab)"
               >
-                <Twitter className="w-6 h-6" aria-hidden="true" />
+                <Twitter className="w-6 h-6" aria-hidden="true" strokeWidth={1.75} />
               </a>
               <a
                 href="https://www.instagram.com/26weeks.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors duration-300 focus:text-white"
+                className="text-paper-secondary hover:text-paper transition-colors duration-300 focus:text-paper"
                 aria-label="Follow us on Instagram (opens in new tab)"
               >
-                <Instagram className="w-6 h-6" aria-hidden="true" />
+                <Instagram className="w-6 h-6" aria-hidden="true" strokeWidth={1.75} />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-paper mb-4">Quick links</h3>
             <a
               href="#features"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300 focus:text-paper text-left"
             >
               Features
             </a>
             <a
               href="#pricing"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300 focus:text-paper text-left"
             >
               Pricing
             </a>
             <a
               href="#testimonials"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300 focus:text-paper text-left"
             >
               Testimonials
             </a>
@@ -65,57 +71,58 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Support</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-paper mb-4">Support</h3>
             <a
               href="#faq"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 focus:text-white text-left"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300 focus:text-paper text-left"
             >
               FAQ
             </a>
             <Link
               href="/privacy"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300"
             >
               Terms of Service
             </Link>
             <Link
               href="/cancellations"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300"
             >
               Cancellations & Refunds
             </Link>
             <a
               href="mailto:coach@26weeks.ai"
-              className="block text-neutral-400 hover:text-white mb-2 transition-colors duration-300 flex items-center gap-2 focus:text-white"
+              className="block text-paper-secondary hover:text-paper mb-2 transition-colors duration-300 flex items-center gap-2 focus:text-paper"
               aria-label="Send email to coach@26weeks.ai"
             >
-              <Mail className="w-4 h-4" aria-hidden="true" />
+              <Mail className="w-4 h-4" aria-hidden="true" strokeWidth={1.75} />
               coach@26weeks.ai
             </a>
           </div>
 
           {/* Waitlist CTA */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Join the Waitlist</h3>
-            <p className="text-neutral-400 mb-4">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-paper mb-4">Join the waitlist</h3>
+            <p className="text-paper-secondary mb-4">
               Be the first to hear about launch updates, product news, and training drops.
             </p>
             <WaitlistForm
               label="Join waitlist"
-              className="w-full sm:w-full hover:scale-100 active:scale-100"
+              className="w-full"
             />
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="text-center border-t border-neutral-800 pt-8">
-          <p className="text-neutral-400">
+        <Hairline className="opacity-70" />
+        <div className="pt-8">
+          <p className="text-paper-muted text-sm">
             © {new Date().getFullYear()} 26weeks.ai. All rights reserved.
           </p>
         </div>

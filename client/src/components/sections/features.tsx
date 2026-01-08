@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Brain,
   Activity,
@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { features, featuresList, runningQuotes } from "@/content/brand";
+import { Masthead } from "@/components/editorial/masthead";
+import { Hairline } from "@/components/editorial/hairline";
 
 // Map Lucide icons to features
 const featureIcons = {
@@ -22,21 +24,6 @@ const featureIcons = {
   "Nutrition Guide": Apple,
   "Community Support": Users,
   "Money-Back Guarantee": ShieldCheck,
-};
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
 };
 
 export default function Features() {
@@ -66,90 +53,121 @@ export default function Features() {
   return (
     <section 
       id="features"
-      className="py-20 bg-white scroll-mt-24"
+      className="py-20 scroll-mt-28"
       aria-label="Key features and benefits of 26weeks.ai"
     >
-      <div className="container mx-auto px-4">
-        <motion.div
-          className="text-center mb-16"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={prefersReducedMotion ? undefined : { once: true }}
-        >
-          <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-            {features.title}{" "}
-            <span className="text-orange-500">{features.titleHighlight}</span>
-          </h2>
-          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            {features.subtitle}
-          </p>
-        </motion.div>
+      <div className="mx-auto max-w-6xl px-6">
+        <Masthead
+          kicker={features.title.toUpperCase()}
+          stamp="CHAPTER 02"
+          title={
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
+              {features.title}{" "}
+              <span className="text-copper-500">{features.titleHighlight}</span>
+            </h2>
+          }
+          subtitle={features.subtitle}
+        />
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-          variants={container}
-          initial={prefersReducedMotion ? false : "hidden"}
-          whileInView={prefersReducedMotion ? undefined : "show"}
-          viewport={prefersReducedMotion ? undefined : { once: true }}
-        >
-          {featuresList.map((feature, index) => {
-            const Icon =
-              featureIcons[feature.title as keyof typeof featureIcons];
-
-            return (
-              <motion.div
-                key={index}
-                className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                variants={item}
-              >
-                <div
-                  className={`w-14 h-14 ${feature.bgClass} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon className={`w-8 h-8 ${feature.iconClass}`} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-neutral-900">
-                  {feature.title}
-                </h3>
-                <p className="text-neutral-600">{feature.description}</p>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* Inspirational Quotes Section */}
-        <div className="mt-20 max-w-4xl mx-auto text-center relative h-32">
-          {prefersReducedMotion ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div>
-                <p className="text-xl text-neutral-600 italic mb-2">
-                  "{runningQuotes[currentQuoteIndex].quote}"
-                </p>
-                <p className="text-sm text-neutral-500">
-                  — {runningQuotes[currentQuoteIndex].author}
-                </p>
-              </div>
+        <div className="mt-12 grid gap-10 lg:grid-cols-[0.45fr_0.55fr] lg:gap-12">
+          <aside className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+            <div className="flex items-baseline justify-between gap-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
+                In the margins
+              </p>
+              <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+                QUOTE
+              </span>
             </div>
-          ) : (
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentQuoteIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <div>
-                  <p className="text-xl text-neutral-600 italic mb-2">
-                    "{runningQuotes[currentQuoteIndex].quote}"
-                  </p>
-                  <p className="text-sm text-neutral-500">
-                    — {runningQuotes[currentQuoteIndex].author}
-                  </p>
+
+            <Hairline className="my-5 opacity-70" />
+
+            <div className="relative min-h-[10.5rem]">
+              {prefersReducedMotion ? (
+                <div className="absolute inset-0 flex items-center">
+                  <div>
+                    <p className="font-serif text-2xl leading-snug text-paper">
+                      “{runningQuotes[currentQuoteIndex].quote}”
+                    </p>
+                    <p className="mt-4 text-sm font-semibold text-paper-secondary">
+                      — {runningQuotes[currentQuoteIndex].author}
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          )}
+              ) : (
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentQuoteIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.35 }}
+                    className="absolute inset-0 flex items-center"
+                  >
+                    <div>
+                      <p className="font-serif text-2xl leading-snug text-paper">
+                        “{runningQuotes[currentQuoteIndex].quote}”
+                      </p>
+                      <p className="mt-4 text-sm font-semibold text-paper-secondary">
+                        — {runningQuotes[currentQuoteIndex].author}
+                      </p>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </div>
+
+            <Hairline className="my-5 opacity-70" />
+
+            <p className="text-sm leading-relaxed text-paper-secondary">
+              Our coaching voice is quiet, specific, and ruthless about clarity: one cue, one adjustment, one next step.
+            </p>
+          </aside>
+
+          <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+            <div className="flex items-baseline justify-between gap-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
+                What you get
+              </p>
+              <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+                MODULES
+              </span>
+            </div>
+
+            <Hairline className="my-5 opacity-70" />
+
+            <div className="divide-y divide-border">
+              {featuresList.map((feature, index) => {
+                const Icon =
+                  featureIcons[feature.title as keyof typeof featureIcons] ?? Brain;
+
+                const number = String(index + 1).padStart(2, "0");
+
+                return (
+                  <div key={feature.title} className="group py-6 first:pt-0 last:pb-0">
+                    <div className="grid gap-4 sm:grid-cols-[3.25rem_1fr] sm:items-start">
+                      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-muted">
+                        {number}
+                      </div>
+                      <div className="flex items-start justify-between gap-6">
+                        <div>
+                          <h3 className="text-base sm:text-lg font-semibold text-paper">
+                            {feature.title}
+                          </h3>
+                          <p className="mt-2 text-sm leading-relaxed text-paper-secondary">
+                            {feature.description}
+                          </p>
+                        </div>
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background transition-colors group-hover:border-copper-500/70 group-hover:bg-accent">
+                          <Icon className="h-5 w-5 text-paper-secondary group-hover:text-copper-400" strokeWidth={1.75} aria-hidden="true" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

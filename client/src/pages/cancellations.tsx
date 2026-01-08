@@ -1,17 +1,33 @@
 import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
 import { seo } from "@/content/brand";
+import { Masthead } from "@/components/editorial/masthead";
+import { Hairline } from "@/components/editorial/hairline";
 
 export default function Cancellations() {
   return (
     <>
       <MetaHead {...seo.cancellations} />
-      <div className="min-h-screen bg-white py-20">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-4xl font-bold text-neutral-900 mb-8">Cancellations and Refunds</h1>
-          
-          <div className="prose prose-lg">
-            <p>Last updated: February 26, 2025</p>
+      <div className="min-h-screen bg-background text-paper">
+        <header className="border-b border-border">
+          <div className="mx-auto max-w-4xl px-6 py-12">
+            <Masthead
+              kicker="LEGAL"
+              stamp="REFUNDS"
+              title={
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.06]">
+                  Cancellations & refunds
+                </h1>
+              }
+              subtitle="Last updated: February 26, 2025"
+              showRule={false}
+            />
+          </div>
+        </header>
+
+        <main className="mx-auto max-w-4xl px-6 py-12">
+          <div className="rounded-3xl border border-border bg-card p-8">
+            <div className="prose prose-lg prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-[-0.02em] prose-headings:text-paper prose-p:text-paper-secondary prose-li:text-paper-secondary prose-a:text-copper-400 prose-a:decoration-copper-500/40 prose-a:underline-offset-4">
 
             <h2>30-Day Money-Back Guarantee</h2>
             <p>
@@ -34,7 +50,7 @@ export default function Cancellations() {
               To request a refund, please:
             </p>
             <ol>
-              <li>Email our support team at <a href="mailto:coach@26weeks.ai" className="text-orange-500 hover:text-orange-600">coach@26weeks.ai</a></li>
+              <li>Email our support team at <a href="mailto:coach@26weeks.ai" className="text-copper-400 hover:text-copper-300">coach@26weeks.ai</a></li>
               <li>Include "Refund Request" in your subject line</li>
               <li>Provide your account email and reason for cancellation</li>
             </ol>
@@ -68,16 +84,20 @@ export default function Cancellations() {
             <h2>Contact Us</h2>
             <p>
               If you have any questions about our cancellation and refund policy, please contact us at{" "}
-              <a href="mailto:coach@26weeks.ai" className="text-orange-500 hover:text-orange-600">coach@26weeks.ai</a>.
+              <a href="mailto:coach@26weeks.ai" className="text-copper-400 hover:text-copper-300">coach@26weeks.ai</a>.
             </p>
 
-            <div className="mt-8">
-              <Link href="/" className="text-orange-500 hover:text-orange-600">
-                Return to Home
-              </Link>
             </div>
+
+            <Hairline className="my-8 opacity-70" />
+            <Link
+              href="/"
+              className="text-sm font-semibold text-copper-400 underline decoration-copper-500/40 underline-offset-4 hover:text-copper-300"
+            >
+              Return to home
+            </Link>
           </div>
-        </div>
+        </main>
       </div>
     </>
   );

@@ -34,31 +34,31 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
       name: "Twitter",
       icon: Twitter,
       url: shareUrls.twitter,
-      className: "hover:bg-blue-500/10 hover:text-blue-200",
+      className: "hover:border-midnight-400/70 hover:text-paper",
     },
     {
       name: "Facebook",
       icon: Facebook,
       url: shareUrls.facebook,
-      className: "hover:bg-blue-500/10 hover:text-blue-200",
+      className: "hover:border-midnight-400/70 hover:text-paper",
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
       url: shareUrls.linkedin,
-      className: "hover:bg-blue-500/10 hover:text-blue-200",
+      className: "hover:border-midnight-400/70 hover:text-paper",
     },
     {
       name: "Email",
       icon: Mail,
       url: shareUrls.email,
-      className: "hover:bg-neutral-800 hover:text-neutral-50",
+      className: "hover:border-copper-500/70 hover:text-paper",
     },
   ];
 
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
-      <span className="text-sm font-medium text-muted-foreground mb-2 w-full">
+      <span className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-muted mb-2 w-full">
         Share this article:
       </span>
       {shareButtons.map((button) => (
@@ -66,20 +66,20 @@ export function SocialShare({ post, className = "" }: SocialShareProps) {
           key={button.name}
           variant="outline"
           size="sm"
-          className={`border-neutral-800 bg-neutral-950/40 text-neutral-200 hover:bg-neutral-900 ${button.className}`}
+          className={`border-border bg-transparent text-paper-secondary hover:bg-accent ${button.className}`}
           onClick={() => window.open(button.url, '_blank', 'noopener,noreferrer')}
         >
-          <button.icon className="w-4 h-4 mr-2" />
+          <button.icon className="w-4 h-4 mr-2" strokeWidth={1.75} />
           {button.name}
         </Button>
       ))}
       <Button
         variant="outline"
         size="sm"
-        className="border-neutral-800 bg-neutral-950/40 text-neutral-200 hover:bg-green-500/10 hover:text-green-300"
+        className="border-border bg-transparent text-paper-secondary hover:border-copper-500/70 hover:bg-accent hover:text-paper"
         onClick={handleCopyLink}
       >
-        <Copy className="w-4 h-4 mr-2" />
+        <Copy className="w-4 h-4 mr-2" strokeWidth={1.75} />
         Copy Link
       </Button>
     </div>

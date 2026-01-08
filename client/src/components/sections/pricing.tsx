@@ -1,6 +1,8 @@
 import { Check } from 'lucide-react';
 import WaitlistForm from '@/components/waitlist-form';
 import { pricing } from '@/content/brand';
+import { Masthead } from "@/components/editorial/masthead";
+import { Hairline } from "@/components/editorial/hairline";
 
 const formatMoney = (amount: number) =>
   amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
@@ -12,72 +14,100 @@ export default function Pricing() {
   return (
     <section 
       id="pricing"
-      className="py-20 bg-white scroll-mt-24"
+      className="py-20 scroll-mt-28"
       aria-label="Pricing plans and subscription options"
     >
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-            {pricing.title}
-          </h2>
-          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            {pricing.subtitle}
-          </p>
-        </div>
+      <div className="mx-auto max-w-6xl px-6">
+        <Masthead
+          kicker="PRICING"
+          stamp="CHAPTER 04"
+          title={
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
+              {pricing.title}
+            </h2>
+          }
+          subtitle={pricing.subtitle}
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {pricing.plans.map((plan, index) => (
             <div
               key={index}
-              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 
-                ${plan.popular ? 'border-orange-500' : 'border-neutral-100'} 
-                overflow-hidden relative flex flex-col h-full`}
+              className={`relative flex h-full flex-col overflow-hidden rounded-3xl border bg-card transition-colors ${
+                plan.popular ? "border-copper-500/70" : "border-border"
+              }`}
             >
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-orange-500 text-neutral-950 px-4 py-1 text-sm font-semibold">
-                  POPULAR
+                <div className="absolute right-4 top-4 rounded-full border border-copper-500/60 bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+                  MOST POPULAR
                 </div>
               )}
-              <div className="p-8 flex-1 flex flex-col">
-                <div>
-                  <h3 className="text-2xl font-bold text-neutral-900 mb-4">{plan.name}</h3>
-                  <div className="flex items-baseline mb-8">
-                    <span className="text-5xl font-bold text-neutral-900">${formatMoney(plan.price)}</span>
-                    <span className="text-neutral-600 ml-2">
-                      {plan.billingIntervalMonths === 1
-                        ? "/month"
-                        : plan.billingIntervalMonths === 12
-                          ? "/year"
-                          : `/${plan.billingIntervalMonths} months`}
-                    </span>
-                  </div>
-                  <p className="text-sm text-neutral-600 -mt-6 mb-8">
+              <div className="flex flex-1 flex-col p-6 sm:p-8">
+                <div className="flex items-baseline justify-between gap-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
                     {plan.billingIntervalMonths === 1
-                      ? "Billed monthly"
+                      ? "Monthly"
                       : plan.billingIntervalMonths === 12
-                        ? "Billed yearly"
-                        : `Billed every ${plan.billingIntervalMonths} months`}
-                    {plan.billingIntervalMonths > 1 && (
-                      <>
-                        {" · "}
-                        ≈ ${formatMonthly(plan.price / plan.billingIntervalMonths)}/mo
-                      </>
-                    )}
+                        ? "Yearly"
+                        : `Every ${plan.billingIntervalMonths} months`}
                   </p>
-                  <ul className="space-y-4 mb-8">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-neutral-700">
-                        <Check className="w-5 h-5 text-green-500 mr-3" aria-hidden="true" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+                    PLAN
+                  </span>
                 </div>
-                <div className="mt-auto">
+
+                <Hairline className="my-5 opacity-70" />
+
+                <h3 className="font-serif text-2xl font-semibold tracking-[-0.02em] text-paper">
+                  {plan.name}
+                </h3>
+                <p className="mt-2 text-sm text-paper-secondary">{plan.description}</p>
+
+                <div className="mt-6 flex items-end gap-2">
+                  <span className="tabular-nums text-5xl font-semibold tracking-tight text-paper">
+                    ${formatMoney(plan.price)}
+                  </span>
+                  <span className="pb-1 text-sm text-paper-secondary">
+                    {plan.billingIntervalMonths === 1
+                      ? "/mo"
+                      : plan.billingIntervalMonths === 12
+                        ? "/yr"
+                        : `/${plan.billingIntervalMonths} mo`}
+                  </span>
+                </div>
+
+                <p className="mt-2 text-xs text-paper-muted">
+                  {plan.billingIntervalMonths === 1
+                    ? "Billed monthly."
+                    : plan.billingIntervalMonths === 12
+                      ? "Billed yearly."
+                      : `Billed every ${plan.billingIntervalMonths} months.`}
+                  {plan.billingIntervalMonths > 1 && (
+                    <>
+                      {" "}
+                      <span className="tabular-nums">
+                        (≈ ${formatMonthly(plan.price / plan.billingIntervalMonths)}/mo)
+                      </span>
+                    </>
+                  )}
+                </p>
+
+                <Hairline className="my-6 opacity-70" />
+
+                <ul className="space-y-3">
+                  {plan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-start gap-3 text-sm text-paper-secondary">
+                      <Check className="mt-0.5 h-4 w-4 text-midnight-300" aria-hidden="true" strokeWidth={1.75} />
+                      <span className="leading-relaxed">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-8">
                   <WaitlistForm
                     label="Join waitlist"
                     planId={plan.id}
-                    className="w-full sm:w-full rounded-full py-3 text-sm shadow-none hover:scale-100 active:scale-100"
+                    className="w-full"
                   />
                 </div>
               </div>
@@ -85,11 +115,9 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-neutral-600 flex items-center justify-center">
-            <Check className="w-5 h-5 text-green-500 mr-2" />
-            30-day money-back guarantee for all plans
-          </p>
+        <div className="mt-10 flex items-center gap-3 text-sm text-paper-secondary">
+          <Check className="h-4 w-4 text-copper-500" aria-hidden="true" strokeWidth={1.75} />
+          <span>30-day money-back guarantee for all plans.</span>
         </div>
       </div>
     </section>

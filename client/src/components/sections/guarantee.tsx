@@ -1,6 +1,8 @@
 import { Check, Clock, Lock } from 'lucide-react';
 import WaitlistForm from '@/components/waitlist-form';
 import { guarantee, trustPoints } from "@/content/brand";
+import { Masthead } from "@/components/editorial/masthead";
+import { Hairline } from "@/components/editorial/hairline";
 
 const trustPointIcons = {
   "30-Day Trial": Clock,
@@ -12,56 +14,81 @@ export default function Guarantee() {
   return (
     <section 
       id="guarantee"
-      className="py-20 bg-neutral-900 scroll-mt-24"
+      className="py-20 scroll-mt-28"
       aria-label="Money-back guarantee and trust indicators"
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <div 
-            className="bg-neutral-800 rounded-3xl p-8 md:p-12 mb-16 relative overflow-hidden transition-transform duration-300 hover:-translate-y-1"
-          >
-            {/* Background Pattern */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500 rounded-full filter blur-3xl opacity-10" />
-            
-            <div className="relative z-10 text-center">
-              <div 
-                className="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse"
-              >
-                <Check className="w-10 h-10 text-orange-500" aria-hidden="true" />
-              </div>
-              
-              <h2 className="text-4xl font-bold text-white mb-6">
-                {guarantee.title}
-              </h2>
-              
-              <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
-                {guarantee.description}
+      <div className="mx-auto max-w-6xl px-6">
+        <Masthead
+          kicker="GUARANTEE"
+          stamp="CHAPTER 03"
+          title={
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
+              {guarantee.title}
+            </h2>
+          }
+          subtitle={guarantee.description}
+        />
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+          <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
+                The simple promise
               </p>
-              
-              <WaitlistForm />
+              <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+                30 DAYS
+              </span>
+            </div>
+
+            <Hairline className="my-5 opacity-70" />
+
+            <div className="flex items-start gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background">
+                <Check className="h-5 w-5 text-copper-500" aria-hidden="true" strokeWidth={1.75} />
+              </div>
+              <div>
+                <p className="text-base font-semibold text-paper">{guarantee.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-paper-secondary">
+                  Train with us for 30 days. If you’re not satisfied, we refund every penny. No hoops. No negotiations.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <WaitlistForm label="Join the waitlist" />
             </div>
           </div>
 
-          <div 
-            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
-          >
-            {trustPoints.map((point) => {
-              const Icon =
-                trustPointIcons[point.title as keyof typeof trustPointIcons] ?? Check;
+          <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+            <div className="flex items-baseline justify-between gap-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
+                Trust notes
+              </p>
+              <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+                DETAILS
+              </span>
+            </div>
 
-              return (
-                <div
-                  key={point.title}
-                  className="bg-neutral-800 rounded-xl p-6 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-                >
-                  <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-blue-500" aria-hidden="true" />
+            <Hairline className="my-5 opacity-70" />
+
+            <div className="space-y-5">
+              {trustPoints.map((point) => {
+                const Icon =
+                  trustPointIcons[point.title as keyof typeof trustPointIcons] ?? Check;
+
+                return (
+                  <div key={point.title} className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background">
+                      <Icon className="h-5 w-5 text-midnight-300" aria-hidden="true" strokeWidth={1.75} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-paper">{point.title}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-paper-secondary">{point.description}</p>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{point.title}</h3>
-                  <p className="text-neutral-400">{point.description}</p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

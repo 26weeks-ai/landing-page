@@ -23,7 +23,7 @@ export default function WaitlistForm({
     <Button
       type="button"
       className={cn(
-        "w-full sm:w-auto bg-orange-500 text-neutral-950 font-semibold shadow-lg shadow-orange-500/30 hover:bg-orange-400 focus-visible:ring-orange-500 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] px-6 py-5 text-base",
+        "h-11 w-full sm:w-auto rounded-xl px-6 text-sm font-semibold shadow-none",
         className,
       )}
       onClick={() => setLocation(href)}

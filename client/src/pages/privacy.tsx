@@ -1,17 +1,33 @@
 import { Link } from "wouter";
 import { MetaHead } from "@/components/MetaHead";
 import { seo } from "@/content/brand";
+import { Masthead } from "@/components/editorial/masthead";
+import { Hairline } from "@/components/editorial/hairline";
 
 export default function Privacy() {
   return (
     <>
       <MetaHead {...seo.privacy} />
-      <div className="min-h-screen bg-white py-20">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-4xl font-bold text-neutral-900 mb-8">Privacy Policy</h1>
-          
-          <div className="prose prose-lg">
-            <p>Last updated: February 10, 2025</p>
+      <div className="min-h-screen bg-background text-paper">
+        <header className="border-b border-border">
+          <div className="mx-auto max-w-4xl px-6 py-12">
+            <Masthead
+              kicker="LEGAL"
+              stamp="PRIVACY"
+              title={
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.06]">
+                  Privacy policy
+                </h1>
+              }
+              subtitle="Last updated: February 10, 2025"
+              showRule={false}
+            />
+          </div>
+        </header>
+
+        <main className="mx-auto max-w-4xl px-6 py-12">
+          <div className="rounded-3xl border border-border bg-card p-8">
+            <div className="prose prose-lg prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-[-0.02em] prose-headings:text-paper prose-p:text-paper-secondary prose-li:text-paper-secondary prose-a:text-copper-400 prose-a:decoration-copper-500/40 prose-a:underline-offset-4">
 
             <h2>1. Information We Collect</h2>
             <p>
@@ -52,13 +68,17 @@ export default function Privacy() {
               <li>Opt out of marketing communications</li>
             </ul>
 
-            <div className="mt-8">
-              <Link href="/" className="text-orange-500 hover:text-orange-600">
-                Return to Home
-              </Link>
             </div>
+
+            <Hairline className="my-8 opacity-70" />
+            <Link
+              href="/"
+              className="text-sm font-semibold text-copper-400 underline decoration-copper-500/40 underline-offset-4 hover:text-copper-300"
+            >
+              Return to home
+            </Link>
           </div>
-        </div>
+        </main>
       </div>
     </>
   );

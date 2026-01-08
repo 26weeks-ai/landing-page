@@ -4,8 +4,8 @@
   "description": "Go from couch to marathon in 26 weeks or less, with personalized AI coaching",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#171717",
-  "theme_color": "#f97316",
+  "background_color": "#0E1316",
+  "theme_color": "#0E1316",
   "icons": [
     {
       "src": "/icon-corners.svg",

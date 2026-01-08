@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { faqs } from "@/content/brand";
 import { useEffect, useState } from "react";
+import { Masthead } from "@/components/editorial/masthead";
 
 export default function FAQ() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -24,26 +25,23 @@ export default function FAQ() {
   return (
     <section 
       id="faq"
-      className="py-20 bg-white scroll-mt-24"
+      className="py-20 scroll-mt-28"
       aria-label="Frequently asked questions about 26weeks.ai"
     >
-      <div className="container mx-auto px-4">
-        <motion.div 
-          className="text-center mb-16"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={prefersReducedMotion ? undefined : { once: true }}
-        >
-          <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Everything you need to know about our AI-powered marathon training
-          </p>
-        </motion.div>
+      <div className="mx-auto max-w-6xl px-6">
+        <Masthead
+          kicker="FAQ"
+          stamp="CHAPTER 06"
+          title={
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
+              Frequently asked questions
+            </h2>
+          }
+          subtitle="Everything you need to know about our AI-powered marathon training."
+        />
 
         <motion.div 
-          className="max-w-3xl mx-auto"
+          className="mt-12 max-w-3xl"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={prefersReducedMotion ? undefined : { once: true }}
@@ -58,13 +56,13 @@ export default function FAQ() {
                 viewport={prefersReducedMotion ? undefined : { once: true }}
                 transition={prefersReducedMotion ? undefined : { delay: index * 0.1 }}
               >
-                <AccordionItem value={`item-${index}`} className="border rounded-lg px-4">
+                <AccordionItem value={`item-${index}`} className="rounded-2xl border border-border bg-card px-5">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <span className="text-lg font-semibold text-neutral-900">
+                    <span className="text-base sm:text-lg font-semibold text-paper">
                       {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-neutral-600">
+                  <AccordionContent className="text-paper-secondary">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
