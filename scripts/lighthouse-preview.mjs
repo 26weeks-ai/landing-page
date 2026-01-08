@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import net from "node:net";
 import path from "node:path";
 
 const HOST = process.env.LH_HOST ?? "127.0.0.1";
@@ -34,7 +35,31 @@ async function waitForUrl(url, timeoutMs = 30_000) {
   throw new Error(`Timed out waiting for ${url}`);
 }
 
-const url = `http://${HOST}:${PORT}/`;
+async function findAvailablePort(startPort, host, tries = 20) {
+  for (let offset = 0; offset < tries; offset += 1) {
+    const candidate = startPort + offset;
+    const available = await new Promise((resolve) => {
+      const server = net.createServer();
+      server.unref();
+      server.on("error", (error) => {
+        if (error && (error.code === "EADDRINUSE" || error.code === "EACCES")) resolve(false);
+        else resolve(false);
+      });
+      server.listen(candidate, host, () => {
+        server.close(() => resolve(true));
+      });
+    });
+    if (available) return candidate;
+  }
+  throw new Error(`Could not find an available port starting at ${startPort}`);
+}
+
+const resolvedPort = await findAvailablePort(PORT, HOST);
+if (resolvedPort !== PORT) {
+  console.warn(`Port ${PORT} is busy; using ${resolvedPort} instead.`);
+}
+
+const url = `http://${HOST}:${resolvedPort}/`;
 
 let previewProcess;
 const shutdown = () => {
@@ -57,7 +82,7 @@ try {
 
   previewProcess = spawn(
     process.execPath,
-    [viteBin, "preview", "--host", HOST, "--port", String(PORT), "--strictPort"],
+    [viteBin, "preview", "--host", HOST, "--port", String(resolvedPort), "--strictPort"],
     { stdio: "inherit" },
   );
 
