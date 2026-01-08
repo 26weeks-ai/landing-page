@@ -60,7 +60,7 @@ export default function Terms() {
             <h2>4. Subscription and Payments</h2>
             <p>
               Subscription fees are billed according to your chosen plan. You may cancel
-              at any time, and we offer a 30-day money-back guarantee for all plans.
+              at any time. If you complete the coach’s training plan and don’t finish your marathon, we offer a full refund.
             </p>
 
             <h2>5. Limitation of Liability</h2>

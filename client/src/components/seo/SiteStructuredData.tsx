@@ -115,7 +115,7 @@ export function SiteStructuredData({ faqs }: SiteStructuredDataProps) {
     estimatedCost: {
       "@type": "MonetaryAmount",
       currency: "USD",
-      value: "20",
+      value: "15",
     },
     supply: [
       {

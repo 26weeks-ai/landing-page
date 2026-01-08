@@ -1,6 +1,6 @@
-import { Check } from 'lucide-react';
+import { Check, Clock, Lock } from 'lucide-react';
 import WaitlistForm from '@/components/waitlist-form';
-import { pricing } from '@/content/brand';
+import { pricing, trustPoints } from '@/content/brand';
 import { Masthead } from "@/components/editorial/masthead";
 import { Hairline } from "@/components/editorial/hairline";
 
@@ -9,6 +9,12 @@ const formatMoney = (amount: number) =>
 
 const formatMonthly = (amount: number) =>
   amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+const trustPointIcons = {
+  "2-Week Free Trial": Clock,
+  "No Contract": Check,
+  "Secure Payment": Lock,
+} as const;
 
 export default function Pricing() {
   return (
@@ -37,6 +43,11 @@ export default function Pricing() {
                 plan.popular ? "border-copper-500/70" : "border-border"
               }`}
             >
+              {plan.billingIntervalMonths === 0 && (
+                <div className="absolute right-4 top-4 rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+                  TRY FREE
+                </div>
+              )}
               {plan.popular && (
                 <div className="absolute right-4 top-4 rounded-full border border-copper-500/60 bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
                   MOST POPULAR
@@ -45,11 +56,13 @@ export default function Pricing() {
               <div className="flex flex-1 flex-col p-6 sm:p-8">
                 <div className="flex items-baseline justify-between gap-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
-                    {plan.billingIntervalMonths === 1
-                      ? "Monthly"
-                      : plan.billingIntervalMonths === 12
-                        ? "Yearly"
-                        : `Every ${plan.billingIntervalMonths} months`}
+                    {plan.billingIntervalMonths === 0
+                      ? "2-week trial"
+                      : plan.billingIntervalMonths === 1
+                        ? "Monthly"
+                        : plan.billingIntervalMonths === 12
+                          ? "Yearly"
+                          : `Every ${plan.billingIntervalMonths} months`}
                   </p>
                   <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
                     PLAN
@@ -68,21 +81,25 @@ export default function Pricing() {
                     ${formatMoney(plan.price)}
                   </span>
                   <span className="pb-1 text-sm text-paper-secondary">
-                    {plan.billingIntervalMonths === 1
-                      ? "/mo"
-                      : plan.billingIntervalMonths === 12
-                        ? "/yr"
-                        : `/${plan.billingIntervalMonths} mo`}
+                    {plan.billingIntervalMonths === 0
+                      ? "/2 wk"
+                      : plan.billingIntervalMonths === 1
+                        ? "/mo"
+                        : plan.billingIntervalMonths === 12
+                          ? "/yr"
+                          : `/${plan.billingIntervalMonths} mo`}
                   </span>
                 </div>
 
                 <p className="mt-2 text-xs text-paper-muted">
-                  {plan.billingIntervalMonths === 1
-                    ? "Billed monthly."
-                    : plan.billingIntervalMonths === 12
-                      ? "Billed yearly."
-                      : `Billed every ${plan.billingIntervalMonths} months.`}
-                  {plan.billingIntervalMonths > 1 && (
+                  {plan.billingIntervalMonths === 0
+                    ? "Free for 2 weeks."
+                    : plan.billingIntervalMonths === 1
+                      ? "Billed monthly."
+                      : plan.billingIntervalMonths === 12
+                        ? "Billed yearly."
+                        : `Billed every ${plan.billingIntervalMonths} months.`}
+                  {plan.billingIntervalMonths > 1 && plan.billingIntervalMonths !== 0 && (
                     <>
                       {" "}
                       <span className="tabular-nums">
@@ -115,9 +132,35 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="mt-10 flex items-center gap-3 text-sm text-paper-secondary">
-          <Check className="h-4 w-4 text-copper-500" aria-hidden="true" strokeWidth={1.75} />
-          <span>30-day money-back guarantee for all plans.</span>
+        <div className="mt-10 rounded-3xl border border-border bg-card p-6 sm:p-8">
+          <div className="flex items-baseline justify-between gap-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
+              Trust notes
+            </p>
+            <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
+              DETAILS
+            </span>
+          </div>
+
+          <Hairline className="my-5 opacity-70" />
+
+          <div className="grid gap-6 sm:grid-cols-3">
+            {trustPoints.map((point) => {
+              const Icon = trustPointIcons[point.title as keyof typeof trustPointIcons] ?? Check;
+
+              return (
+                <div key={point.title} className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background">
+                    <Icon className="h-5 w-5 text-midnight-300" aria-hidden="true" strokeWidth={1.75} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-paper">{point.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-paper-secondary">{point.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

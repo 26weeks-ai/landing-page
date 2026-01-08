@@ -79,7 +79,7 @@ export const seo = {
     type: "website",
     title: "Cancellations & Refunds",
     description:
-      "See how the 30-day money-back guarantee and subscription cancellation process works for every 26weeks.ai plan.",
+      "See how the finish-line refund guarantee and subscription cancellation process works for every 26weeks.ai plan.",
     url: `${brandIdentity.domain}/cancellations`,
     image: brandIdentity.defaultOgImage,
     tags: ["refund policy", "subscription cancellation", "money-back guarantee"],
@@ -170,8 +170,9 @@ export const featuresList = [
     iconClass: "text-indigo-500",
   },
   {
-    title: "Money-Back Guarantee",
-    description: "30-day money-back guarantee, no questions asked",
+    title: "Finish-Line Guarantee",
+    description:
+      "Finish the coach’s training. If you don’t finish your marathon, we refund you in full.",
     bgClass: "bg-teal-100",
     iconClass: "text-teal-500",
   },
@@ -214,14 +215,14 @@ export const runningQuotes = [
 ];
 
 export const guarantee = {
-  title: "100% Money-Back Guarantee",
+  title: "Finish-Line Guarantee",
   description:
-    "If you're not satisfied with your progress within the first 30 days, we'll refund every penny. No questions asked.",
+    "Finish the coach’s training. If you don’t finish your marathon, we’ll refund you in full.",
 };
 
 export const trustPoints = [
   {
-    title: "30-Day Trial",
+    title: "2-Week Free Trial",
     description: "Full access to all features for a complete experience",
   },
   {
@@ -237,12 +238,25 @@ export const trustPoints = [
 export const pricing = {
   title: "Simple, Transparent Pricing",
   subtitle:
-    "No questions asked return policy. No credit card required. 3 plans.",
+    "2-week free trial. Then $15/month or $75 for 6 months.",
   plans: [
+    {
+      id: "trial",
+      name: "2-Week Free Trial",
+      price: 0,
+      billingIntervalMonths: 0,
+      description: "Full access to the coach. No commitment.",
+      features: [
+        "Full Access to AI Coach",
+        "Personalized Training Plan",
+        "Progress Tracking",
+        "Communities and Content",
+      ],
+    },
     {
       id: "monthly",
       name: "Monthly",
-      price: 20,
+      price: 15,
       billingIntervalMonths: 1,
       description: "Start your journey",
       features: [
@@ -255,19 +269,11 @@ export const pricing = {
     {
       id: "six-months",
       name: "6 Months",
-      price: 100,
+      price: 75,
       billingIntervalMonths: 6,
       description: "Most Popular Choice",
       popular: true,
       features: ["All Monthly Features", "Priority Support", "Save 17%"],
-    },
-    {
-      id: "yearly",
-      name: "Yearly",
-      price: 200,
-      billingIntervalMonths: 12,
-      description: "Best value",
-      features: ["All 6-Month Features", "VIP Support", "Save 17%"],
     },
   ],
 };
@@ -332,12 +338,12 @@ export const faqs: FAQItem[] = [
   {
     question: "What support do I get if I struggle?",
     answer:
-      "All plans include access to the runner community, AI chat support, and guided resources. Pro and Elite tiers unlock priority human coaching for deeper help.",
+      "All plans include access to the runner community, AI chat support, and guided resources. The 6-month plan includes priority support for deeper help.",
   },
   {
     question: "How does the money-back guarantee work?",
     answer:
-      "If you’re not satisfied within the first 30 days, email coach@26weeks.ai and we’ll issue a full refund—no hoops or hidden clauses.",
+      "Finish the coach’s training plan and attempt your marathon. If you don’t finish, email coach@26weeks.ai and we’ll issue a full refund.",
   },
   {
     question: "Will the training fit around my busy schedule?",

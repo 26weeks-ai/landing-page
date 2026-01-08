@@ -23,7 +23,7 @@ const featureIcons = {
   "Injury Prevention": HeartPulse,
   "Nutrition Guide": Apple,
   "Community Support": Users,
-  "Money-Back Guarantee": ShieldCheck,
+  "Finish-Line Guarantee": ShieldCheck,
 };
 
 export default function Features() {
