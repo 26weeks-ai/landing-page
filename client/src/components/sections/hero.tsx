@@ -15,7 +15,7 @@ export default function Hero() {
 
   return (
     <section 
-      className="relative overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20"
+      className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20"
       role="banner"
       aria-label="Hero section - AI Marathon Coach introduction"
     >

@@ -6,6 +6,7 @@ import rehypeHighlight from "rehype-highlight";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SocialShare } from "@/components/blog/social-share";
+import { Toaster } from "@/components/ui/toaster";
 import { MetaHead } from "@/components/MetaHead";
 import { ArrowLeft, Clock, User, Calendar } from "lucide-react";
 import WaitlistForm from "@/components/waitlist-form";
@@ -286,6 +287,8 @@ export default function BlogPostPage() {
           <LazyRelatedPosts posts={relatedPosts} />
         </Suspense>
       </div>
+
+      <Toaster />
     </div>
   );
 }

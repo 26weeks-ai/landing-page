@@ -8,6 +8,7 @@ Static marketing site for 26weeks.ai, built with React + Vite + Tailwind.
 - Dev server: `npm run dev`
 - Typecheck: `npm run check`
 - Build: `npm run build` (outputs to `dist/public`)
+- Lighthouse (local): run `npm run lighthouse:preview` (auditing `npm run dev` will always look slow).
 
 ## Waitlist
 
@@ -24,4 +25,3 @@ Markdown posts live in `client/src/content/blog/*.md` and are bundled at build t
 
 - Workflow: `.github/workflows/pages.yml`
 - Custom domain: `client/public/CNAME`
-

@@ -23,7 +23,7 @@
 
   /* Primary action fill = copper.700 (hover/pressed are handled at component level). */
   --primary: 23 54.1% 35.9%; /* copper.700 #8D502A */
-  --primary-foreground: 204 18.5% 5.3%; /* onPrimary #0B0E10 */
+  --primary-foreground: 44 86.7% 94.1%; /* onPrimary #FDF6E3 */
 
   /* Secondary action fill = midnightGreen.600. */
   --secondary: 185 84.9% 18.2%; /* midnightGreen.600 #075056 */
@@ -50,7 +50,7 @@
   --sidebar-background: 213 20% 8.8%;
   --sidebar-foreground: 44 86.7% 94.1%;
   --sidebar-primary: 23 54.1% 35.9%;
-  --sidebar-primary-foreground: 204 18.5% 5.3%;
+  --sidebar-primary-foreground: 44 86.7% 94.1%;
   --sidebar-accent: 213 20% 10.8%;
   --sidebar-accent-foreground: 44 86.7% 94.1%;
   --sidebar-border: 214 17.4% 18%;

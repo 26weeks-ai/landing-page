@@ -1,5 +1,4 @@
 import { Switch, Route } from "wouter";
-import { Toaster } from "@/components/ui/toaster";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -49,7 +48,6 @@ function App() {
   return (
     <>
       <Router />
-      <Toaster />
     </>
   );
 }

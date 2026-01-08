@@ -29,7 +29,20 @@ const SectionLoader = () => (
 export default function Home() {
   const [renderBelowFold, setRenderBelowFold] = useState(false);
   useEffect(() => {
-    setRenderBelowFold(true);
+    const enable = () => setRenderBelowFold(true);
+
+    const win = window as unknown as {
+      requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    if (typeof win.requestIdleCallback === "function") {
+      const handle = win.requestIdleCallback(enable, { timeout: 1200 });
+      return () => win.cancelIdleCallback?.(handle);
+    }
+
+    const timeoutId = setTimeout(enable, 0);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {

@@ -17,4 +17,7 @@ pnpm-debug.log*
 # vite
 .vite/
 
+# lighthouse reports
+lighthouse*.json
+
 *.tar.gz

@@ -8,6 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "preview:lighthouse": "vite preview --port 4173 --strictPort",
+    "lighthouse:preview": "node scripts/lighthouse-preview.mjs",
     "check": "tsc",
     "test": "vitest"
   },
