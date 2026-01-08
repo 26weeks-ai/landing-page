@@ -5,7 +5,7 @@ import { Masthead } from '@/components/editorial/masthead';
 import { Hairline } from '@/components/editorial/hairline';
 import { CheckCircle2 } from 'lucide-react';
 
-type PlanRow = { day: string; session: string; note: string };
+type PlanRow = { day: string; session: string; note: string; status?: string };
 type PlanPreview = { phaseLabel: string; rows: PlanRow[]; footer: string };
 
 type Contour = { d: string; opacity: number; strokeWidth: number };
@@ -88,11 +88,13 @@ function getPlanPreview(week: number): PlanPreview {
     return {
       phaseLabel: 'BASE',
       rows: [
+        { day: 'Mon', session: 'Cross-train + strength', note: 'hips + calves • easy core', status: 'CROSS' },
         { day: 'Tue', session: 'Easy intervals', note: 'short pickups • relaxed form' },
+        { day: 'Wed', session: 'Recovery', note: 'walk + mobility • check soreness', status: 'EASY' },
         { day: 'Thu', session: 'Steady aerobic', note: 'nose-breath pace • smooth cadence' },
         { day: 'Sat', session: 'Long run', note: 'time-on-feet • easy finish' },
       ],
-      footer: 'Build consistency first—then we sharpen speed. Week volume ramps with recovery baked in.',
+      footer: 'Consistency first: cross-training for durability, recovery days that actually recover, and long runs that feel doable.',
     };
   }
 
@@ -100,11 +102,13 @@ function getPlanPreview(week: number): PlanPreview {
     return {
       phaseLabel: 'BUILD',
       rows: [
+        { day: 'Mon', session: 'Cross-train', note: 'bike/row • aerobic base', status: 'CROSS' },
         { day: 'Tue', session: 'Intervals', note: 'effort-led • adaptive pacing' },
+        { day: 'Wed', session: 'Recovery', note: 'easy shakeout • mobility reset', status: 'EASY' },
         { day: 'Thu', session: 'Tempo', note: 'threshold work • form cues' },
         { day: 'Sat', session: 'Long run', note: 'fueling reminders • recovery checks' },
       ],
-      footer: 'The plan tightens: fewer junk miles, more intent. You’ll feel fitter without feeling cooked.',
+      footer: 'Build weeks add intent without burnout—cross-training keeps you aerobic, recovery keeps you consistent, workouts get sharper.',
     };
   }
 
@@ -112,34 +116,30 @@ function getPlanPreview(week: number): PlanPreview {
     return {
       phaseLabel: 'PEAK',
       rows: [
+        { day: 'Mon', session: 'Strength + drills', note: 'power + form • low volume', status: 'CROSS' },
         { day: 'Tue', session: 'VO₂ intervals', note: 'fast-but-controlled • full recoveries' },
+        { day: 'Wed', session: 'Recovery', note: 'easy miles • soft tissue', status: 'EASY' },
         { day: 'Thu', session: 'Race pace', note: 'dial the rhythm • cadence + breath' },
         { day: 'Sat', session: 'Long run', note: 'confidence builder • steady negatives' },
       ],
-      footer: 'Peak weeks are about specificity: race-pace rhythm, durable legs, and calm confidence.',
+      footer: 'Peak is specificity: race-pace rhythm + confidence. Cross-training stays light; recovery is non‑negotiable.',
     };
   }
 
   return {
     phaseLabel: 'TAPER',
     rows: [
+      { day: 'Mon', session: 'Mobility + reset', note: 'sleep • legs up • easy walk', status: 'EASY' },
       { day: 'Tue', session: 'Strides', note: 'pop + snap • stay loose' },
+      { day: 'Wed', session: 'Cross-train', note: 'easy spin • keep blood moving', status: 'CROSS' },
       { day: 'Thu', session: 'Short tempo', note: 'taste of pace • leave fresh' },
-      { day: 'Sat', session: 'Easy long', note: 'shorter • smooth' },
+      { day: 'Sat', session: 'Easy run', note: 'shorter • smooth' },
     ],
-    footer: 'We keep the edge while shedding fatigue. You arrive sharp, rested, and ready to race.',
+    footer: 'Taper keeps the edge while shedding fatigue: a touch of intensity, light cross-training, and calm recovery.',
   };
 }
 
-type TrackBackdropProps = {
-  week: number;
-};
-
-function CourseMapBackdrop({ week }: TrackBackdropProps) {
-  const clampedWeek = clampWeek(week);
-  const progress = (clampedWeek - 1) / 25;
-  const progressLength = 1000;
-
+function CourseMapBackdrop() {
   const routePath =
     'M 62 628 C 210 520, 394 506, 536 588 C 664 664, 748 716, 878 694 C 1026 670, 1120 604, 1208 522';
 
@@ -195,13 +195,6 @@ function CourseMapBackdrop({ week }: TrackBackdropProps) {
             <rect width="1200" height="800" fill="url(#hero-art-fade-gradient)" />
           </mask>
 
-          <linearGradient id="hero-copper" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="hsl(var(--copper-700))" stopOpacity="0.78" />
-            <stop offset="0.42" stopColor="hsl(var(--copper-500))" stopOpacity="0.98" />
-            <stop offset="0.62" stopColor="hsl(var(--sand-500))" stopOpacity="0.6" />
-            <stop offset="1" stopColor="hsl(var(--copper-700))" stopOpacity="0.76" />
-          </linearGradient>
-
           <radialGradient id="hero-vignette" cx="48%" cy="34%" r="88%">
             <stop offset="0" stopColor="hsl(var(--background))" stopOpacity="0" />
             <stop offset="0.62" stopColor="hsl(var(--background))" stopOpacity="0.22" />
@@ -231,36 +224,6 @@ function CourseMapBackdrop({ week }: TrackBackdropProps) {
             ))}
           </g>
 
-          <g opacity="0.92">
-            <text
-              x="560"
-              y="640"
-              fontFamily="Spectral, ui-serif, Georgia, serif"
-              fontSize="560"
-              fontWeight="700"
-              letterSpacing="-0.04em"
-              fill="none"
-              stroke="hsl(var(--paper) / 0.06)"
-              strokeWidth="2.2"
-            >
-              26
-            </text>
-            <text
-              x="560"
-              y="640"
-              fontFamily="Spectral, ui-serif, Georgia, serif"
-              fontSize="560"
-              fontWeight="700"
-              letterSpacing="-0.04em"
-              fill="none"
-              stroke="hsl(var(--midnight-200) / 0.08)"
-              strokeWidth="1.3"
-              opacity="0.7"
-            >
-              26
-            </text>
-          </g>
-
           <path
             d={routePath}
             stroke="hsl(var(--paper) / 0.12)"
@@ -277,19 +240,6 @@ function CourseMapBackdrop({ week }: TrackBackdropProps) {
             strokeLinecap="round"
             opacity="0.55"
           />
-          <path
-            d={routePath}
-            pathLength={progressLength}
-            stroke="url(#hero-copper)"
-            strokeWidth="2.6"
-            fill="none"
-            strokeLinecap="round"
-            strokeDasharray={`${progressLength} ${progressLength}`}
-            strokeDashoffset={progressLength * (1 - progress)}
-            opacity="0.95"
-            style={{ transition: 'stroke-dashoffset 520ms cubic-bezier(0.2, 0.9, 0.2, 1)' }}
-          />
-
           <path
             d={routePath}
             stroke="hsl(var(--paper) / 0.16)"
@@ -312,28 +262,32 @@ type WeekScrubberProps = {
   phaseLabel: string;
   onChange: (week: number) => void;
   className?: string;
+  variant?: 'standalone' | 'embedded';
 };
 
-function WeekScrubber({ week, phaseLabel, onChange, className }: WeekScrubberProps) {
+function WeekScrubber({ week, phaseLabel, onChange, className, variant = 'standalone' }: WeekScrubberProps) {
   const clampedWeek = clampWeek(week);
   const weekLabel = String(clampedWeek).padStart(2, '0');
   const weekPos = ((clampedWeek - 1) / 25) * 100;
+  const isEmbedded = variant === 'embedded';
 
   return (
     <div
-      className={`rounded-2xl border border-border/70 bg-transparent px-5 py-4 ${className ?? ''}`}
+      className={`${isEmbedded ? '' : 'rounded-2xl border border-border/70 px-5 py-4'} bg-transparent ${className ?? ''}`}
       style={{ fontFamily: 'ui-sans-serif, system-ui, sans-serif' }}
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-paper-muted">
-          WEEK {weekLabel} / 26
-        </p>
-        <span className="text-xs font-semibold uppercase tracking-[0.26em] text-paper-secondary">
-          {phaseLabel}
-        </span>
-      </div>
+      {!isEmbedded && (
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-paper-muted">
+            WEEK {weekLabel} / 26
+          </p>
+          <span className="text-xs font-semibold uppercase tracking-[0.26em] text-paper-secondary">
+            {phaseLabel}
+          </span>
+        </div>
+      )}
 
-      <div className="relative mt-4 h-10" aria-label="Week selector">
+      <div className={`${isEmbedded ? 'relative h-10' : 'relative mt-4 h-10'}`} aria-label="Week selector">
         <div className="absolute inset-x-1 top-1/2 -translate-y-1/2 h-px bg-border/80" />
         <div className="absolute inset-x-1 top-1/2 -translate-y-1/2 h-px bg-copper-500/70" style={{ width: `calc(${weekPos}% + 0.25rem)` }} />
 
@@ -367,9 +321,11 @@ function WeekScrubber({ week, phaseLabel, onChange, className }: WeekScrubberPro
         />
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-paper-secondary">
-        Drag to preview the training arc—base, build, peak, taper.
-      </p>
+      {!isEmbedded && (
+        <p className="mt-3 text-sm leading-relaxed text-paper-secondary">
+          Drag to preview the training arc—base, build, peak, taper.
+        </p>
+      )}
     </div>
   );
 }
@@ -393,7 +349,7 @@ export default function Hero() {
       aria-label="Hero section - AI Marathon Coach introduction"
     >
       <div className="absolute inset-0 bg-background" aria-hidden="true" />
-      <CourseMapBackdrop week={week} />
+      <CourseMapBackdrop />
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
@@ -430,13 +386,6 @@ export default function Hero() {
             </div>
 
             <div
-              className={`mt-10 transition-[opacity,transform] duration-500 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"} lg:hidden`}
-              style={{ transitionDelay: "180ms" }}
-            >
-              <WeekScrubber week={week} phaseLabel={planPreview.phaseLabel} onChange={setWeek} />
-            </div>
-
-            <div
               className={`mt-10 grid max-w-xl gap-3 sm:grid-cols-2 transition-[opacity,transform] duration-500 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
               style={{ transitionDelay: "200ms" }}
               aria-label="Key trust points"
@@ -465,7 +414,7 @@ export default function Hero() {
                   Plan preview
                 </p>
                 <div className="flex items-center gap-2">
-                  <span className="hidden sm:inline-flex rounded-full border border-border bg-background px-3 py-1 text-[11px] font-semibold tracking-[0.24em] text-paper-secondary">
+                  <span className="inline-flex rounded-full border border-border bg-background px-3 py-1 text-[11px] font-semibold tracking-[0.24em] text-paper-secondary">
                     {planPreview.phaseLabel}
                   </span>
                   <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
@@ -475,6 +424,16 @@ export default function Hero() {
               </div>
 
               <Hairline className="my-5 opacity-70" />
+
+              <div className="lg:hidden">
+                <WeekScrubber
+                  week={week}
+                  phaseLabel={planPreview.phaseLabel}
+                  onChange={setWeek}
+                  variant="embedded"
+                />
+                <Hairline className="my-5 opacity-70" />
+              </div>
 
               <div className="space-y-4">
                 {planPreview.rows.map((row) => (
@@ -486,7 +445,7 @@ export default function Hero() {
                       <div className="flex items-baseline justify-between gap-4">
                         <p className="font-semibold text-paper">{row.session}</p>
                         <span className="text-xs font-semibold tracking-[0.18em] text-midnight-300">
-                          READY
+                          {row.status ?? 'READY'}
                         </span>
                       </div>
                       <p className="mt-1 text-sm leading-relaxed text-paper-secondary">{row.note}</p>
