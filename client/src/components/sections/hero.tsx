@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import WaitlistForm from '@/components/waitlist-form';
 import { hero } from '@/content/brand';
 import { Masthead } from '@/components/editorial/masthead';
@@ -270,6 +270,19 @@ function WeekScrubber({ week, phaseLabel, onChange, className, variant = 'standa
   const weekLabel = String(clampedWeek).padStart(2, '0');
   const weekPos = ((clampedWeek - 1) / 25) * 100;
   const isEmbedded = variant === 'embedded';
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
+  const setWeekFromPointer = (clientX: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const rect = track.getBoundingClientRect();
+    const inset = 4; // matches `inset-x-1` (0.25rem) used by the track lines
+    const usableWidth = Math.max(1, rect.width - inset * 2);
+    const x = Math.min(usableWidth, Math.max(0, clientX - (rect.left + inset)));
+    const nextWeek = clampWeek(1 + (x / usableWidth) * 25);
+    if (nextWeek !== clampedWeek) onChange(nextWeek);
+  };
 
   return (
     <div
@@ -287,7 +300,15 @@ function WeekScrubber({ week, phaseLabel, onChange, className, variant = 'standa
         </div>
       )}
 
-      <div className={`${isEmbedded ? 'relative h-10' : 'relative mt-4 h-10'}`} aria-label="Week selector">
+      <div
+        ref={trackRef}
+        className={`${isEmbedded ? 'relative h-10' : 'relative mt-4 h-10'}`}
+        aria-label="Week selector"
+        onMouseMove={(event) => {
+          if (event.buttons !== 0) return;
+          setWeekFromPointer(event.clientX);
+        }}
+      >
         <div className="absolute inset-x-1 top-1/2 -translate-y-1/2 h-px bg-border/80" />
         <div className="absolute inset-x-1 top-1/2 -translate-y-1/2 h-px bg-copper-500/70" style={{ width: `calc(${weekPos}% + 0.25rem)` }} />
 
@@ -333,17 +354,87 @@ function WeekScrubber({ week, phaseLabel, onChange, className, variant = 'standa
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [week, setWeek] = useState(6);
+  const heroRef = useRef<HTMLElement | null>(null);
+  const scrollSyncRef = useRef<{ scrollY: number; week: number } | null>(null);
+  const weekRef = useRef(week);
+  const [isHoverPointer, setIsHoverPointer] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  });
   
   // Simple CSS animations instead of heavy framer-motion
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
+  useEffect(() => {
+    weekRef.current = week;
+  }, [week]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const handleChange = () => setIsHoverPointer(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  useEffect(() => {
+    if (isHoverPointer) return;
+    if (typeof window === 'undefined') return;
+
+    const handleScroll = () => {
+      const seed = scrollSyncRef.current ?? { scrollY: window.scrollY, week: weekRef.current };
+      const section = heroRef.current;
+
+      if (!section) {
+        scrollSyncRef.current = { scrollY: window.scrollY, week: seed.week };
+        return;
+      }
+
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const inView = rect.bottom > 0 && rect.top < viewportHeight;
+
+      if (!inView) {
+        scrollSyncRef.current = { scrollY: window.scrollY, week: seed.week };
+        return;
+      }
+
+      const scrollRange = Math.max(section.offsetHeight, viewportHeight);
+      const scrollPerWeek = Math.max(1, scrollRange / 25);
+      const deltaWeeks = (window.scrollY - seed.scrollY) / scrollPerWeek;
+      const nextWeek = clampWeek(seed.week + deltaWeeks);
+
+      if (nextWeek === seed.week) return;
+
+      scrollSyncRef.current = { scrollY: window.scrollY, week: nextWeek };
+      setWeek(nextWeek);
+    };
+
+    scrollSyncRef.current = { scrollY: window.scrollY, week: weekRef.current };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHoverPointer]);
+
+  const handleWeekChange = (nextWeek: number) => {
+    const clamped = clampWeek(nextWeek);
+    setWeek(clamped);
+
+    if (isHoverPointer) return;
+    if (typeof window === 'undefined') return;
+    scrollSyncRef.current = { scrollY: window.scrollY, week: clamped };
+  };
+
   const planPreview = getPlanPreview(week);
   const weekLabel = String(clampWeek(week)).padStart(2, '0');
 
   return (
-    <section 
+    <section
+      ref={heroRef}
       className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20"
       role="banner"
       aria-label="Hero section - AI Marathon Coach introduction"
@@ -429,7 +520,7 @@ export default function Hero() {
                 <WeekScrubber
                   week={week}
                   phaseLabel={planPreview.phaseLabel}
-                  onChange={setWeek}
+                  onChange={handleWeekChange}
                   variant="embedded"
                 />
                 <Hairline className="my-5 opacity-70" />
@@ -466,7 +557,7 @@ export default function Hero() {
             className={`hidden transition-[opacity,transform] duration-500 ease-out lg:order-3 lg:col-span-2 lg:block ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
             style={{ transitionDelay: "220ms" }}
           >
-            <WeekScrubber week={week} phaseLabel={planPreview.phaseLabel} onChange={setWeek} />
+            <WeekScrubber week={week} phaseLabel={planPreview.phaseLabel} onChange={handleWeekChange} />
           </div>
         </div>
       </div>
