@@ -166,11 +166,7 @@ export default function Features() {
 
             <Hairline className="my-5 opacity-70" />
 
-            <p className="text-sm leading-relaxed text-paper-secondary">
-              Our coaching voice is quiet, specific, and ruthless about clarity: one cue, one adjustment, one next step.
-            </p>
-
-            <div className="mt-8 flex min-h-[18rem] flex-1 flex-col">
+            <div className="mt-6 flex min-h-[18rem] flex-1 flex-col">
               <div className="flex items-baseline justify-between gap-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
                   {raceCalendar.title}

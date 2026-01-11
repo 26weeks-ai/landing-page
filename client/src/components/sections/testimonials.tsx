@@ -20,7 +20,7 @@ export default function Testimonials() {
       <div className="mx-auto max-w-6xl px-6">
         <Masthead
           kicker="SUCCESS STORIES"
-          stamp="CHAPTER 05"
+          stamp="CHAPTER 04"
           title={
             <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
               {testimonials.title}

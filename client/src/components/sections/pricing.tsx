@@ -26,7 +26,7 @@ export default function Pricing() {
       <div className="mx-auto max-w-6xl px-6">
         <Masthead
           kicker="PRICING"
-          stamp="CHAPTER 04"
+          stamp="CHAPTER 03"
           title={
             <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
               {pricing.title}
@@ -43,16 +43,6 @@ export default function Pricing() {
                 plan.popular ? "border-copper-500/70" : "border-border"
               }`}
             >
-              {plan.billingIntervalMonths === 0 && (
-                <div className="absolute right-4 top-4 rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
-                  TRY FREE
-                </div>
-              )}
-              {plan.popular && (
-                <div className="absolute right-4 top-4 rounded-full border border-copper-500/60 bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
-                  MOST POPULAR
-                </div>
-              )}
               <div className="flex flex-1 flex-col p-6 sm:p-8">
                 <div className="flex items-baseline justify-between gap-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
@@ -64,8 +54,16 @@ export default function Pricing() {
                           ? "Yearly"
                           : `Every ${plan.billingIntervalMonths} months`}
                   </p>
-                  <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary">
-                    PLAN
+                  <span
+                    className={`whitespace-nowrap rounded-full border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary ${
+                      plan.popular ? "border-copper-500/60" : "border-border"
+                    }`}
+                  >
+                    {plan.billingIntervalMonths === 0
+                      ? "TRY FREE PLAN"
+                      : plan.popular
+                        ? "MOST POPULAR"
+                        : "PLAN"}
                   </span>
                 </div>
 

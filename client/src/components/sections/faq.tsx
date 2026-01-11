@@ -31,7 +31,7 @@ export default function FAQ() {
       <div className="mx-auto max-w-6xl px-6">
         <Masthead
           kicker="FAQ"
-          stamp="CHAPTER 06"
+          stamp="CHAPTER 05"
           title={
             <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
               Frequently asked questions

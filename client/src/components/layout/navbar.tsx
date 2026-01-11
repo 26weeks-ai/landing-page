@@ -14,7 +14,6 @@ import {
 
 const navLinks = [
   { href: '#features', label: 'Features' },
-  { href: '#guarantee', label: 'Guarantee' },
   { href: '#pricing', label: 'Pricing' },
   { href: '#testimonials', label: 'Testimonials' },
   { href: '#faq', label: 'FAQ' },

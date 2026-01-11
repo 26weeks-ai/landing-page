@@ -8,7 +8,6 @@ import { faqs, seo } from '@/content/brand';
 
 // Lazy load below-the-fold sections for performance
 const Features = lazy(() => import('@/components/sections/features'));
-const Guarantee = lazy(() => import('@/components/sections/guarantee'));
 const Pricing = lazy(() => import('@/components/sections/pricing'));
 const Testimonials = lazy(() => import('@/components/sections/testimonials'));
 const FAQ = lazy(() => import('@/components/sections/faq'));
@@ -80,10 +79,6 @@ export default function Home() {
             <>
               <Suspense fallback={<SectionLoader />}>
                 <Features />
-              </Suspense>
-          
-              <Suspense fallback={<SectionLoader />}>
-                <Guarantee />
               </Suspense>
           
               <Suspense fallback={<SectionLoader />}>
