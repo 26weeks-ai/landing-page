@@ -438,7 +438,7 @@ export default function Hero() {
               <div className="space-y-4">
                 {planPreview.rows.map((row) => (
                   <div key={row.day} className="grid grid-cols-[3.25rem_1fr] items-start gap-4">
-                    <div className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-muted">
+                    <div className="text-xs font-semibold uppercase tracking-[0.22em] leading-6 text-paper-muted">
                       {row.day}
                     </div>
                     <div>
