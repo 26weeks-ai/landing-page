@@ -140,9 +140,6 @@ function getPlanPreview(week: number): PlanPreview {
 }
 
 function CourseMapBackdrop() {
-  const routePath =
-    'M 62 628 C 210 520, 394 506, 536 588 C 664 664, 748 716, 878 694 C 1026 670, 1120 604, 1208 522';
-
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       <svg
@@ -223,32 +220,6 @@ function CourseMapBackdrop() {
               />
             ))}
           </g>
-
-          <path
-            d={routePath}
-            stroke="hsl(var(--paper) / 0.12)"
-            strokeWidth="4.8"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.22"
-          />
-          <path
-            d={routePath}
-            stroke="hsl(var(--paper) / 0.12)"
-            strokeWidth="2.35"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.55"
-          />
-          <path
-            d={routePath}
-            stroke="hsl(var(--paper) / 0.16)"
-            strokeWidth="1.05"
-            fill="none"
-            strokeLinecap="round"
-            strokeDasharray="10 18"
-            opacity="0.55"
-          />
         </g>
 
         <rect width="1200" height="800" fill="url(#hero-vignette)" />
@@ -547,7 +518,7 @@ export default function Hero() {
 
               <Hairline className="my-6 opacity-70" />
 
-              <p className="text-sm leading-relaxed text-paper-secondary">
+              <p className="text-sm leading-relaxed text-paper-secondary lg:line-clamp-2 lg:min-h-[2.9rem]">
                 {planPreview.footer}
               </p>
             </div>
