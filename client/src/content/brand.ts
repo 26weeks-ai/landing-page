@@ -214,6 +214,73 @@ export const runningQuotes = [
   },
 ];
 
+export interface RaceCalendarEvent {
+  month: string;
+  window: string;
+  race: string;
+  location: string;
+  badge: string;
+}
+
+export const raceCalendar = {
+  title: "Race calendar",
+  subtitle:
+    "Official and certified marathons around the world — pick a finish line and we’ll back-plan your 26 weeks.",
+  note:
+    "Preview list — race dates and certification status can change year to year. Always confirm on the official race site.",
+  events: [
+    {
+      month: "Mar",
+      window: "early",
+      race: "Tokyo Marathon",
+      location: "Tokyo, JP",
+      badge: "major",
+    },
+    {
+      month: "Apr",
+      window: "mid",
+      race: "Boston Marathon",
+      location: "Boston, US",
+      badge: "major",
+    },
+    {
+      month: "Apr",
+      window: "late",
+      race: "London Marathon",
+      location: "London, UK",
+      badge: "major",
+    },
+    {
+      month: "Sep",
+      window: "late",
+      race: "Berlin Marathon",
+      location: "Berlin, DE",
+      badge: "major",
+    },
+    {
+      month: "Oct",
+      window: "early",
+      race: "Chicago Marathon",
+      location: "Chicago, US",
+      badge: "major",
+    },
+    {
+      month: "Nov",
+      window: "early",
+      race: "New York City Marathon",
+      location: "New York, US",
+      badge: "major",
+    },
+    {
+      month: "Dec",
+      window: "early",
+      race: "Valencia Marathon",
+      location: "Valencia, ES",
+      badge: "certified",
+    },
+  ] as RaceCalendarEvent[],
+};
+
 export const guarantee = {
   title: "Finish-Line Guarantee",
   description:

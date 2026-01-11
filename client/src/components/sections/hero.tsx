@@ -391,10 +391,10 @@ export default function Hero() {
               aria-label="Key trust points"
             >
               {[
-                "Starts from where you are",
-                "Takes care of you",
-                "Adapts to your progress",
-                "Syncs with your tracker",
+                "starts from where you are",
+                "takes care of you",
+                "adapts to your progress",
+                "gets you to finish-line",
               ].map((line) => (
                 <div key={line} className="flex items-start gap-3 text-sm text-paper-secondary">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 text-midnight-400" aria-hidden="true" strokeWidth={1.75} />
