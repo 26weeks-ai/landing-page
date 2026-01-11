@@ -15,11 +15,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
           <div>
-            <div className="text-xl leading-none mb-4">
-              <span className="font-serif font-semibold tracking-[-0.03em] text-copper-500">26</span>
-              <span className="ml-1 font-semibold tracking-tight text-paper">weeks</span>
+            <div className="text-xl leading-none mb-4 font-serif font-semibold tracking-[-0.03em]">
+              <span className="text-copper-500">26</span>
+              <span className="ml-1 text-paper">weeks</span>
               <span className="text-copper-500">.</span>
-              <span className="font-semibold tracking-tight text-paper">ai</span>
+              <span className="text-paper">ai</span>
             </div>
             <p className="text-paper-secondary mb-6">
               Transform your running journey with AI-powered marathon training.

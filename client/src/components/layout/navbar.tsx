@@ -47,11 +47,11 @@ export default function Navbar() {
             className="cursor-pointer flex items-center transition-transform duration-150 hover:scale-[1.01] active:scale-[0.99]"
             aria-label="26weeks.ai"
           >
-            <span className="text-xl sm:text-2xl leading-none">
-              <span className="font-serif font-semibold tracking-[-0.03em] text-copper-500">26</span>
-              <span className="ml-1 font-semibold tracking-tight text-paper">weeks</span>
+            <span className="text-xl sm:text-2xl leading-none font-serif font-semibold tracking-[-0.03em]">
+              <span className="text-copper-500">26</span>
+              <span className="ml-1 text-paper">weeks</span>
               <span className="text-copper-500">.</span>
-              <span className="font-semibold tracking-tight text-paper">ai</span>
+              <span className="text-paper">ai</span>
             </span>
           </div>
         </Link>
