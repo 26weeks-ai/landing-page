@@ -47,10 +47,11 @@ export default function BlogPostPage() {
   // Generate current URL for sharing
   const currentUrl = typeof window !== 'undefined' ? `${window.location.origin}/blog/${post.slug}` : `https://26weeks.ai/blog/${post.slug}`;
   
-  // Generate a blog-specific image URL or use the default logo
-  const blogImageUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}/logo-corners-1080p.png` 
-    : `https://26weeks.ai/logo-corners-1080p.png`;
+  // Use the standard social preview image for consistent OG cards.
+  const blogImageUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/og-image.png`
+      : "https://26weeks.ai/og-image.png";
 
   return (
     <div className="min-h-screen bg-background text-paper">

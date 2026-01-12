@@ -11,7 +11,7 @@ export const brandIdentity = {
   tagline: "Your AI Marathon Coach",
   domain: "https://26weeks.ai",
   defaultOgImage: "https://26weeks.ai/og-image.png",
-  logo: "https://26weeks.ai/icon-corners.svg",
+  logo: "https://26weeks.ai/android-chrome-512x512.png",
   contactEmail: "coach@26weeks.ai",
   links: {
     waitlist: "/waitlist",

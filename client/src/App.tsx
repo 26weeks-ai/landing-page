@@ -11,6 +11,7 @@ const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cancellations = lazy(() => import("@/pages/cancellations"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const AssetsAudit = import.meta.env.DEV ? lazy(() => import("@/pages/assets-audit")) : null;
 
 // Loading fallback
 const PageLoader = () => (
@@ -38,6 +39,7 @@ function Router() {
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
         <Route path="/cancellations" component={Cancellations} />
+        {AssetsAudit ? <Route path="/__assets" component={AssetsAudit} /> : null}
         <Route component={NotFound} />
       </Switch>
     </Suspense>

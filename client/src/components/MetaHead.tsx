@@ -28,11 +28,14 @@ export function MetaHead({
   noIndex = false,
 }: MetaHeadProps) {
   useEffect(() => {
+    const defaultTitle = '26weeks.ai - Your AI Marathon Coach';
+    const ogTitle = title?.trim() ? title : defaultTitle;
+
     // Update document title
     if (title) {
       document.title = `${title} | 26weeks.ai - Your AI Marathon Coach`;
     } else {
-      document.title = '26weeks.ai - Your AI Marathon Coach';
+      document.title = defaultTitle;
     }
     
     // Update or create meta tags
@@ -49,9 +52,8 @@ export function MetaHead({
         }
         document.head.appendChild(meta);
       }
-      if (content) {
-        meta.setAttribute('content', content);
-      }
+
+      meta.setAttribute('content', content);
     };
 
     const removeMetaTag = (name: string, property?: boolean) => {
@@ -59,50 +61,66 @@ export function MetaHead({
       document.querySelectorAll(selector).forEach((meta) => meta.remove());
     };
 
+    const setMetaTag = (name: string, content: string | undefined, property?: boolean) => {
+      const trimmed = content?.trim();
+      if (!trimmed) {
+        removeMetaTag(name, property);
+        return;
+      }
+      updateMetaTag(name, trimmed, property);
+    };
+
+    const setMultiMetaTags = (
+      name: string,
+      values: readonly string[] | undefined,
+      property?: boolean,
+    ) => {
+      removeMetaTag(name, property);
+      (values ?? [])
+        .map((value) => value.trim())
+        .filter(Boolean)
+        .forEach((value) => {
+          const meta = document.createElement('meta');
+          if (property) {
+            meta.setAttribute('property', name);
+          } else {
+            meta.setAttribute('name', name);
+          }
+          meta.setAttribute('content', value);
+          document.head.appendChild(meta);
+        });
+    };
+
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://26weeks.ai';
+    const toAbsoluteUrl = (maybeUrl: string) => {
+      if (!maybeUrl) return maybeUrl;
+      if (/^(https?:)?\/\//i.test(maybeUrl) || maybeUrl.startsWith('data:')) return maybeUrl;
+      if (maybeUrl.startsWith('/')) return `${origin}${maybeUrl}`;
+      return `${origin}/${maybeUrl}`;
+    };
+
+    const fallbackCanonicalUrl =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${window.location.pathname}${window.location.search}`
+        : undefined;
+
+    const canonicalUrl = url ? toAbsoluteUrl(url) : fallbackCanonicalUrl;
+
     // Basic meta tags
-    if (description) {
-      updateMetaTag('description', description);
-    }
-
-    if (author) {
-      updateMetaTag('author', author);
-    }
-
-    if (tags && tags.length > 0) {
-      updateMetaTag('keywords', tags.join(', '));
-    }
+    setMetaTag('description', description);
+    setMetaTag('author', author);
+    setMetaTag('keywords', tags && tags.length > 0 ? tags.join(', ') : undefined);
 
     updateMetaTag('robots', noIndex ? 'noindex, nofollow' : 'index, follow');
     updateMetaTag('og:locale', 'en_US', true);
 
-    if (aiSummary && aiSummary.length > 0) {
-      updateMetaTag('ai-summary', aiSummary.join(' | '));
-    } else {
-      removeMetaTag('ai-summary');
-    }
+    setMetaTag('ai-summary', aiSummary && aiSummary.length > 0 ? aiSummary.join(' | ') : undefined);
 
     // Open Graph tags
-    if (title) {
-      updateMetaTag('og:title', title, true);
-    }
-    
-    if (description) {
-      updateMetaTag('og:description', description, true);
-    }
-    
+    updateMetaTag('og:title', ogTitle, true);
+    setMetaTag('og:description', description, true);
     updateMetaTag('og:type', type, true);
-    
-    if (url) {
-      updateMetaTag('og:url', url, true);
-    }
-    
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://26weeks.ai";
-    const toAbsoluteUrl = (maybeUrl: string) => {
-      if (!maybeUrl) return maybeUrl;
-      if (/^(https?:)?\/\//i.test(maybeUrl) || maybeUrl.startsWith("data:")) return maybeUrl;
-      if (maybeUrl.startsWith("/")) return `${origin}${maybeUrl}`;
-      return `${origin}/${maybeUrl}`;
-    };
+    setMetaTag('og:url', canonicalUrl, true);
 
     const inferImageType = (imageUrl: string) => {
       const normalized = imageUrl.split("#")[0]?.split("?")[0]?.toLowerCase() ?? "";
@@ -113,11 +131,16 @@ export function MetaHead({
       return undefined;
     };
 
-    // Use provided image or default to the 26weeks.ai banner.
-    const baseImageUrl = image ? toAbsoluteUrl(image) : `${origin}/banner-social.png`;
+    // Use provided image or default to the 26weeks.ai OG image.
+    const baseImageUrl = image ? toAbsoluteUrl(image) : `${origin}/og-image.png`;
     const ogImage = baseImageUrl;
     const ogImageType = inferImageType(ogImage);
     updateMetaTag('og:image', ogImage, true);
+    if (ogImage.startsWith('https://')) {
+      updateMetaTag('og:image:secure_url', ogImage, true);
+    } else {
+      removeMetaTag('og:image:secure_url', true);
+    }
     if (ogImageType) {
       updateMetaTag("og:image:type", ogImageType, true);
     } else {
@@ -140,21 +163,19 @@ export function MetaHead({
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag("twitter:site", "@26weeks_ai");
     updateMetaTag("twitter:creator", "@26weeks_ai");
-    
-    if (title) {
-      updateMetaTag('twitter:title', title);
-    }
-    
-    if (description) {
-      updateMetaTag('twitter:description', description);
-    }
+    setMetaTag('twitter:url', canonicalUrl);
+    updateMetaTag('twitter:title', ogTitle);
+    setMetaTag('twitter:description', description);
     
     // Use the same image as OG
     updateMetaTag('twitter:image', ogImage);
-    updateMetaTag('twitter:image:alt', title || '26weeks.ai - Your AI Marathon Coach');
+    updateMetaTag('twitter:image:alt', ogTitle);
     
     // Add site name
     updateMetaTag('og:site_name', '26weeks.ai', true);
+
+    const existingArticleJsonLd = document.querySelectorAll('script[data-meta-head="article"]');
+    existingArticleJsonLd.forEach((node) => node.remove());
 
     if (type !== 'article') {
       removeMetaTag('article:published_time', true);
@@ -166,28 +187,16 @@ export function MetaHead({
 
     // Article specific meta tags
     if (type === 'article') {
-      if (publishedAt) {
-        updateMetaTag('article:published_time', publishedAt, true);
-      }
-      
-      if (author) {
-        updateMetaTag('article:author', author, true);
-      }
-      
-      if (tags) {
-        // Remove existing article:tag meta tags
-        const existingTags = document.querySelectorAll('meta[property="article:tag"]');
-        existingTags.forEach(tag => tag.remove());
-        
-        // Add new tags
-        tags.forEach(tag => {
-          updateMetaTag('article:tag', tag, true);
-        });
-      }
+      setMetaTag('article:published_time', publishedAt, true);
+      setMetaTag('article:author', author, true);
+      setMultiMetaTags('article:tag', tags, true);
 
       if (readingTime) {
         updateMetaTag('twitter:label1', 'Reading time');
         updateMetaTag('twitter:data1', `${readingTime} min read`);
+      } else {
+        removeMetaTag('twitter:label1');
+        removeMetaTag('twitter:data1');
       }
     }
 
@@ -198,17 +207,12 @@ export function MetaHead({
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    if (url) {
-      canonical.setAttribute('href', url);
+    if (canonicalUrl) {
+      canonical.setAttribute('href', canonicalUrl);
     }
 
     // JSON-LD structured data for articles
-    if (type === 'article' && title && description && author && publishedAt) {
-      const existingJsonLd = document.querySelector('script[data-meta-head="article"]');
-      if (existingJsonLd) {
-        existingJsonLd.remove();
-      }
-
+    if (type === 'article' && title && description && author && publishedAt && canonicalUrl) {
       const jsonLd = document.createElement('script');
       jsonLd.setAttribute('type', 'application/ld+json');
       jsonLd.setAttribute('data-meta-head', 'article');
@@ -216,9 +220,13 @@ export function MetaHead({
       
       const structuredData: any = {
         '@context': 'https://schema.org',
-        '@type': 'Article',
+        '@type': 'BlogPosting',
         headline: title,
         description: description,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': canonicalUrl,
+        },
         author: {
           '@type': 'Person',
           name: author
@@ -229,18 +237,13 @@ export function MetaHead({
           name: '26weeks.ai',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://26weeks.ai/icon-corners.svg'
+            url: `${origin}/android-chrome-512x512.png`,
           }
         }
       };
       
-      if (image) {
-        structuredData.image = image;
-      }
-      
-      if (url) {
-        structuredData.url = url;
-      }
+      structuredData.image = ogImage;
+      structuredData.url = canonicalUrl;
       
       if (readingTime) {
         structuredData.timeRequired = `PT${readingTime}M`;
