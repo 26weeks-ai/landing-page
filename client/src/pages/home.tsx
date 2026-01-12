@@ -10,6 +10,7 @@ import { faqs, seo } from '@/content/brand';
 const Features = lazy(() => import('@/components/sections/features'));
 const Pricing = lazy(() => import('@/components/sections/pricing'));
 const Testimonials = lazy(() => import('@/components/sections/testimonials'));
+const PlanPreviewSection = lazy(() => import('@/components/sections/plan-preview'));
 const FAQ = lazy(() => import('@/components/sections/faq'));
 const Footer = lazy(() => import('@/components/sections/footer'));
 
@@ -48,10 +49,24 @@ export default function Home() {
     if (!renderBelowFold || typeof window === "undefined") return;
     if (!window.location.hash) return;
 
-    const target = document.querySelector(window.location.hash);
-    if (target instanceof HTMLElement) {
-      target.scrollIntoView();
-    }
+    const hash = window.location.hash;
+    const start = performance.now();
+    let raf = 0;
+
+    const tryScroll = () => {
+      const target = document.querySelector(hash);
+      if (target instanceof HTMLElement) {
+        target.scrollIntoView({ block: "start" });
+        return;
+      }
+
+      if (performance.now() - start < 2500) {
+        raf = window.requestAnimationFrame(tryScroll);
+      }
+    };
+
+    raf = window.requestAnimationFrame(tryScroll);
+    return () => window.cancelAnimationFrame(raf);
   }, [renderBelowFold]);
 
   return (
@@ -87,6 +102,10 @@ export default function Home() {
           
               <Suspense fallback={<SectionLoader />}>
                 <Testimonials />
+              </Suspense>
+
+              <Suspense fallback={<SectionLoader />}>
+                <PlanPreviewSection />
               </Suspense>
           
               <Suspense fallback={<SectionLoader />}>

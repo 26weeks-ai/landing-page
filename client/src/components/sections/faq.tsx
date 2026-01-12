@@ -31,7 +31,7 @@ export default function FAQ() {
       <div className="mx-auto max-w-6xl px-6">
         <Masthead
           kicker="FAQ"
-          stamp="CHAPTER 05"
+          stamp="CHAPTER 06"
           title={
             <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.08]">
               Frequently asked questions
@@ -41,7 +41,7 @@ export default function FAQ() {
         />
 
         <motion.div 
-          className="mt-12 max-w-3xl"
+          className="mt-12 mx-auto max-w-3xl"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={prefersReducedMotion ? undefined : { once: true }}

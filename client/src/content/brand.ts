@@ -79,10 +79,10 @@ export const seo = {
     type: "website",
     title: "Cancellations & Refunds",
     description:
-      "See how the finish-line refund guarantee and subscription cancellation process works for every 26weeks.ai plan.",
+      "Learn how 26weeks.ai subscription cancellations work and where to reach us for billing questions.",
     url: `${brandIdentity.domain}/cancellations`,
     image: brandIdentity.defaultOgImage,
-    tags: ["refund policy", "subscription cancellation", "money-back guarantee"],
+    tags: ["subscription cancellation", "billing support", "refund policy"],
   },
   waitlist: {
     type: "website",
@@ -168,13 +168,6 @@ export const featuresList = [
     description: "Connect with fellow dreamers, discuss and share experiences",
     bgClass: "bg-indigo-100",
     iconClass: "text-indigo-500",
-  },
-  {
-    title: "Finish-Line Guarantee",
-    description:
-      "Finish the coach’s training. If you don’t finish your marathon, we refund you in full.",
-    bgClass: "bg-teal-100",
-    iconClass: "text-teal-500",
   },
 ];
 
@@ -279,12 +272,6 @@ export const raceCalendar = {
       badge: "certified",
     },
   ] as RaceCalendarEvent[],
-};
-
-export const guarantee = {
-  title: "Finish-Line Guarantee",
-  description:
-    "Finish the coach’s training. If you don’t finish your marathon, we’ll refund you in full.",
 };
 
 export const trustPoints = [
@@ -406,11 +393,6 @@ export const faqs: FAQItem[] = [
     question: "What support do I get if I struggle?",
     answer:
       "All plans include access to the runner community, AI chat support, and guided resources. The 6-month plan includes priority support for deeper help.",
-  },
-  {
-    question: "How does the money-back guarantee work?",
-    answer:
-      "Finish the coach’s training plan and attempt your marathon. If you don’t finish, email coach@26weeks.ai and we’ll issue a full refund.",
   },
   {
     question: "Will the training fit around my busy schedule?",

@@ -29,35 +29,11 @@ export default function Cancellations() {
           <div className="rounded-3xl border border-border bg-card p-8">
             <div className="prose prose-lg prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-[-0.02em] prose-headings:text-paper prose-p:text-paper-secondary prose-li:text-paper-secondary prose-a:text-copper-400 prose-a:decoration-copper-500/40 prose-a:underline-offset-4">
 
-            <h2>Finish-Line Guarantee</h2>
+            <h2>Refunds</h2>
             <p>
-              At 26weeks.ai, we stand behind our coaching with a finish-line guarantee. If you complete the coach’s
-              training plan and still don’t finish your marathon, we’ll refund your payment in full.
-            </p>
-
-            <h2>Eligibility for Refunds</h2>
-            <p>
-              To be eligible for a refund:
-            </p>
-            <ul>
-              <li>You must complete the coach’s training plan leading into your marathon</li>
-              <li>You must attempt your marathon (a DNF counts)</li>
-              <li>Your account must be in good standing</li>
-              <li>You must provide a brief reason for your cancellation (to help us improve)</li>
-            </ul>
-
-            <h2>How to Request a Refund</h2>
-            <p>
-              To request a refund, please:
-            </p>
-            <ol>
-              <li>Email our support team at <a href="mailto:coach@26weeks.ai" className="text-copper-400 hover:text-copper-300">coach@26weeks.ai</a></li>
-              <li>Include "Finish-Line Refund Request" in your subject line</li>
-              <li>Provide your account email, race name/date, and your result (or DNF)</li>
-              <li>Share a link or screenshot of your race result if available</li>
-            </ol>
-            <p>
-              We process all refund requests within 5-7 business days. Refunds will be issued to the original payment method used for the purchase.
+              Refund requests are reviewed case-by-case. If you have a billing issue or want to request a refund, email{" "}
+              <a href="mailto:coach@26weeks.ai" className="text-copper-400 hover:text-copper-300">coach@26weeks.ai</a>{" "}
+              and include your account email and a brief note.
             </p>
 
             <h2>Subscription Cancellations</h2>
@@ -70,16 +46,14 @@ export default function Cancellations() {
               <li>You'll receive an email confirmation of your cancellation</li>
             </ul>
             <p>
-              When you cancel a subscription, you'll maintain access to your premium features until the end of your current billing period. After that date, your account will automatically downgrade to the free version.
+              When you cancel a subscription, you'll maintain access to your plan until the end of your current billing period.
             </p>
 
             <h2>Exceptions</h2>
             <p>
-              While we strive to ensure customer satisfaction, certain situations may not qualify for our standard refund policy:
+              While we strive to resolve billing issues quickly, certain situations may not qualify for refunds:
             </p>
             <ul>
-              <li>Requests made without completing the coach’s training plan</li>
-              <li>Requests without a marathon attempt</li>
               <li>Accounts with Terms of Service violations</li>
               <li>Special promotional or discounted purchases (as indicated at time of purchase)</li>
             </ul>

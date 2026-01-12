@@ -16,6 +16,7 @@ const navLinks = [
   { href: '#features', label: 'Features' },
   { href: '#pricing', label: 'Pricing' },
   { href: '#testimonials', label: 'Testimonials' },
+  { href: '#plan-preview', label: 'PLAN' },
   { href: '#faq', label: 'FAQ' },
 ];
 
@@ -47,11 +48,11 @@ export default function Navbar() {
             className="cursor-pointer flex items-center transition-transform duration-150 hover:scale-[1.01] active:scale-[0.99]"
             aria-label="26weeks.ai"
           >
-            <span className="text-xl sm:text-2xl leading-none font-serif font-semibold tracking-[-0.03em]">
-              <span className="text-copper-500">26</span>
-              <span className="ml-1 text-paper">weeks</span>
-              <span className="text-copper-500">.</span>
-              <span className="text-paper">ai</span>
+            <span className="text-xl sm:text-2xl leading-none tracking-[-0.03em]">
+              <span className="font-serif font-semibold text-copper-500">26</span>
+              <span className="ml-1 font-sans font-semibold text-paper">weeks</span>
+              <span className="font-sans font-semibold text-copper-500">.</span>
+              <span className="font-sans font-semibold text-paper">ai</span>
             </span>
           </div>
         </Link>

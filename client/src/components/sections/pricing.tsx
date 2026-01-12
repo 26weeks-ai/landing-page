@@ -44,7 +44,7 @@ export default function Pricing() {
               }`}
             >
               <div className="flex flex-1 flex-col p-6 sm:p-8">
-                <div className="flex items-baseline justify-between gap-4">
+                <div className="flex items-center justify-between gap-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary">
                     {plan.billingIntervalMonths === 0
                       ? "2-week trial"
@@ -55,7 +55,7 @@ export default function Pricing() {
                           : `Every ${plan.billingIntervalMonths} months`}
                   </p>
                   <span
-                    className={`whitespace-nowrap rounded-full border bg-background px-3 py-1 text-xs font-semibold tracking-[0.18em] text-paper-secondary ${
+                    className={`inline-flex h-8 items-center justify-center whitespace-nowrap rounded-full border bg-background px-3 text-xs font-semibold leading-none tracking-[0.18em] text-paper-secondary ${
                       plan.popular ? "border-copper-500/60" : "border-border"
                     }`}
                   >

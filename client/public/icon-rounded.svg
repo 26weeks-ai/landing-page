@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1920" viewBox="0 0 48 48">
   <rect width="48" height="48" rx="8" fill="#0E1316"/>
   <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Spectral, Georgia, serif" font-weight="700" font-size="24" fill="#C07543">26</text>
-  <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-weight="600" font-size="10" letter-spacing="1.4" fill="#FDF6E3">weeks</text>
+  <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-weight="600" font-size="10" letter-spacing="2.2" fill="#FDF6E3">WEEKS</text>
 </svg>

@@ -7,7 +7,6 @@ import {
   HeartPulse,
   Apple,
   Users,
-  ShieldCheck,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { features, featuresList, raceCalendar, runningQuotes } from "@/content/brand";
@@ -25,7 +24,6 @@ const featureIcons = {
   "Injury Prevention": HeartPulse,
   "Nutrition Guide": Apple,
   "Community Support": Users,
-  "Finish-Line Guarantee": ShieldCheck,
 };
 
 export default function Features() {

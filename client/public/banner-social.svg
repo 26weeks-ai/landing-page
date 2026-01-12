@@ -14,9 +14,9 @@
 
   <!-- Wordmark -->
   <text x="80" y="310" font-family="Spectral, Georgia, serif" font-size="140" font-weight="700" fill="#C07543">26</text>
-  <text x="265" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="650" fill="#FDF6E3">weeks</text>
-  <text x="705" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="650" fill="#C07543">.</text>
-  <text x="748" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="650" fill="#FDF6E3">ai</text>
+  <text x="265" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="700" fill="#FDF6E3">weeks</text>
+  <text x="705" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="700" fill="#C07543">.</text>
+  <text x="748" y="310" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="140" font-weight="700" fill="#FDF6E3">ai</text>
 
   <!-- Subtitle -->
   <text x="80" y="395" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="44" font-weight="400" fill="#C9C2B8">

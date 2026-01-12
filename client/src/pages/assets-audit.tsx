@@ -117,7 +117,8 @@ export default function AssetsAuditPage() {
               Favicons (browser tab sizes)
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-paper-secondary">
-              Favicons must remain legible at 16–32px. The recommended treatment is the copper “26” mark on ink — no supporting wordmark.
+              Favicons must remain legible at 16–32px. We currently ship the full app icon (including “WEEKS”) as the favicon, and the pixel zoom
+              preview is intentionally blocky so you can spot stray artifacts.
             </p>
             <Hairline className="my-6 opacity-70" />
 
@@ -274,4 +275,3 @@ export default function AssetsAuditPage() {
     </>
   );
 }
-
