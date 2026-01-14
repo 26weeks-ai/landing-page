@@ -359,12 +359,6 @@ export default function Hero() {
               style={{ transitionDelay: "120ms" }}
             >
               <WaitlistForm label="Join the waitlist" />
-              <a
-                href="#pricing"
-                className="inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-xl border border-border bg-transparent px-6 text-sm font-semibold text-paper hover:border-copper-500/70 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                See pricing
-              </a>
             </div>
 
             <div
