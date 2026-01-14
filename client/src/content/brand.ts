@@ -203,7 +203,7 @@ export const runningQuotes = [
   {
     quote:
       "Everything you wanna know about yourself, you can learn in 26 miles - one breath, one step and one moment at a time!",
-    author: "Diwakar",
+    author: "26weeks.ai Coach",
   },
 ];
 

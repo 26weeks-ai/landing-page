@@ -1,7 +1,7 @@
 ---
 title: "Sleep: The Missing Piece in Marathon Training"
 excerpt: "Most runners obsess over mileage, pace, and nutrition—but ignore the recovery powerhouse that happens when the lights go out. Discover how mastering sleep can unlock faster times, stronger muscles, and a happier training cycle."
-author: "Coach Diwakar"
+author: "26weeks.ai Coach"
 publishedAt: "2025-12-02"
 tags: ["sleep", "recovery", "marathon training"]
 readingTime: 12

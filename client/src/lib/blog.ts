@@ -72,7 +72,7 @@ const allPosts: BlogPost[] = Object.entries(markdownFiles)
       slug,
       title: attributes.title ?? slug,
       excerpt: attributes.excerpt ?? "",
-      author: attributes.author ?? "26weeks.ai",
+      author: attributes.author ?? "26weeks.ai Coach",
       publishedAt: attributes.publishedAt ?? new Date().toISOString(),
       tags: Array.isArray(attributes.tags)
         ? attributes.tags.map(normalizeTag).filter(Boolean)

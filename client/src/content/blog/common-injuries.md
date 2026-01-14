@@ -1,7 +1,7 @@
 ---
 title: "Marathon Training Injury Guide: Avoid Common & Rare Setbacks"
 excerpt: "From runner’s knee to stress fractures, learn how to dodge the injuries that derail Marathon Training—plus science-backed strategies to keep you running strong all season long."
-author: "Coach Diwakar"
+author: "26weeks.ai Coach"
 publishedAt: "2025-11-18"
 tags: ["marathon training", "injuries", "injury prevention", "marathon"]
 readingTime: 11

@@ -1,7 +1,7 @@
 ---
 title: "Marathon Training: 12 Life-Changing Reasons to Run 26.2"
 excerpt: "Thinking about taking on 42.2 km? Discover the surprising physical, mental, and social benefits of marathon training—plus expert-backed tips to get you from curiosity to the starting line."
-author: "Coach Diwakar"
+author: "26weeks.ai Coach"
 publishedAt: "2025-11-11"
 tags: ["marathon training", "beginner", "motivation", "marathon"]
 readingTime: 15

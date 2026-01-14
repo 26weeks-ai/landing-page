@@ -1,7 +1,7 @@
 ---
 title: "Marathon Training: Strength Work That Powers Every Mile"
 excerpt: "Discover why strength workouts are the secret weapon for runners of all levels and learn exactly how to weave them into your marathon plan—without burning out."
-author: "Coach Diwakar"
+author: "26weeks.ai Coach"
 publishedAt: "2025-11-25"
 tags: ["strength training", "marathon training", "injury prevention", "performance"]
 readingTime: 12
