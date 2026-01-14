@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense, useState } from 'react';
+import { useEffect, lazy, Suspense, useRef, useState } from 'react';
 import Navbar from '@/components/layout/navbar';
 import Hero from '@/components/sections/hero';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -28,21 +28,53 @@ const SectionLoader = () => (
 
 export default function Home() {
   const [renderBelowFold, setRenderBelowFold] = useState(false);
+  const belowFoldSentinelRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    const enable = () => setRenderBelowFold(true);
+    if (typeof window === "undefined") return;
+
+    let cancelled = false;
+    const enable = () => {
+      if (cancelled) return;
+      setRenderBelowFold(true);
+    };
 
     const win = window as unknown as {
       requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
       cancelIdleCallback?: (handle: number) => void;
     };
 
+    const sentinel = belowFoldSentinelRef.current;
+    const observer =
+      sentinel && "IntersectionObserver" in window
+        ? new IntersectionObserver(
+            (entries) => {
+              if (entries.some((entry) => entry.isIntersecting)) {
+                enable();
+                observer?.disconnect();
+              }
+            },
+            { rootMargin: "0px" },
+          )
+        : null;
+
+    if (observer && sentinel) observer.observe(sentinel);
+
     if (typeof win.requestIdleCallback === "function") {
-      const handle = win.requestIdleCallback(enable, { timeout: 1200 });
-      return () => win.cancelIdleCallback?.(handle);
+      const handle = win.requestIdleCallback(enable, { timeout: 2500 });
+      return () => {
+        cancelled = true;
+        observer?.disconnect();
+        win.cancelIdleCallback?.(handle);
+      };
     }
 
-    const timeoutId = setTimeout(enable, 0);
-    return () => clearTimeout(timeoutId);
+    const timeoutId = window.setTimeout(enable, 1500);
+    return () => {
+      cancelled = true;
+      observer?.disconnect();
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   useEffect(() => {
@@ -88,6 +120,7 @@ export default function Home() {
         <main id="main-content">
           {/* Critical content loaded immediately */}
           <Hero />
+          <div ref={belowFoldSentinelRef} />
           
           {/* Below-the-fold content mounts after first paint */}
           {renderBelowFold && (

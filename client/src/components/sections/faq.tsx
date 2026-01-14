@@ -42,8 +42,8 @@ export default function FAQ() {
 
         <motion.div 
           className="mt-12 mx-auto max-w-3xl"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          initial={prefersReducedMotion ? false : { y: 20 }}
+          whileInView={prefersReducedMotion ? undefined : { y: 0 }}
           viewport={prefersReducedMotion ? undefined : { once: true }}
           transition={prefersReducedMotion ? undefined : { delay: 0.2 }}
         >
@@ -51,8 +51,8 @@ export default function FAQ() {
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                initial={prefersReducedMotion ? false : { y: 20 }}
+                whileInView={prefersReducedMotion ? undefined : { y: 0 }}
                 viewport={prefersReducedMotion ? undefined : { once: true }}
                 transition={prefersReducedMotion ? undefined : { delay: index * 0.1 }}
               >

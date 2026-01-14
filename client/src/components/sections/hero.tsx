@@ -3,17 +3,7 @@ import WaitlistForm from '@/components/waitlist-form';
 import { hero } from '@/content/brand';
 import { Masthead } from '@/components/editorial/masthead';
 import { CheckCircle2 } from 'lucide-react';
-
-const marathonRouteSvgs = import.meta.glob(
-  "../../assets/marathon-routes/svgs/*.svg",
-  {
-    eager: true,
-    query: "?raw",
-    import: "default",
-  },
-) as Record<string, string>;
-
-type RouteAsset = { id: string; d: string };
+import type { RouteAsset } from '@/assets/marathon-routes/route-assets';
 
 type HeroRoute = {
   key: string;
@@ -33,26 +23,6 @@ type HeroRoute = {
   glintDurationS: number;
   glintDelayS: number;
 };
-
-function extractPathData(raw: string): string | null {
-  const match = raw.match(/<path[^>]*\sd="([^"]+)"[^>]*\/?>/i);
-  return match?.[1] ?? null;
-}
-
-function isRouteAsset(asset: RouteAsset | null): asset is RouteAsset {
-  return Boolean(asset);
-}
-
-const ROUTE_ASSETS: RouteAsset[] = Object.entries(marathonRouteSvgs)
-  .map(([path, raw]) => {
-    const fileName = path.split("/").pop() ?? path;
-    const id = fileName.replace(/\.svg$/i, "");
-    const d = extractPathData(raw);
-    if (!d) return null;
-    return { id, d };
-  })
-  .filter(isRouteAsset)
-  .sort((a, b) => a.id.localeCompare(b.id));
 
 function randomBetween(min: number, max: number): number {
   return min + Math.random() * (max - min);
@@ -92,12 +62,16 @@ function getRouteBaseSizePx(): number {
   return clamp(minDim * 0.25, 120, 360);
 }
 
-function buildHeroBackdrop(): HeroBackdrop {
-  const targetCount = Math.min(randomInt(15, 20), ROUTE_ASSETS.length);
+function buildHeroBackdrop(routeAssets: RouteAsset[]): HeroBackdrop {
+  if (routeAssets.length === 0) {
+    return { routeSizePx: getRouteBaseSizePx(), routes: [] };
+  }
+
+  const targetCount = Math.min(randomInt(12, 16), routeAssets.length);
   const baseRouteSizePx = getRouteBaseSizePx();
   const routeSizePx = clamp(baseRouteSizePx * 2.25, 240, 720);
 
-  const pool = shuffled(ROUTE_ASSETS).slice(0, targetCount);
+  const pool = shuffled(routeAssets).slice(0, targetCount);
 
   const sampleBiasedPct = () => {
     const edgeBias = Math.random() < 0.7;
@@ -165,8 +139,14 @@ function buildHeroBackdrop(): HeroBackdrop {
   return { routeSizePx, routes };
 }
 
-function MarathonRoutesBackdrop({ isHovered }: { isHovered: boolean }) {
-  const [backdrop] = useState(() => buildHeroBackdrop());
+function MarathonRoutesBackdrop({
+  isHovered,
+  routeAssets,
+}: {
+  isHovered: boolean;
+  routeAssets: RouteAsset[];
+}) {
+  const [backdrop] = useState(() => buildHeroBackdrop(routeAssets));
   const { routeSizePx, routes } = backdrop;
   const [glintTarget] = useState(() => randomInt(6, 7));
   const glintCount = Math.min(glintTarget, routes.length);
@@ -215,98 +195,75 @@ function MarathonRoutesBackdrop({ isHovered }: { isHovered: boolean }) {
     };
   }, [routes.length, glintCount, isHovered]);
 
+  if (routes.length === 0) return null;
+
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div
-        className="absolute inset-0"
-        style={
-          {
-            background: [
-              "radial-gradient(92% 84% at 82% 14%, hsl(var(--midnight-500) / 0.22) 0%, hsl(var(--midnight-900) / 0.08) 46%, transparent 72%)",
-              "radial-gradient(70% 54% at 24% 18%, hsl(var(--copper-700) / 0.14) 0%, transparent 66%)",
-              "radial-gradient(58% 48% at 64% 56%, hsl(var(--copper-500) / 0.06) 0%, transparent 70%)",
-            ].join(","),
-          } as CSSProperties
-        }
-      />
+    <div
+      className="hero-routes-backdrop absolute inset-0"
+      style={
+        {
+          "--route-size": `${routeSizePx.toFixed(0)}px`,
+        } as CSSProperties
+      }
+    >
+      {routes.map((route, index) => {
+        const isGlinting = glintIndices.includes(index);
 
-      <div
-        className="hero-routes-backdrop absolute inset-0"
-        style={
-          {
-            "--route-size": `${routeSizePx.toFixed(0)}px`,
-          } as CSSProperties
-        }
-      >
-        {routes.map((route, index) => {
-          const isGlinting = glintIndices.includes(index);
-
-          return (
-            <div
-              key={route.key}
-              className="hero-route-cell"
-              style={
-                {
-                  left: `${route.left}%`,
-                  top: `${route.top}%`,
-                  transform: "translate(-50%, -50%)",
-                  "--route-scale": route.scale.toFixed(3),
-                  "--route-rotate": `${route.rotateDeg.toFixed(2)}deg`,
-                  "--route-opacity": route.opacity.toFixed(3),
-                  "--route-opacity-hot": route.opacityHot.toFixed(3),
-                  "--route-blur": `${route.blurPx.toFixed(2)}px`,
-                  "--float-x": `${route.floatX.toFixed(1)}px`,
-                  "--float-y": `${route.floatY.toFixed(1)}px`,
-                  "--float-rotate": `${route.floatRotateDeg.toFixed(2)}deg`,
-                  "--float-duration": `${route.floatDurationS.toFixed(2)}s`,
-                  "--float-delay": `${route.floatDelayS.toFixed(2)}s`,
-                  "--glint-duration": `${route.glintDurationS.toFixed(2)}s`,
-                  "--glint-delay": `${route.glintDelayS.toFixed(2)}s`,
-                } as CSSProperties
-              }
-            >
-              <div className="hero-route">
-                <div className="hero-route__transform">
-                  <div className="hero-route__float">
-                    <svg
-                      className="hero-route__svg"
-                      viewBox="-50 -50 100 100"
-                      focusable="false"
-                      aria-hidden="true"
-                    >
-                      <path className="hero-route__path hero-route__path--base" d={route.d} />
-                      {isGlinting ? (
-                        <>
-                          <path
-                            className="hero-route__path hero-route__glint hero-route__glint--tail"
-                            d={route.d}
-                            pathLength="1000"
-                          />
-                          <path
-                            className="hero-route__path hero-route__glint hero-route__glint--head"
-                            d={route.d}
-                            pathLength="1000"
-                          />
-                        </>
-                      ) : null}
-                    </svg>
-                  </div>
+        return (
+          <div
+            key={route.key}
+            className="hero-route-cell"
+            style={
+              {
+                left: `${route.left}%`,
+                top: `${route.top}%`,
+                transform: "translate(-50%, -50%)",
+                "--route-scale": route.scale.toFixed(3),
+                "--route-rotate": `${route.rotateDeg.toFixed(2)}deg`,
+                "--route-opacity": route.opacity.toFixed(3),
+                "--route-opacity-hot": route.opacityHot.toFixed(3),
+                "--route-blur": `${route.blurPx.toFixed(2)}px`,
+                "--float-x": `${route.floatX.toFixed(1)}px`,
+                "--float-y": `${route.floatY.toFixed(1)}px`,
+                "--float-rotate": `${route.floatRotateDeg.toFixed(2)}deg`,
+                "--float-duration": `${route.floatDurationS.toFixed(2)}s`,
+                "--float-delay": `${route.floatDelayS.toFixed(2)}s`,
+                "--glint-duration": `${route.glintDurationS.toFixed(2)}s`,
+                "--glint-delay": `${route.glintDelayS.toFixed(2)}s`,
+              } as CSSProperties
+            }
+          >
+            <div className="hero-route">
+              <div className="hero-route__transform">
+                <div className="hero-route__float">
+                  <svg
+                    className="hero-route__svg"
+                    viewBox="-50 -50 100 100"
+                    focusable="false"
+                    aria-hidden="true"
+                  >
+                    <path className="hero-route__path hero-route__path--base" d={route.d} />
+                    {isGlinting ? (
+                      <>
+                        <path
+                          className="hero-route__path hero-route__glint hero-route__glint--tail"
+                          d={route.d}
+                          pathLength="1000"
+                        />
+                        <path
+                          className="hero-route__path hero-route__glint hero-route__glint--head"
+                          d={route.d}
+                          pathLength="1000"
+                        />
+                      </>
+                    ) : null}
+                  </svg>
                 </div>
               </div>
             </div>
-          );
-        })}
-      </div>
-
-      <div
-        className="absolute inset-0"
-        style={
-          {
-            background:
-              "radial-gradient(100% 92% at 50% 40%, transparent 0%, hsl(var(--background) / 0.38) 58%, hsl(var(--background) / 0.92) 100%)",
-          } as CSSProperties
-        }
-      />
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -314,11 +271,61 @@ function MarathonRoutesBackdrop({ isHovered }: { isHovered: boolean }) {
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
+  const [routeAssets, setRouteAssets] = useState<RouteAsset[] | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   
   // Simple CSS animations instead of heavy framer-motion
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    if (routeAssets) return;
+    if (typeof window === "undefined") return;
+
+    let cancelled = false;
+
+    const load = async () => {
+      try {
+        const module = await import('@/assets/marathon-routes/route-assets');
+        if (cancelled) return;
+        setRouteAssets(module.ROUTE_ASSETS);
+      } catch (err) {
+        // Decorative-only: ignore failures and keep the base hero background.
+      }
+    };
+
+    const win = window as unknown as {
+      requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    if (typeof win.requestIdleCallback === "function") {
+      const handle = win.requestIdleCallback(() => void load(), { timeout: 2500 });
+      return () => {
+        cancelled = true;
+        win.cancelIdleCallback?.(handle);
+      };
+    }
+
+    const timeoutId = window.setTimeout(() => void load(), 0);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [prefersReducedMotion, routeAssets]);
 
   return (
     <section
@@ -330,7 +337,34 @@ export default function Hero() {
       onMouseLeave={() => setIsHeroHovered(false)}
     >
       <div className="absolute inset-0 bg-background" aria-hidden="true" />
-      <MarathonRoutesBackdrop isHovered={isHeroHovered} />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={
+            {
+              background: [
+                "radial-gradient(92% 84% at 82% 14%, hsl(var(--midnight-500) / 0.22) 0%, hsl(var(--midnight-900) / 0.08) 46%, transparent 72%)",
+                "radial-gradient(70% 54% at 24% 18%, hsl(var(--copper-700) / 0.14) 0%, transparent 66%)",
+                "radial-gradient(58% 48% at 64% 56%, hsl(var(--copper-500) / 0.06) 0%, transparent 70%)",
+              ].join(","),
+            } as CSSProperties
+          }
+        />
+
+        {routeAssets ? (
+          <MarathonRoutesBackdrop isHovered={isHeroHovered} routeAssets={routeAssets} />
+        ) : null}
+
+        <div
+          className="absolute inset-0"
+          style={
+            {
+              background:
+                "radial-gradient(100% 92% at 50% 40%, transparent 0%, hsl(var(--background) / 0.38) 58%, hsl(var(--background) / 0.92) 100%)",
+            } as CSSProperties
+          }
+        />
+      </div>
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl">

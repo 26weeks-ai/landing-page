@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Lazy load pages for better performance
-const Home = lazy(() => import("@/pages/home"));
+import Home from "@/pages/home";
 const Blog = lazy(() => import("@/pages/blog"));
 const BlogPost = lazy(() => import("@/pages/blog-post"));
 const Waitlist = lazy(() => import("@/pages/waitlist"));

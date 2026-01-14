@@ -102,11 +102,21 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <!-- Cloudflare Web Analytics -->
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "acd25761da3146efa5d86afe5834e7b2"}'
-    ></script>
+    <script>
+      (function () {
+        try {
+          var host = window.location.hostname;
+          if (host !== "26weeks.ai" && !host.endsWith(".26weeks.ai")) return;
+          var script = document.createElement("script");
+          script.defer = true;
+          script.src = "https://static.cloudflareinsights.com/beacon.min.js";
+          script.dataset.cfBeacon = '{"token":"acd25761da3146efa5d86afe5834e7b2"}';
+          document.head.appendChild(script);
+        } catch (err) {
+          // noop
+        }
+      })();
+    </script>
     <!-- End Cloudflare Web Analytics -->
   </body>
 </html>

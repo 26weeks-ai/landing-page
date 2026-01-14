@@ -25,3 +25,11 @@ Markdown posts live in `client/src/content/blog/*.md` and are bundled at build t
 
 - Workflow: `.github/workflows/pages.yml`
 - Custom domain: `client/public/CNAME`
+
+## Production Lighthouse (Cloudflare)
+
+The production site is typically proxied through Cloudflare, and a few Lighthouse findings can be caused by Cloudflare-managed features rather than this repo:
+
+- `robots.txt is not valid`: Cloudflare "Managed content" currently injects a `Content-signal:` directive, which Lighthouse flags as an unknown robots directive. Disable that injection (or managed robots feature) so the repo's `client/public/robots.txt` is served as-is.
+- `Uses deprecated APIs`: Cloudflare challenge scripts (`/cdn-cgi/challenge-platform/...`) can emit deprecation warnings in Chrome. If you want a clean Lighthouse score, disable bot/challenge JS for this marketing site or add a Cloudflare rule to bypass challenges on `/`.
+- `Use efficient cache lifetimes`: GitHub Pages serves hashed assets with `cache-control: max-age=600`. To score 100 here, override caching at the CDN (e.g. Cloudflare cache rules for `/assets/*` with a long browser + edge TTL).
