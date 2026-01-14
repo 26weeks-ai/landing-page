@@ -1,85 +1,536 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import WaitlistForm from '@/components/waitlist-form';
 import { hero } from '@/content/brand';
 import { Masthead } from '@/components/editorial/masthead';
 import { CheckCircle2 } from 'lucide-react';
 
-function CourseMapBackdrop() {
+const marathonRouteSvgs = import.meta.glob(
+  "../../assets/marathon-routes/svgs/*.svg",
+  {
+    eager: true,
+    query: "?raw",
+    import: "default",
+  },
+) as Record<string, string>;
+
+type RouteBounds = {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+};
+
+type RouteAsset = { id: string; d: string; bounds: RouteBounds };
+
+type HeroRoute = {
+  key: string;
+  d: string;
+  left: number;
+  top: number;
+  scale: number;
+  rotateDeg: number;
+  opacity: number;
+  opacityHot: number;
+  blurPx: number;
+  floatX: number;
+  floatY: number;
+  floatRotateDeg: number;
+  floatDurationS: number;
+  floatDelayS: number;
+  glintDurationS: number;
+  glintDelayS: number;
+};
+
+function extractPathData(raw: string): string | null {
+  const match = raw.match(/<path[^>]*\sd="([^"]+)"[^>]*\/?>/i);
+  return match?.[1] ?? null;
+}
+
+function extractPathBounds(d: string): RouteBounds | null {
+  const numbers = d.match(/-?\d*\.?\d+/g);
+  if (!numbers || numbers.length < 2) return null;
+
+  let minX = Number.POSITIVE_INFINITY;
+  let maxX = Number.NEGATIVE_INFINITY;
+  let minY = Number.POSITIVE_INFINITY;
+  let maxY = Number.NEGATIVE_INFINITY;
+
+  for (let index = 0; index + 1 < numbers.length; index += 2) {
+    const x = Number.parseFloat(numbers[index] ?? "");
+    const y = Number.parseFloat(numbers[index + 1] ?? "");
+
+    if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+
+    minX = Math.min(minX, x);
+    maxX = Math.max(maxX, x);
+    minY = Math.min(minY, y);
+    maxY = Math.max(maxY, y);
+  }
+
+  if (!Number.isFinite(minX) || !Number.isFinite(minY)) return null;
+
+  return { minX, maxX, minY, maxY };
+}
+
+function isRouteAsset(asset: RouteAsset | null): asset is RouteAsset {
+  return Boolean(asset);
+}
+
+const ROUTE_ASSETS: RouteAsset[] = Object.entries(marathonRouteSvgs)
+  .map(([path, raw]) => {
+    const fileName = path.split("/").pop() ?? path;
+    const id = fileName.replace(/\.svg$/i, "");
+    const d = extractPathData(raw);
+    if (!d) return null;
+    const bounds = extractPathBounds(d);
+    if (!bounds) return null;
+    return { id, d, bounds };
+  })
+  .filter(isRouteAsset)
+  .sort((a, b) => a.id.localeCompare(b.id));
+
+function randomBetween(min: number, max: number): number {
+  return min + Math.random() * (max - min);
+}
+
+function randomInt(min: number, max: number): number {
+  return Math.floor(randomBetween(min, max + 1));
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function shuffled<T>(items: T[]): T[] {
+  const copy = [...items];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+  return copy;
+}
+
+type HeroBackdrop = {
+  routeSizePx: number;
+  routes: HeroRoute[];
+};
+
+type Obb = {
+  cx: number;
+  cy: number;
+  halfW: number;
+  halfH: number;
+  ux: number;
+  uy: number;
+  vx: number;
+  vy: number;
+};
+
+function createObb(
+  cx: number,
+  cy: number,
+  halfW: number,
+  halfH: number,
+  theta: number,
+): Obb {
+  const cos = Math.cos(theta);
+  const sin = Math.sin(theta);
+  return {
+    cx,
+    cy,
+    halfW,
+    halfH,
+    ux: cos,
+    uy: sin,
+    vx: -sin,
+    vy: cos,
+  };
+}
+
+function projectRadius(box: Obb, axisX: number, axisY: number): number {
+  const uDot = Math.abs(box.ux * axisX + box.uy * axisY);
+  const vDot = Math.abs(box.vx * axisX + box.vy * axisY);
+  return box.halfW * uDot + box.halfH * vDot;
+}
+
+function obbIntersects(a: Obb, b: Obb): boolean {
+  const dx = b.cx - a.cx;
+  const dy = b.cy - a.cy;
+
+  const axes: Array<[number, number]> = [
+    [a.ux, a.uy],
+    [a.vx, a.vy],
+    [b.ux, b.uy],
+    [b.vx, b.vy],
+  ];
+
+  for (const [axisX, axisY] of axes) {
+    const centerDistance = Math.abs(dx * axisX + dy * axisY);
+    const ra = projectRadius(a, axisX, axisY);
+    const rb = projectRadius(b, axisX, axisY);
+    if (centerDistance > ra + rb) return false;
+  }
+
+  return true;
+}
+
+function pickDistinctIndices(total: number, count: number): number[] {
+  return shuffled(Array.from({ length: total }, (_, index) => index)).slice(0, count);
+}
+
+function getRouteBaseSizePx(): number {
+  const width = typeof window === "undefined" ? 1200 : window.innerWidth;
+  const height = typeof window === "undefined" ? 800 : window.innerHeight;
+  const minDim = Math.min(width, height);
+  // Base is ~old grid-cell sizing; buildHeroBackdrop scales this up to ~1.5×.
+  return clamp(minDim * 0.25, 120, 360);
+}
+
+function packRoutes(args: {
+  routeSizePx: number;
+  targetCount: number;
+  minCount: number;
+  viewportWidth: number;
+  viewportHeight: number;
+}): HeroRoute[] {
+  const { routeSizePx, targetCount, minCount, viewportWidth, viewportHeight } = args;
+  const pixelsPerUnit = routeSizePx / 100;
+
+  const passes = [
+    { safePadFactor: 0.95, collisionPad: 18, baseMin: 0.9, baseMax: 1.06, boostMin: 0.05, boostMax: 0.16, clampMin: 0.86, clampMax: 1.18 },
+    { safePadFactor: 1.1, collisionPad: 16, baseMin: 0.88, baseMax: 1.04, boostMin: 0.04, boostMax: 0.14, clampMin: 0.84, clampMax: 1.16 },
+    { safePadFactor: 1.25, collisionPad: 14, baseMin: 0.86, baseMax: 1.02, boostMin: 0.03, boostMax: 0.12, clampMin: 0.82, clampMax: 1.14 },
+    { safePadFactor: 1.45, collisionPad: 12, baseMin: 0.84, baseMax: 1.0, boostMin: 0.03, boostMax: 0.1, clampMin: 0.8, clampMax: 1.12 },
+  ];
+
+  let best: HeroRoute[] = [];
+
+  for (const pass of passes) {
+    const placed: HeroRoute[] = [];
+    const placedBoxes: Obb[] = [];
+    const pool = shuffled(ROUTE_ASSETS);
+    const safePad = routeSizePx * pass.safePadFactor;
+
+    for (const asset of pool) {
+      if (placed.length >= targetCount) break;
+
+      const boundsW = asset.bounds.maxX - asset.bounds.minX;
+      const boundsH = asset.bounds.maxY - asset.bounds.minY;
+      const boundsCenterX = (asset.bounds.minX + asset.bounds.maxX) / 2;
+      const boundsCenterY = (asset.bounds.minY + asset.bounds.maxY) / 2;
+
+      const attemptLimit = 620;
+
+      for (let attempt = 0; attempt < attemptLimit; attempt += 1) {
+        const edgeBias = Math.random() < 0.72;
+
+        const sampleEdge = (max: number) => {
+          const band = max * 0.18;
+          return Math.random() < 0.5
+            ? randomBetween(-safePad, band)
+            : randomBetween(max - band, max + safePad);
+        };
+
+        const x = edgeBias
+          ? sampleEdge(viewportWidth)
+          : randomBetween(-safePad, viewportWidth + safePad);
+        const y = edgeBias
+          ? sampleEdge(viewportHeight)
+          : randomBetween(-safePad, viewportHeight + safePad);
+
+        const leftPct = (x / viewportWidth) * 100;
+        const topPct = (y / viewportHeight) * 100;
+
+        const centerDx = (leftPct - 50) / 50;
+        const centerDy = (topPct - 46) / 54;
+        const centerDistance = Math.sqrt(centerDx * centerDx + centerDy * centerDy);
+        const edgeFactor = clamp((centerDistance - 0.12) / 0.95, 0, 1);
+
+        const scale = clamp(
+          randomBetween(pass.baseMin, pass.baseMax) + edgeFactor * randomBetween(pass.boostMin, pass.boostMax),
+          pass.clampMin,
+          pass.clampMax,
+        );
+
+        const rotateDeg = randomBetween(-18, 18);
+        const theta = (rotateDeg * Math.PI) / 180;
+        const cos = Math.cos(theta);
+        const sin = Math.sin(theta);
+
+        const halfW = (boundsW * pixelsPerUnit * scale) / 2 + pass.collisionPad + 3;
+        const halfH = (boundsH * pixelsPerUnit * scale) / 2 + pass.collisionPad + 3;
+
+        const offsetX = boundsCenterX * pixelsPerUnit * scale;
+        const offsetY = boundsCenterY * pixelsPerUnit * scale;
+        const centerX = x + offsetX * cos - offsetY * sin;
+        const centerY = y + offsetX * sin + offsetY * cos;
+
+        const radius = Math.sqrt(halfW * halfW + halfH * halfH);
+        if (
+          centerX + radius < 0 ||
+          centerX - radius > viewportWidth ||
+          centerY + radius < 0 ||
+          centerY - radius > viewportHeight
+        ) {
+          continue;
+        }
+
+        const candidate = createObb(centerX, centerY, halfW, halfH, theta);
+        const collides = placedBoxes.some((existing) => obbIntersects(existing, candidate));
+        if (collides) continue;
+
+        const opacity = clamp(
+          randomBetween(0.042, 0.078) + edgeFactor * randomBetween(0.045, 0.11),
+          0.032,
+          0.17,
+        );
+
+        const opacityHot = clamp(
+          opacity + randomBetween(0.045, 0.09) + edgeFactor * randomBetween(0.02, 0.08),
+          opacity + 0.04,
+          0.28,
+        );
+
+        const blurPx = clamp(
+          randomBetween(0, 0.85) + (1 - edgeFactor) * randomBetween(0.15, 0.85),
+          0,
+          1.7,
+        );
+
+        const glintDurationS = randomBetween(36, 54);
+
+        placed.push({
+          key: `${asset.id}-${placed.length}`,
+          d: asset.d,
+          left: leftPct,
+          top: topPct,
+          scale,
+          rotateDeg,
+          opacity,
+          opacityHot,
+          blurPx,
+          floatX: randomBetween(-1.8, 1.8),
+          floatY: randomBetween(-1.8, 1.8),
+          floatRotateDeg: 0,
+          floatDurationS: randomBetween(14, 26),
+          floatDelayS: randomBetween(-18, 0),
+          glintDurationS,
+          glintDelayS: randomBetween(-glintDurationS, 0),
+        });
+
+        placedBoxes.push(candidate);
+        break;
+      }
+    }
+
+    if (placed.length > best.length) best = placed;
+    if (placed.length >= minCount) return placed;
+  }
+
+  return best;
+}
+
+function buildHeroBackdrop(): HeroBackdrop {
+  const targetCount = randomInt(15, 20);
+  const baseRouteSizePx = getRouteBaseSizePx();
+  const minCount = Math.min(15, ROUTE_ASSETS.length);
+  const viewportWidth = typeof window === "undefined" ? 1200 : window.innerWidth;
+  const viewportHeight = typeof window === "undefined" ? 800 : window.innerHeight;
+
+  const sizeMultipliers: number[] = [];
+  for (let multiplier = 1.5; multiplier > 1; multiplier -= 0.08) {
+    sizeMultipliers.push(multiplier);
+  }
+  sizeMultipliers.push(1);
+  sizeMultipliers.push(0.92);
+  sizeMultipliers.push(0.84);
+  sizeMultipliers.push(0.76);
+  sizeMultipliers.push(0.68);
+  sizeMultipliers.push(0.6);
+
+  let bestRoutes: HeroRoute[] = [];
+  let bestSizePx = baseRouteSizePx;
+
+  for (const multiplier of sizeMultipliers) {
+    const routeSizePx = baseRouteSizePx * multiplier;
+    const routes = packRoutes({
+      routeSizePx,
+      targetCount,
+      minCount,
+      viewportWidth,
+      viewportHeight,
+    });
+
+    if (routes.length > bestRoutes.length) {
+      bestRoutes = routes;
+      bestSizePx = routeSizePx;
+    }
+
+    if (routes.length >= minCount) {
+      return { routeSizePx, routes: routes.slice(0, targetCount) };
+    }
+  }
+
+  return {
+    routeSizePx: bestSizePx,
+    routes: bestRoutes.slice(0, Math.min(targetCount, bestRoutes.length)),
+  };
+}
+
+function MarathonRoutesBackdrop({ isHovered }: { isHovered: boolean }) {
+  const [backdrop] = useState(() => buildHeroBackdrop());
+  const { routeSizePx, routes } = backdrop;
+  const glintCount = Math.min(3, routes.length);
+
+  const [glintIndices, setGlintIndices] = useState(() =>
+    pickDistinctIndices(routes.length, glintCount),
+  );
+
+  useEffect(() => {
+    if (routes.length === 0) return;
+
+    setGlintIndices(pickDistinctIndices(routes.length, glintCount));
+  }, [routes.length, glintCount]);
+
+  useEffect(() => {
+    if (routes.length === 0) return;
+
+    let scheduleId: number | undefined;
+
+    const scheduleNext = () => {
+      const nextDelayMs = randomBetween(
+        isHovered ? 30000 : 42000,
+        isHovered ? 46000 : 72000,
+      );
+
+      scheduleId = window.setTimeout(() => {
+        setGlintIndices((current) => {
+          if (routes.length <= glintCount) return current;
+
+          const dropIndex = randomInt(0, current.length - 1);
+          const used = new Set(current);
+          used.delete(current[dropIndex]);
+
+          const candidates = Array.from({ length: routes.length }, (_, index) => index).filter(
+            (index) => !used.has(index),
+          );
+
+          const nextIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? 0;
+          const next = [...current];
+          next[dropIndex] = nextIndex;
+          return next;
+        });
+
+        scheduleNext();
+      }, nextDelayMs);
+    };
+
+    scheduleNext();
+
+    return () => {
+      if (scheduleId) window.clearTimeout(scheduleId);
+    };
+  }, [routes.length, glintCount, isHovered]);
+
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 1200 800"
-        preserveAspectRatio="xMidYMid slice"
-        focusable="false"
+      <div
+        className="absolute inset-0"
+        style={
+          {
+            background: [
+              "radial-gradient(92% 84% at 82% 14%, hsl(var(--midnight-500) / 0.22) 0%, hsl(var(--midnight-900) / 0.08) 46%, transparent 72%)",
+              "radial-gradient(70% 54% at 24% 18%, hsl(var(--copper-700) / 0.14) 0%, transparent 66%)",
+              "radial-gradient(58% 48% at 64% 56%, hsl(var(--copper-500) / 0.06) 0%, transparent 70%)",
+            ].join(","),
+          } as CSSProperties
+        }
+      />
+
+      <div
+        className="hero-routes-backdrop absolute inset-0"
+        style={
+          {
+            "--route-size": `${routeSizePx.toFixed(0)}px`,
+          } as CSSProperties
+        }
       >
-        <defs>
-          <radialGradient id="hero-haze" cx="82%" cy="14%" r="88%">
-            <stop offset="0" stopColor="hsl(var(--midnight-500))" stopOpacity="0.18" />
-            <stop offset="0.38" stopColor="hsl(var(--midnight-900))" stopOpacity="0.04" />
-            <stop offset="0.74" stopColor="hsl(var(--copper-700))" stopOpacity="0.09" />
-            <stop offset="1" stopColor="hsl(var(--background))" stopOpacity="0" />
-          </radialGradient>
+        {routes.map((route, index) => {
+          const isGlinting = glintIndices.includes(index);
 
-          <pattern id="hero-grid" width="96" height="96" patternUnits="userSpaceOnUse">
-            <path
-              d="M 96 0 H 0 V 96"
-              fill="none"
-              stroke="hsl(var(--paper) / 0.03)"
-              strokeWidth="1"
-            />
-            <path
-              d="M 48 0 V 96 M 0 48 H 96"
-              fill="none"
-              stroke="hsl(var(--paper) / 0.018)"
-              strokeWidth="1"
-            />
-          </pattern>
+          return (
+            <div
+              key={route.key}
+              className="hero-route-cell"
+              style={
+                {
+                  left: `${route.left}%`,
+                  top: `${route.top}%`,
+                  transform: "translate(-50%, -50%)",
+                  "--route-scale": route.scale.toFixed(3),
+                  "--route-rotate": `${route.rotateDeg.toFixed(2)}deg`,
+                  "--route-opacity": route.opacity.toFixed(3),
+                  "--route-opacity-hot": route.opacityHot.toFixed(3),
+                  "--route-blur": `${route.blurPx.toFixed(2)}px`,
+                  "--float-x": `${route.floatX.toFixed(1)}px`,
+                  "--float-y": `${route.floatY.toFixed(1)}px`,
+                  "--float-rotate": `${route.floatRotateDeg.toFixed(2)}deg`,
+                  "--float-duration": `${route.floatDurationS.toFixed(2)}s`,
+                  "--float-delay": `${route.floatDelayS.toFixed(2)}s`,
+                  "--glint-duration": `${route.glintDurationS.toFixed(2)}s`,
+                  "--glint-delay": `${route.glintDelayS.toFixed(2)}s`,
+                } as CSSProperties
+              }
+            >
+              <div className="hero-route">
+                <div className="hero-route__transform">
+                  <div className="hero-route__float">
+                    <svg
+                      className="hero-route__svg"
+                      viewBox="-50 -50 100 100"
+                      focusable="false"
+                      aria-hidden="true"
+                    >
+                      <path className="hero-route__path hero-route__path--base" d={route.d} />
+                      {isGlinting ? (
+                        <>
+                          <path
+                            className="hero-route__path hero-route__glint hero-route__glint--tail"
+                            d={route.d}
+                            pathLength="1000"
+                          />
+                          <path
+                            className="hero-route__path hero-route__glint hero-route__glint--head"
+                            d={route.d}
+                            pathLength="1000"
+                          />
+                        </>
+                      ) : null}
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
-          <pattern id="hero-speckle" width="160" height="160" patternUnits="userSpaceOnUse">
-            <circle cx="18" cy="22" r="1.1" fill="hsl(var(--paper) / 0.04)" />
-            <circle cx="52" cy="78" r="0.9" fill="hsl(var(--paper) / 0.03)" />
-            <circle cx="104" cy="44" r="1.2" fill="hsl(var(--midnight-200) / 0.05)" />
-            <circle cx="132" cy="118" r="0.8" fill="hsl(var(--paper) / 0.02)" />
-            <circle cx="86" cy="132" r="0.7" fill="hsl(var(--copper-500) / 0.035)" />
-            <circle cx="22" cy="128" r="0.6" fill="hsl(var(--midnight-300) / 0.045)" />
-            <circle cx="148" cy="16" r="0.6" fill="hsl(var(--paper) / 0.02)" />
-            <circle cx="78" cy="14" r="0.8" fill="hsl(var(--paper) / 0.028)" />
-          </pattern>
-
-          <linearGradient id="hero-art-fade-gradient" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0" stopColor="white" stopOpacity="1" />
-            <stop offset="0.58" stopColor="white" stopOpacity="0.62" />
-            <stop offset="1" stopColor="white" stopOpacity="0.09" />
-          </linearGradient>
-
-          <mask id="hero-art-fade">
-            <rect width="1200" height="800" fill="url(#hero-art-fade-gradient)" />
-          </mask>
-
-          <radialGradient id="hero-vignette" cx="48%" cy="34%" r="88%">
-            <stop offset="0" stopColor="hsl(var(--background))" stopOpacity="0" />
-            <stop offset="0.62" stopColor="hsl(var(--background))" stopOpacity="0.22" />
-            <stop offset="1" stopColor="hsl(var(--background))" stopOpacity="0.92" />
-          </radialGradient>
-        </defs>
-
-        <rect width="1200" height="800" fill="hsl(var(--background))" />
-        <rect width="1200" height="800" fill="url(#hero-haze)" opacity="0.95" />
-
-        <g mask="url(#hero-art-fade)" className="opacity-95 sm:opacity-90 lg:opacity-85">
-          <rect width="1200" height="800" fill="url(#hero-grid)" />
-          <rect width="1200" height="800" fill="url(#hero-speckle)" opacity="0.55" />
-        </g>
-
-        <rect width="1200" height="800" fill="url(#hero-vignette)" />
-      </svg>
+      <div
+        className="absolute inset-0"
+        style={
+          {
+            background:
+              "radial-gradient(100% 92% at 50% 40%, transparent 0%, hsl(var(--background) / 0.38) 58%, hsl(var(--background) / 0.92) 100%)",
+          } as CSSProperties
+        }
+      />
     </div>
   );
 }
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isHeroHovered, setIsHeroHovered] = useState(false);
   
   // Simple CSS animations instead of heavy framer-motion
   useEffect(() => {
@@ -91,9 +542,12 @@ export default function Hero() {
       className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20"
       role="banner"
       aria-label="Hero section - AI Marathon Coach introduction"
+      data-hero-hovered={isHeroHovered ? "true" : "false"}
+      onMouseEnter={() => setIsHeroHovered(true)}
+      onMouseLeave={() => setIsHeroHovered(false)}
     >
       <div className="absolute inset-0 bg-background" aria-hidden="true" />
-      <CourseMapBackdrop />
+      <MarathonRoutesBackdrop isHovered={isHeroHovered} />
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl">
