@@ -5,13 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Marathon Training in 26 Weeks | 26weeks.ai - Your AI Marathon Coach</title>
 
-    <!-- Critical inline styles for faster FCP -->
-    <style>
-      /* Critical above-the-fold styles */
-      body { margin: 0; font-family: Inter, system-ui, -apple-system, sans-serif; background: #0E1316; color: #FDF6E3; }
-      #root { min-height: 100vh; }
-      .hero-skeleton { background: #0E1316; min-height: 90vh; }
-    </style>
+	    <!-- Critical inline styles for faster FCP -->
+	    <style>
+	      /* Critical above-the-fold styles */
+	      body { margin: 0; font-family: Inter, system-ui, -apple-system, sans-serif; background: #0E1316; color: #FDF6E3; }
+	      #root { min-height: 100vh; }
+	      .app-shell {
+	        position: fixed;
+	        inset: 0;
+	        z-index: 1;
+	        display: flex;
+	        justify-content: center;
+	        padding: 7rem 1.5rem 4rem;
+	        background: #0E1316;
+	      }
+	      .app-shell__content { width: 100%; max-width: 48rem; text-align: center; }
+	      .app-shell__row {
+	        display: flex;
+	        justify-content: center;
+	        align-items: baseline;
+	        flex-wrap: wrap;
+	        gap: 0.75rem 1rem;
+	      }
+	      .app-shell__kicker {
+	        font-size: 0.75rem;
+	        font-weight: 600;
+	        letter-spacing: 0.22em;
+	        text-transform: uppercase;
+	        color: rgba(253, 246, 227, 0.72);
+	      }
+	      .app-shell__stamp {
+	        font-size: 0.7rem;
+	        font-weight: 600;
+	        letter-spacing: 0.18em;
+	        text-transform: uppercase;
+	        padding: 0.35rem 0.75rem;
+	        border: 1px solid rgba(253, 246, 227, 0.18);
+	        border-radius: 9999px;
+	        color: rgba(253, 246, 227, 0.8);
+	      }
+	      .app-shell__title {
+	        margin: 1.25rem 0 0;
+	        font-family: Spectral, ui-serif, serif;
+	        font-weight: 700;
+	        font-size: clamp(2.25rem, 5vw, 3.75rem);
+	        line-height: 1.04;
+	        letter-spacing: -0.02em;
+	      }
+	      .app-shell__accent { color: #C7783E; }
+	      .app-shell__subtitle {
+	        margin-top: 1rem;
+	        font-size: 1.05rem;
+	        line-height: 1.6;
+	        color: rgba(253, 246, 227, 0.72);
+	      }
+	      .app-shell__cta {
+	        margin-top: 2rem;
+	        display: inline-flex;
+	        align-items: center;
+	        justify-content: center;
+	        height: 44px;
+	        padding: 0 1.5rem;
+	        border-radius: 12px;
+	        background: #8A5A34;
+	        color: #FDF6E3;
+	        text-decoration: none;
+	        font-weight: 600;
+	      }
+	      .app-shell__cta:focus-visible {
+	        outline: 2px solid rgba(253, 246, 227, 0.6);
+	        outline-offset: 3px;
+	      }
+	    </style>
 
     <!-- Fonts (brand) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -95,11 +160,28 @@
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0E1316" />
     <link rel="canonical" href="https://26weeks.ai/" />
-  </head>
-  <body>
-    <div id="root"></div>
+	  </head>
+	  <body>
+	    <div id="app-shell" class="app-shell" role="banner" aria-label="26weeks.ai hero preview">
+	      <div class="app-shell__content">
+	        <div class="app-shell__row">
+	          <span class="app-shell__kicker">AI MARATHON COACH</span>
+	          <span class="app-shell__stamp">EDITION 01</span>
+	        </div>
+	        <h1 class="app-shell__title">
+	          Couch to <span class="app-shell__accent">Marathon</span>, in <span class="app-shell__accent">26</span> weeks!
+	        </h1>
+	        <p class="app-shell__subtitle">
+	          Adaptive and Intelligent Coaching that tailors your training to your performance,
+	          recovery, and progress—turning your 26.2-mile dream into reality in 26 weeks or
+	          less.
+	        </p>
+	        <a class="app-shell__cta" href="/waitlist">Join the waitlist</a>
+	      </div>
+	    </div>
+	    <div id="root"></div>
 
-    <script type="module" src="/src/main.tsx"></script>
+	    <script type="module" src="/src/main.tsx"></script>
 
     <!-- Cloudflare Web Analytics -->
     <script>

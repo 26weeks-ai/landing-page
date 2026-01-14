@@ -269,15 +269,9 @@ function MarathonRoutesBackdrop({
 }
 
 export default function Hero() {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [routeAssets, setRouteAssets] = useState<RouteAsset[] | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  
-  // Simple CSS animations instead of heavy framer-motion
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -328,7 +322,7 @@ export default function Hero() {
   }, [prefersReducedMotion, routeAssets]);
 
   return (
-    <section
+	    <section
       className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20"
       role="banner"
       aria-label="Hero section - AI Marathon Coach introduction"
@@ -366,15 +360,13 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-3xl">
-          <div
-            className={`transition-[opacity,transform] duration-500 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
-          >
-            <Masthead
-              kicker="AI MARATHON COACH"
-              stamp="EDITION 01"
-              align="center"
+	      <div className="relative mx-auto max-w-6xl px-6">
+	        <div className="mx-auto max-w-3xl">
+	          <div>
+	            <Masthead
+	              kicker="AI MARATHON COACH"
+	              stamp="EDITION 01"
+	              align="center"
               title={
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-[1.04]">
                   {hero.title.prefix}{" "}
@@ -386,22 +378,20 @@ export default function Hero() {
               }
               subtitle={hero.subtitle}
               showRule={false}
-            />
+	            />
 
-            <div
-              className={`mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center transition-[opacity,transform] duration-500 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
-              style={{ transitionDelay: "120ms" }}
-            >
-              <WaitlistForm label="Join the waitlist" />
-            </div>
+	            <div
+	              className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center"
+	            >
+	              <WaitlistForm label="Join the waitlist" />
+	            </div>
 
-            <div
-              className={`mt-10 mx-auto grid max-w-xl gap-3 sm:grid-cols-2 transition-[opacity,transform] duration-500 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
-              style={{ transitionDelay: "200ms" }}
-              aria-label="Key trust points"
-            >
-              {[
-                "Starts from where you are",
+	            <div
+	              className="mt-10 mx-auto grid max-w-xl gap-3 sm:grid-cols-2"
+	              aria-label="Key trust points"
+	            >
+	              {[
+	                "Starts from where you are",
                 "Takes care of you",
                 "Adapts to your progress",
                 "Gets you to finish-line",
