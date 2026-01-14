@@ -118,7 +118,7 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <div className="mt-8">
+                <div className="mt-auto pt-8">
                   <WaitlistForm
                     label="Join waitlist"
                     planId={plan.id}
