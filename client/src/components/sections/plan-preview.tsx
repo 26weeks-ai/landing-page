@@ -19,9 +19,9 @@ function getPlanPreview(week: number): PlanPreview {
     return {
       phaseLabel: "BASE",
       rows: [
-        { day: "Mon", session: "Cross-train + strength", note: "hips + calves • easy core", status: "CROSS" },
+        { day: "Mon", session: "Cross-train + strength", note: "hips + calves • easy core", status: "CRS" },
         { day: "Tue", session: "Easy intervals", note: "short pickups • relaxed form" },
-        { day: "Wed", session: "Recovery", note: "walk + mobility • check soreness", status: "EASY" },
+        { day: "Wed", session: "Recovery", note: "walk + mobility • check soreness", status: "REC" },
         { day: "Thu", session: "Steady aerobic", note: "nose-breath pace • smooth cadence" },
         { day: "Sat", session: "Long run", note: "time-on-feet • easy finish" },
       ],
@@ -34,9 +34,9 @@ function getPlanPreview(week: number): PlanPreview {
     return {
       phaseLabel: "BUILD",
       rows: [
-        { day: "Mon", session: "Cross-train", note: "bike/row • aerobic base", status: "CROSS" },
+        { day: "Mon", session: "Cross-train", note: "bike/row • aerobic base", status: "CRS" },
         { day: "Tue", session: "Intervals", note: "effort-led • adaptive pacing" },
-        { day: "Wed", session: "Recovery", note: "easy shakeout • mobility reset", status: "EASY" },
+        { day: "Wed", session: "Recovery", note: "easy shakeout • mobility reset", status: "REC" },
         { day: "Thu", session: "Tempo", note: "threshold work • form cues" },
         { day: "Sat", session: "Long run", note: "fueling reminders • recovery checks" },
       ],
@@ -49,9 +49,9 @@ function getPlanPreview(week: number): PlanPreview {
     return {
       phaseLabel: "PEAK",
       rows: [
-        { day: "Mon", session: "Strength + drills", note: "power + form • low volume", status: "CROSS" },
+        { day: "Mon", session: "Strength + drills", note: "power + form • low volume", status: "CRS" },
         { day: "Tue", session: "VO₂ intervals", note: "fast-but-controlled • full recoveries" },
-        { day: "Wed", session: "Recovery", note: "easy miles • soft tissue", status: "EASY" },
+        { day: "Wed", session: "Recovery", note: "easy miles • soft tissue", status: "REC" },
         { day: "Thu", session: "Race pace", note: "dial the rhythm • cadence + breath" },
         { day: "Sat", session: "Long run", note: "confidence builder • steady negatives" },
       ],
@@ -63,9 +63,9 @@ function getPlanPreview(week: number): PlanPreview {
   return {
     phaseLabel: "TAPER",
     rows: [
-      { day: "Mon", session: "Mobility + reset", note: "sleep • legs up • easy walk", status: "EASY" },
+      { day: "Mon", session: "Mobility + reset", note: "sleep • legs up • easy walk", status: "REC" },
       { day: "Tue", session: "Strides", note: "pop + snap • stay loose" },
-      { day: "Wed", session: "Cross-train", note: "easy spin • keep blood moving", status: "CROSS" },
+      { day: "Wed", session: "Cross-train", note: "easy spin • keep blood moving", status: "CRS" },
       { day: "Thu", session: "Short tempo", note: "taste of pace • leave fresh" },
       { day: "Sat", session: "Easy run", note: "shorter • smooth" },
     ],
@@ -308,9 +308,23 @@ export default function PlanPreviewSection() {
                   <div>
                     <div className="flex items-baseline justify-between gap-4">
                       <p className="font-semibold text-paper">{row.session}</p>
-                      <span className="text-xs font-semibold tracking-[0.18em] text-midnight-300">
-                        {row.status ?? "READY"}
-                      </span>
+                      {(() => {
+                        const status = row.status ?? "RUN";
+                        const statusClass =
+                          status === "RUN"
+                            ? "text-copper-500"
+                            : status === "CRS"
+                              ? "text-midnight-300"
+                              : status === "REC"
+                                ? "text-sand-500/80"
+                                : "text-paper-secondary";
+
+                        return (
+                          <span className={`text-xs font-semibold tracking-[0.18em] ${statusClass}`}>
+                            {status}
+                          </span>
+                        );
+                      })()}
                     </div>
                     <p className="mt-1 text-sm leading-relaxed text-paper-secondary">{row.note}</p>
                   </div>
