@@ -213,7 +213,7 @@
 
   .hero-route__path--base {
     stroke: currentColor;
-    stroke-width: 3.35;
+    stroke-width: 3.85;
     stroke-opacity: var(--route-opacity, 0.14);
     filter: blur(var(--route-blur, 0px))
       drop-shadow(0 0 0.55rem hsl(var(--copper-700) / 0.05))
@@ -230,20 +230,20 @@
 
   .hero-route__glint--tail {
     stroke: hsl(var(--copper-500) / 0.22);
-    stroke-width: 4.15;
+    stroke-width: 4.25;
     stroke-opacity: 1;
-    stroke-dasharray: 0 974 24 2;
-    filter: blur(0.5px) drop-shadow(0 0 0.85rem hsl(var(--copper-500) / 0.22))
-      drop-shadow(0 0 2.1rem hsl(var(--copper-500) / 0.08));
+    stroke-dasharray: 0 984 14 2;
+    filter: blur(0.7px) drop-shadow(0 0 0.65rem hsl(var(--copper-500) / 0.2))
+      drop-shadow(0 0 1.65rem hsl(var(--copper-500) / 0.08));
   }
 
   .hero-route__glint--head {
     stroke: hsl(var(--copper-500) / 0.92);
     stroke-width: 4.8;
     stroke-opacity: 1;
-    stroke-dasharray: 0 998 2 0;
-    filter: drop-shadow(0 0 0.75rem hsl(var(--copper-500) / 0.38))
-      drop-shadow(0 0 2.3rem hsl(var(--copper-500) / 0.12));
+    stroke-dasharray: 0 998.6 1.4 0;
+    filter: drop-shadow(0 0 0.7rem hsl(var(--copper-500) / 0.36))
+      drop-shadow(0 0 1.85rem hsl(var(--copper-500) / 0.12));
   }
 
   [data-hero-hovered="true"] .hero-route__path--base {

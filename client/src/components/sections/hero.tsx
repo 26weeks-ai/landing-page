@@ -13,14 +13,7 @@ const marathonRouteSvgs = import.meta.glob(
   },
 ) as Record<string, string>;
 
-type RouteBounds = {
-  minX: number;
-  maxX: number;
-  minY: number;
-  maxY: number;
-};
-
-type RouteAsset = { id: string; d: string; bounds: RouteBounds };
+type RouteAsset = { id: string; d: string };
 
 type HeroRoute = {
   key: string;
@@ -46,32 +39,6 @@ function extractPathData(raw: string): string | null {
   return match?.[1] ?? null;
 }
 
-function extractPathBounds(d: string): RouteBounds | null {
-  const numbers = d.match(/-?\d*\.?\d+/g);
-  if (!numbers || numbers.length < 2) return null;
-
-  let minX = Number.POSITIVE_INFINITY;
-  let maxX = Number.NEGATIVE_INFINITY;
-  let minY = Number.POSITIVE_INFINITY;
-  let maxY = Number.NEGATIVE_INFINITY;
-
-  for (let index = 0; index + 1 < numbers.length; index += 2) {
-    const x = Number.parseFloat(numbers[index] ?? "");
-    const y = Number.parseFloat(numbers[index + 1] ?? "");
-
-    if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
-
-    minX = Math.min(minX, x);
-    maxX = Math.max(maxX, x);
-    minY = Math.min(minY, y);
-    maxY = Math.max(maxY, y);
-  }
-
-  if (!Number.isFinite(minX) || !Number.isFinite(minY)) return null;
-
-  return { minX, maxX, minY, maxY };
-}
-
 function isRouteAsset(asset: RouteAsset | null): asset is RouteAsset {
   return Boolean(asset);
 }
@@ -82,9 +49,7 @@ const ROUTE_ASSETS: RouteAsset[] = Object.entries(marathonRouteSvgs)
     const id = fileName.replace(/\.svg$/i, "");
     const d = extractPathData(raw);
     if (!d) return null;
-    const bounds = extractPathBounds(d);
-    if (!bounds) return null;
-    return { id, d, bounds };
+    return { id, d };
   })
   .filter(isRouteAsset)
   .sort((a, b) => a.id.localeCompare(b.id));
@@ -115,65 +80,6 @@ type HeroBackdrop = {
   routes: HeroRoute[];
 };
 
-type Obb = {
-  cx: number;
-  cy: number;
-  halfW: number;
-  halfH: number;
-  ux: number;
-  uy: number;
-  vx: number;
-  vy: number;
-};
-
-function createObb(
-  cx: number,
-  cy: number,
-  halfW: number,
-  halfH: number,
-  theta: number,
-): Obb {
-  const cos = Math.cos(theta);
-  const sin = Math.sin(theta);
-  return {
-    cx,
-    cy,
-    halfW,
-    halfH,
-    ux: cos,
-    uy: sin,
-    vx: -sin,
-    vy: cos,
-  };
-}
-
-function projectRadius(box: Obb, axisX: number, axisY: number): number {
-  const uDot = Math.abs(box.ux * axisX + box.uy * axisY);
-  const vDot = Math.abs(box.vx * axisX + box.vy * axisY);
-  return box.halfW * uDot + box.halfH * vDot;
-}
-
-function obbIntersects(a: Obb, b: Obb): boolean {
-  const dx = b.cx - a.cx;
-  const dy = b.cy - a.cy;
-
-  const axes: Array<[number, number]> = [
-    [a.ux, a.uy],
-    [a.vx, a.vy],
-    [b.ux, b.uy],
-    [b.vx, b.vy],
-  ];
-
-  for (const [axisX, axisY] of axes) {
-    const centerDistance = Math.abs(dx * axisX + dy * axisY);
-    const ra = projectRadius(a, axisX, axisY);
-    const rb = projectRadius(b, axisX, axisY);
-    if (centerDistance > ra + rb) return false;
-  }
-
-  return true;
-}
-
 function pickDistinctIndices(total: number, count: number): number[] {
   return shuffled(Array.from({ length: total }, (_, index) => index)).slice(0, count);
 }
@@ -182,215 +88,92 @@ function getRouteBaseSizePx(): number {
   const width = typeof window === "undefined" ? 1200 : window.innerWidth;
   const height = typeof window === "undefined" ? 800 : window.innerHeight;
   const minDim = Math.min(width, height);
-  // Base is ~old grid-cell sizing; buildHeroBackdrop scales this up to ~1.5×.
+  // Base is roughly the hero motif size; buildHeroBackdrop scales this up further.
   return clamp(minDim * 0.25, 120, 360);
 }
 
-function packRoutes(args: {
-  routeSizePx: number;
-  targetCount: number;
-  minCount: number;
-  viewportWidth: number;
-  viewportHeight: number;
-}): HeroRoute[] {
-  const { routeSizePx, targetCount, minCount, viewportWidth, viewportHeight } = args;
-  const pixelsPerUnit = routeSizePx / 100;
-
-  const passes = [
-    { safePadFactor: 0.95, collisionPad: 18, baseMin: 0.9, baseMax: 1.06, boostMin: 0.05, boostMax: 0.16, clampMin: 0.86, clampMax: 1.18 },
-    { safePadFactor: 1.1, collisionPad: 16, baseMin: 0.88, baseMax: 1.04, boostMin: 0.04, boostMax: 0.14, clampMin: 0.84, clampMax: 1.16 },
-    { safePadFactor: 1.25, collisionPad: 14, baseMin: 0.86, baseMax: 1.02, boostMin: 0.03, boostMax: 0.12, clampMin: 0.82, clampMax: 1.14 },
-    { safePadFactor: 1.45, collisionPad: 12, baseMin: 0.84, baseMax: 1.0, boostMin: 0.03, boostMax: 0.1, clampMin: 0.8, clampMax: 1.12 },
-  ];
-
-  let best: HeroRoute[] = [];
-
-  for (const pass of passes) {
-    const placed: HeroRoute[] = [];
-    const placedBoxes: Obb[] = [];
-    const pool = shuffled(ROUTE_ASSETS);
-    const safePad = routeSizePx * pass.safePadFactor;
-
-    for (const asset of pool) {
-      if (placed.length >= targetCount) break;
-
-      const boundsW = asset.bounds.maxX - asset.bounds.minX;
-      const boundsH = asset.bounds.maxY - asset.bounds.minY;
-      const boundsCenterX = (asset.bounds.minX + asset.bounds.maxX) / 2;
-      const boundsCenterY = (asset.bounds.minY + asset.bounds.maxY) / 2;
-
-      const attemptLimit = 620;
-
-      for (let attempt = 0; attempt < attemptLimit; attempt += 1) {
-        const edgeBias = Math.random() < 0.72;
-
-        const sampleEdge = (max: number) => {
-          const band = max * 0.18;
-          return Math.random() < 0.5
-            ? randomBetween(-safePad, band)
-            : randomBetween(max - band, max + safePad);
-        };
-
-        const x = edgeBias
-          ? sampleEdge(viewportWidth)
-          : randomBetween(-safePad, viewportWidth + safePad);
-        const y = edgeBias
-          ? sampleEdge(viewportHeight)
-          : randomBetween(-safePad, viewportHeight + safePad);
-
-        const leftPct = (x / viewportWidth) * 100;
-        const topPct = (y / viewportHeight) * 100;
-
-        const centerDx = (leftPct - 50) / 50;
-        const centerDy = (topPct - 46) / 54;
-        const centerDistance = Math.sqrt(centerDx * centerDx + centerDy * centerDy);
-        const edgeFactor = clamp((centerDistance - 0.12) / 0.95, 0, 1);
-
-        const scale = clamp(
-          randomBetween(pass.baseMin, pass.baseMax) + edgeFactor * randomBetween(pass.boostMin, pass.boostMax),
-          pass.clampMin,
-          pass.clampMax,
-        );
-
-        const rotateDeg = randomBetween(-18, 18);
-        const theta = (rotateDeg * Math.PI) / 180;
-        const cos = Math.cos(theta);
-        const sin = Math.sin(theta);
-
-        const halfW = (boundsW * pixelsPerUnit * scale) / 2 + pass.collisionPad + 3;
-        const halfH = (boundsH * pixelsPerUnit * scale) / 2 + pass.collisionPad + 3;
-
-        const offsetX = boundsCenterX * pixelsPerUnit * scale;
-        const offsetY = boundsCenterY * pixelsPerUnit * scale;
-        const centerX = x + offsetX * cos - offsetY * sin;
-        const centerY = y + offsetX * sin + offsetY * cos;
-
-        const radius = Math.sqrt(halfW * halfW + halfH * halfH);
-        if (
-          centerX + radius < 0 ||
-          centerX - radius > viewportWidth ||
-          centerY + radius < 0 ||
-          centerY - radius > viewportHeight
-        ) {
-          continue;
-        }
-
-        const candidate = createObb(centerX, centerY, halfW, halfH, theta);
-        const collides = placedBoxes.some((existing) => obbIntersects(existing, candidate));
-        if (collides) continue;
-
-        const opacity = clamp(
-          randomBetween(0.042, 0.078) + edgeFactor * randomBetween(0.045, 0.11),
-          0.032,
-          0.17,
-        );
-
-        const opacityHot = clamp(
-          opacity + randomBetween(0.045, 0.09) + edgeFactor * randomBetween(0.02, 0.08),
-          opacity + 0.04,
-          0.28,
-        );
-
-        const blurPx = clamp(
-          randomBetween(0, 0.85) + (1 - edgeFactor) * randomBetween(0.15, 0.85),
-          0,
-          1.7,
-        );
-
-        const glintDurationS = randomBetween(36, 54);
-
-        placed.push({
-          key: `${asset.id}-${placed.length}`,
-          d: asset.d,
-          left: leftPct,
-          top: topPct,
-          scale,
-          rotateDeg,
-          opacity,
-          opacityHot,
-          blurPx,
-          floatX: randomBetween(-1.8, 1.8),
-          floatY: randomBetween(-1.8, 1.8),
-          floatRotateDeg: 0,
-          floatDurationS: randomBetween(14, 26),
-          floatDelayS: randomBetween(-18, 0),
-          glintDurationS,
-          glintDelayS: randomBetween(-glintDurationS, 0),
-        });
-
-        placedBoxes.push(candidate);
-        break;
-      }
-    }
-
-    if (placed.length > best.length) best = placed;
-    if (placed.length >= minCount) return placed;
-  }
-
-  return best;
-}
-
 function buildHeroBackdrop(): HeroBackdrop {
-  const targetCount = randomInt(15, 20);
+  const targetCount = Math.min(randomInt(15, 20), ROUTE_ASSETS.length);
   const baseRouteSizePx = getRouteBaseSizePx();
-  const minCount = Math.min(15, ROUTE_ASSETS.length);
-  const viewportWidth = typeof window === "undefined" ? 1200 : window.innerWidth;
-  const viewportHeight = typeof window === "undefined" ? 800 : window.innerHeight;
+  const routeSizePx = clamp(baseRouteSizePx * 2.25, 240, 720);
 
-  const sizeMultipliers: number[] = [];
-  for (let multiplier = 1.5; multiplier > 1; multiplier -= 0.08) {
-    sizeMultipliers.push(multiplier);
-  }
-  sizeMultipliers.push(1);
-  sizeMultipliers.push(0.92);
-  sizeMultipliers.push(0.84);
-  sizeMultipliers.push(0.76);
-  sizeMultipliers.push(0.68);
-  sizeMultipliers.push(0.6);
+  const pool = shuffled(ROUTE_ASSETS).slice(0, targetCount);
 
-  let bestRoutes: HeroRoute[] = [];
-  let bestSizePx = baseRouteSizePx;
+  const sampleBiasedPct = () => {
+    const edgeBias = Math.random() < 0.7;
+    if (!edgeBias) return randomBetween(0, 100);
 
-  for (const multiplier of sizeMultipliers) {
-    const routeSizePx = baseRouteSizePx * multiplier;
-    const routes = packRoutes({
-      routeSizePx,
-      targetCount,
-      minCount,
-      viewportWidth,
-      viewportHeight,
-    });
-
-    if (routes.length > bestRoutes.length) {
-      bestRoutes = routes;
-      bestSizePx = routeSizePx;
-    }
-
-    if (routes.length >= minCount) {
-      return { routeSizePx, routes: routes.slice(0, targetCount) };
-    }
-  }
-
-  return {
-    routeSizePx: bestSizePx,
-    routes: bestRoutes.slice(0, Math.min(targetCount, bestRoutes.length)),
+    const nearStart = Math.random() < 0.5;
+    return nearStart ? randomBetween(-6, 24) : randomBetween(76, 106);
   };
+
+  const routes: HeroRoute[] = pool.map((asset, index) => {
+    const leftPct = sampleBiasedPct();
+    const topPct = sampleBiasedPct();
+
+    const centerDx = (leftPct - 50) / 50;
+    const centerDy = (topPct - 46) / 54;
+    const centerDistance = Math.sqrt(centerDx * centerDx + centerDy * centerDy);
+    const edgeFactor = clamp((centerDistance - 0.12) / 0.95, 0, 1);
+
+    const scale = clamp(
+      randomBetween(0.92, 1.08) + edgeFactor * randomBetween(0.08, 0.2),
+      0.88,
+      1.22,
+    );
+
+    const opacity = clamp(
+      randomBetween(0.052, 0.085) + edgeFactor * randomBetween(0.05, 0.14),
+      0.04,
+      0.22,
+    );
+
+    const opacityHot = clamp(
+      opacity + randomBetween(0.055, 0.11) + edgeFactor * randomBetween(0.02, 0.07),
+      opacity + 0.05,
+      0.3,
+    );
+
+    const blurPx = clamp(
+      randomBetween(0, 0.9) + (1 - edgeFactor) * randomBetween(0.1, 0.85),
+      0,
+      1.7,
+    );
+
+    const glintDurationS = randomBetween(58, 86);
+
+    return {
+      key: `${asset.id}-${index}`,
+      d: asset.d,
+      left: leftPct,
+      top: topPct,
+      scale,
+      rotateDeg: randomBetween(-18, 18),
+      opacity,
+      opacityHot,
+      blurPx,
+      floatX: randomBetween(-1.9, 1.9),
+      floatY: randomBetween(-1.9, 1.9),
+      floatRotateDeg: 0,
+      floatDurationS: randomBetween(16, 30),
+      floatDelayS: randomBetween(-18, 0),
+      glintDurationS,
+      glintDelayS: randomBetween(-glintDurationS, 0),
+    };
+  });
+
+  return { routeSizePx, routes };
 }
 
 function MarathonRoutesBackdrop({ isHovered }: { isHovered: boolean }) {
   const [backdrop] = useState(() => buildHeroBackdrop());
   const { routeSizePx, routes } = backdrop;
-  const glintCount = Math.min(3, routes.length);
+  const [glintTarget] = useState(() => randomInt(6, 7));
+  const glintCount = Math.min(glintTarget, routes.length);
 
   const [glintIndices, setGlintIndices] = useState(() =>
     pickDistinctIndices(routes.length, glintCount),
   );
-
-  useEffect(() => {
-    if (routes.length === 0) return;
-
-    setGlintIndices(pickDistinctIndices(routes.length, glintCount));
-  }, [routes.length, glintCount]);
 
   useEffect(() => {
     if (routes.length === 0) return;
