@@ -189,11 +189,19 @@
         try {
           var host = window.location.hostname;
           if (host !== "26weeks.ai" && !host.endsWith(".26weeks.ai")) return;
-          var script = document.createElement("script");
-          script.defer = true;
-          script.src = "https://static.cloudflareinsights.com/beacon.min.js";
-          script.dataset.cfBeacon = '{"token":"acd25761da3146efa5d86afe5834e7b2"}';
-          document.head.appendChild(script);
+          var load = function () {
+            var script = document.createElement("script");
+            script.defer = true;
+            script.src = "https://static.cloudflareinsights.com/beacon.min.js";
+            script.dataset.cfBeacon = '{"token":"acd25761da3146efa5d86afe5834e7b2"}';
+            document.head.appendChild(script);
+          };
+
+          if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(load, { timeout: 3000 });
+          } else {
+            window.addEventListener("load", load, { once: true });
+          }
         } catch (err) {
           // noop
         }

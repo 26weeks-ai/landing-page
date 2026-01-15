@@ -11,9 +11,13 @@ if (!root) {
 const appShell = document.getElementById("app-shell");
 if (appShell) {
   let frames = 0;
+  const isCssReady = () =>
+    document.documentElement.classList.contains("css-loaded") ||
+    !document.querySelector('link[rel="stylesheet"][media="print"]');
+
   const tryRemoveShell = () => {
     frames += 1;
-    if (root.childElementCount > 0) {
+    if (root.childElementCount > 0 && (isCssReady() || frames >= 240)) {
       appShell.remove();
       return;
     }

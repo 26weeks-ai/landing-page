@@ -33,7 +33,16 @@ export default function Home() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    if (window.location.hash) {
+      setRenderBelowFold(true);
+      return;
+    }
+
     let cancelled = false;
+    let scheduled = false;
+    let idleHandle: number | null = null;
+    let timeoutId: number | null = null;
+
     const enable = () => {
       if (cancelled) return;
       setRenderBelowFold(true);
@@ -60,20 +69,41 @@ export default function Home() {
 
     if (observer && sentinel) observer.observe(sentinel);
 
-    if (typeof win.requestIdleCallback === "function") {
-      const handle = win.requestIdleCallback(enable, { timeout: 2500 });
-      return () => {
-        cancelled = true;
-        observer?.disconnect();
-        win.cancelIdleCallback?.(handle);
-      };
-    }
+    const scheduleEnable = () => {
+      if (scheduled) return;
+      scheduled = true;
 
-    const timeoutId = window.setTimeout(enable, 1500);
+      if (typeof win.requestIdleCallback === "function") {
+        idleHandle = win.requestIdleCallback(enable, { timeout: 2000 });
+        return;
+      }
+
+      timeoutId = window.setTimeout(enable, 800);
+    };
+
+    const onIntent = () => {
+      if (cancelled) return;
+      scheduleEnable();
+    };
+
+    window.addEventListener("scroll", onIntent, { passive: true, once: true });
+    window.addEventListener("pointerdown", onIntent, { passive: true, once: true });
+    window.addEventListener("touchstart", onIntent, { passive: true, once: true });
+    window.addEventListener("keydown", onIntent, { once: true });
+    window.addEventListener("hashchange", enable, { once: true });
+
     return () => {
       cancelled = true;
       observer?.disconnect();
-      window.clearTimeout(timeoutId);
+      window.removeEventListener("scroll", onIntent);
+      window.removeEventListener("pointerdown", onIntent);
+      window.removeEventListener("touchstart", onIntent);
+      window.removeEventListener("keydown", onIntent);
+      window.removeEventListener("hashchange", enable);
+      if (idleHandle && typeof win.requestIdleCallback === "function") {
+        win.cancelIdleCallback?.(idleHandle);
+      }
+      if (timeoutId) window.clearTimeout(timeoutId);
     };
   }, []);
 

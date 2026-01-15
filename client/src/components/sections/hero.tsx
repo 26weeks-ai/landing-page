@@ -271,6 +271,7 @@ function MarathonRoutesBackdrop({
 export default function Hero() {
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [routeAssets, setRouteAssets] = useState<RouteAsset[] | null>(null);
+  const [shouldLoadRoutes, setShouldLoadRoutes] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -285,6 +286,44 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
+    if (typeof window === "undefined") return;
+
+    const connection = (navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string };
+    }).connection;
+
+    if (connection?.saveData || (connection?.effectiveType ?? "").includes("2g")) {
+      return;
+    }
+
+    let triggered = false;
+
+    const triggerLoad = () => {
+      if (triggered) return;
+      triggered = true;
+      setShouldLoadRoutes(true);
+    };
+
+    const passiveOnce = { passive: true, once: true } as const;
+
+    window.addEventListener("pointerdown", triggerLoad, passiveOnce);
+    window.addEventListener("pointermove", triggerLoad, passiveOnce);
+    window.addEventListener("touchstart", triggerLoad, passiveOnce);
+    window.addEventListener("scroll", triggerLoad, passiveOnce);
+    window.addEventListener("keydown", triggerLoad, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", triggerLoad);
+      window.removeEventListener("pointermove", triggerLoad);
+      window.removeEventListener("touchstart", triggerLoad);
+      window.removeEventListener("scroll", triggerLoad);
+      window.removeEventListener("keydown", triggerLoad);
+    };
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    if (!shouldLoadRoutes) return;
     if (prefersReducedMotion) return;
     if (routeAssets) return;
     if (typeof window === "undefined") return;
@@ -307,7 +346,7 @@ export default function Hero() {
     };
 
     if (typeof win.requestIdleCallback === "function") {
-      const handle = win.requestIdleCallback(() => void load(), { timeout: 2500 });
+      const handle = win.requestIdleCallback(() => void load(), { timeout: 2000 });
       return () => {
         cancelled = true;
         win.cancelIdleCallback?.(handle);
@@ -319,7 +358,7 @@ export default function Hero() {
       cancelled = true;
       window.clearTimeout(timeoutId);
     };
-  }, [prefersReducedMotion, routeAssets]);
+  }, [prefersReducedMotion, routeAssets, shouldLoadRoutes]);
 
   return (
 	    <section
