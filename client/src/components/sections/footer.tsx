@@ -121,7 +121,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <Hairline className="opacity-70" />
-        <div className="pt-8">
+        <div className="pt-8 text-center">
           <p className="text-paper-muted text-sm">
             © {new Date().getFullYear()} 26weeks.ai. All rights reserved.
           </p>
