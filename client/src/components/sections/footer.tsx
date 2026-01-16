@@ -125,6 +125,9 @@ export default function Footer() {
           <p className="text-paper-muted text-sm">
             © {new Date().getFullYear()} 26weeks.ai. All rights reserved.
           </p>
+          <p className="text-paper-muted text-sm mt-2">
+            26weeks.ai is a product of Renojas Technologies Private Limited.
+          </p>
         </div>
       </div>
     </footer>
