@@ -362,7 +362,7 @@ export default function Hero() {
 
   return (
 	    <section
-      className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20"
+      className="relative flex min-h-[100svh] items-center overflow-hidden py-24 sm:py-28"
       role="banner"
       aria-label="Hero section - AI Marathon Coach introduction"
       data-hero-hovered={isHeroHovered ? "true" : "false"}
@@ -399,7 +399,7 @@ export default function Hero() {
         />
       </div>
 
-	      <div className="relative mx-auto max-w-6xl px-6">
+	      <div className="relative mx-auto w-full max-w-6xl px-6">
 	        <div className="mx-auto max-w-3xl">
 	          <div>
 	            <Masthead
