@@ -12,6 +12,7 @@ import { ArrowLeft, Clock, User, Calendar } from "lucide-react";
 import WaitlistForm from "@/components/waitlist-form";
 import { formatDate, formatTagLabel, getPostBySlug, getRelatedPosts } from "@/lib/blog";
 import { Hairline } from "@/components/editorial/hairline";
+import Navbar from "@/components/layout/navbar";
 import "highlight.js/styles/github-dark-dimmed.css";
 
 // Lazy load related posts for better performance
@@ -67,10 +68,18 @@ export default function BlogPostPage() {
         tags={post.tags || undefined}
         type="article"
       />
+
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-card focus:px-4 focus:py-2 focus:text-paper focus:shadow-none focus:border focus:border-border"
+      >
+        Skip to content
+      </a>
+      <Navbar />
       
       {/* Header */}
       <header className="border-b border-border">
-        <div className="max-w-4xl mx-auto px-6 py-10">
+        <div className="max-w-4xl mx-auto px-6 pt-24 pb-10">
           <Link href="/blog">
             <Button
               variant="ghost"
@@ -127,7 +136,7 @@ export default function BlogPostPage() {
       </header>
 
       {/* Article Content */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div id="main-content" className="max-w-4xl mx-auto px-6 py-12">
         <article className="prose prose-lg prose-invert max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import WaitlistForm from '@/components/waitlist-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -27,6 +27,8 @@ const pageLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [location] = useLocation();
+  const isHome = location === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,15 +62,23 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary hover:text-paper transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              isHome ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary hover:text-paper transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.href} href={`/${link.href}`}>
+                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-paper-secondary hover:text-paper transition-colors cursor-pointer">
+                    {link.label}
+                  </span>
+                </Link>
+              ),
+            )}
             {pageLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <span
@@ -95,16 +105,27 @@ export default function Navbar() {
                 <SheetDescription className="sr-only">Site navigation links</SheetDescription>
               </SheetHeader>
               <nav className="flex flex-col space-y-4 mt-8">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsMobileNavOpen(false)}
-                    className="rounded-lg px-4 py-2 text-sm font-semibold text-paper hover:bg-accent"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {navLinks.map((link) =>
+                  isHome ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsMobileNavOpen(false)}
+                      className="rounded-lg px-4 py-2 text-sm font-semibold text-paper hover:bg-accent"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link key={link.href} href={`/${link.href}`}>
+                      <span
+                        onClick={() => setIsMobileNavOpen(false)}
+                        className="block cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-paper hover:bg-accent"
+                      >
+                        {link.label}
+                      </span>
+                    </Link>
+                  ),
+                )}
                 {pageLinks.map((link) => (
                   <Link key={link.href} href={link.href}>
                     <span

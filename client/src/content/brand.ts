@@ -46,9 +46,9 @@ export const seo = {
   },
   blog: {
     type: "website",
-    title: "Run Smarter – 26weeks.ai Blog",
+    title: "Coaching Journal – 26weeks.ai Blog",
     description:
-      "Long-form breakdowns on AI coaching, marathon science, and runner stories from the 26weeks.ai team.",
+      "Tactical training notes, recovery science, and mindset shifts from the 26weeks.ai coaching lab.",
     url: `${brandIdentity.domain}/blog`,
     image: brandIdentity.defaultOgImage,
     tags: ["marathon blog", "AI training insights", "running tips"],

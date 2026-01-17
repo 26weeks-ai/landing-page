@@ -9,6 +9,7 @@ import { seo } from "@/content/brand";
 import WaitlistForm from "@/components/waitlist-form";
 import { Masthead } from "@/components/editorial/masthead";
 import { Hairline } from "@/components/editorial/hairline";
+import Navbar from "@/components/layout/navbar";
 import {
   extractUniqueTags,
   filterPostsByTag,
@@ -42,22 +43,29 @@ export default function BlogPage() {
     <>
       <MetaHead {...seo.blog} />
       <div className="min-h-screen bg-background text-paper">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-card focus:px-4 focus:py-2 focus:text-paper focus:shadow-none focus:border focus:border-border"
+        >
+          Skip to content
+        </a>
+        <Navbar />
         <header className="border-b border-border">
-          <div className="mx-auto max-w-6xl px-6 py-14">
+          <div className="mx-auto max-w-6xl px-6 pt-24 pb-14">
             <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
               <Masthead
                 kicker="BLOG"
                 stamp="ARCHIVE"
                 title={
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-[1.06]">
-                    Training intel for runners chasing{" "}
+                    The coaching journal for runners chasing{" "}
                     <span className="text-copper-500">26.2</span>
                   </h1>
                 }
                 subtitle={
                   <>
-                    Practical tactics, mindset shifts, and data-backed lessons from our coaching lab. Everything we
-                    learn while helping athletes go from couch to marathon lives here.
+                    Tactical training notes, recovery science, and mindset shifts from the 26weeks.ai coaching lab —
+                    written for real schedules and real life.
                   </>
                 }
                 showRule={false}
@@ -76,7 +84,7 @@ export default function BlogPage() {
           </div>
         </header>
 
-        <main className="mx-auto max-w-6xl px-6 py-16 space-y-16">
+        <main id="main-content" className="mx-auto max-w-6xl px-6 py-16 space-y-16">
           {featuredPosts.length > 0 && !searchQuery && !selectedTag && (
             <section className="space-y-8">
               <div className="flex items-center justify-between gap-6">
